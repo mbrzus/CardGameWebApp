@@ -3,9 +3,10 @@ Guys, please add your names to make sure we all have access to the repo.
 
  Team members:
 
-|Name           | hawkID	| githubID
-| Michal Brzus	| mbrzus	| mbrzus
-| Daniel Illg	| dillg		| dillg 
+|Name           | hawkID	| githubID  
+|---------------|--------|---------
+| Michal Brzus  | mbrzus	| mbrzus  
+| Daniel Illg	  | dillg		| dillg   
 
 Here are links to some articles that I think will be helpful to better understand git team workflow:
 https://guides.github.com/introduction/flow/
