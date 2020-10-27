@@ -8,11 +8,8 @@ Guys, please add your names to make sure we all have access to the repo.
 |---------------|--------|---------
 | Michal Brzus  | mbrzus	| mbrzus  
 | Daniel Illg	  | dillg		| dillg   
-
 | Michal Brzus	 | mbrzus	| mbrzus
-
 | Jacob Gleason	| jglsn	 | jglsn
-
 | Jack Geati    | jgeati | jgeati
 
 
