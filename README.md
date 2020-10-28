@@ -11,6 +11,7 @@ Guys, please add your names to make sure we all have access to the repo.
 | Michal Brzus	 | mbrzus	| mbrzus
 | Jacob Gleason	| jglsn	 | jglsn
 | Jack Geati    | jgeati | jgeati
+| Shriram Varadarajan | varadarajan | ShriramVarada
 
 
 Here are links to some articles that I think will be helpful to better understand git team workflow:
