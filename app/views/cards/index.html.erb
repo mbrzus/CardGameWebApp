@@ -1,0 +1,31 @@
+<!--  This file is app/views/cards/index.html.erb -->
+<h2>All Cards</h2>
+<table class="table table-striped col-md-12" id="cards">
+  <thead>
+    <tr>
+      <th>Deck Number</th>
+      <th>Suit</th>
+      <th>Value</th>
+      <th>Owned By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td>
+          <%= card.deck_number %>
+        </td>
+        <td>
+          <%= card.suit %>
+        </td>
+        <td>
+          <%= card.value %>
+        </td>
+        <td>
+          <%= card.owned_by %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Add new card', new_card_path, :class => 'btn btn-primary' %>

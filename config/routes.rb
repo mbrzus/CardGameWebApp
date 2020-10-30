@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :cards
   # map '/' to be a redirect to '/add_name'
-  root :to => redirect('/add_name')
+  root :to => redirect('/cards')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
