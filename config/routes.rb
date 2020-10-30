@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :movies
+  resources :cards
   # map '/' to be a redirect to '/add_name'
   root :to => redirect('/add_name')
   # The priority is based upon order of creation: first created -> highest priority.
