@@ -3,7 +3,7 @@ class CreateCards < ActiveRecord::Migration
     create_table :cards do |t|
       # We will need the concept of different decks since we have decided to allow multiple
       # different "rooms" to play within.
-      t.string   "deck_number"
+      t.integer   "deck_number"
       t.string   "value"
       t.string   "suit"
       # This field can be used to track who currently posses the card
