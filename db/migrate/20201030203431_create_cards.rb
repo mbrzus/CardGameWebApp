@@ -10,8 +10,7 @@ class CreateCards < ActiveRecord::Migration
       # Ex. "Jacob", "sink1", "source2", "none"
       t.string   "owned_by"
       # Though we won't probably have a use for these fields, it doesn't hurt to keep them
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
   end
 end
