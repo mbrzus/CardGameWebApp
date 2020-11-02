@@ -6,3 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+
+
+
+# define a few rooms to be inserted into the database
+rooms =  [{:name => 'First Test Game'},
+          {:name => 'Euchre Tourney'},
+          {:name => 'War'},
+         ]
+
+# add each room to the development database
+rooms.each do |room|
+  Room.create!(room)
+end
