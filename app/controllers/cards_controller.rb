@@ -1,4 +1,9 @@
 class CardsController < ApplicationController
+
+  $NUMBER_OF_DECKS = 0
+  SUITS = %w[diamonds clubs spades hearts]
+  VALUES = %w[A 1 2 3 4 5 6 7 8 9 10 J Q K]
+
   # Define what params should follow the Card Model
   def card_params
     params.require(:card).permit(:id, :deck_number, :suit, :value, :owned_by)
@@ -46,4 +51,22 @@ class CardsController < ApplicationController
     # Put an appropriate redirect path here
     #redirect_to movies_path
   end
+
+  # This method can be used to create a new deck of 52 standard playing cards
+  def create_new_deck
+    $NUMBER_OF_DECKS += 1
+
+    SUITS.each do |curr_suit|
+      VALUES.each do |curr_value|
+        curr_card = {:deck_number => $NUMBER_OF_DECKS, :value => curr_value, :suit => curr_suit, :owned_by => 'none'}
+        Card.create!(curr_card)
+      end
+    end
+    flash[:notice] = "New card deck number #{$NUMBER_OF_DECKS} was created."
+
+    redirect_to cards_path
+
+  end
+
+
 end

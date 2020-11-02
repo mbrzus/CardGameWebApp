@@ -5,7 +5,7 @@ describe CardsController do
   describe 'CRUD Operations' do
     it 'should call be able to search for cards' do
       fake_result = double('Card')
-      expect(Card).to receive(:show).with('3').
+      expect(CardsController).to receive(:show).with('3').
           and_return(fake_result)
       post :show, {:id => '3'}
     end
