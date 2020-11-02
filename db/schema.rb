@@ -13,4 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20150809022253) do
 
+    create_table "player", force: :cascade do |t|
+      t.string   "name"
+      t.datetime "created_at"
+      t.datetime "updated_at"
+    end
+
 end
