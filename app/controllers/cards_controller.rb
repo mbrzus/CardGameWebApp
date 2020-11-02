@@ -54,15 +54,18 @@ class CardsController < ApplicationController
 
   # This method can be used to create a new deck of 52 standard playing cards
   def create_new_deck
-    $NUMBER_OF_DECKS += 1
+    # Resource used to learn this command
+    # https://stackoverflow.com/questions/4974049/ruby-on-rails-getting-the-max-value-from-a-db-column/4974069
+    curr_number_of_decks = Card.maximum("deck_number")
+    new_number_of_decks = curr_number_of_decks.to_i + 1
 
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
-        curr_card = {:deck_number => $NUMBER_OF_DECKS, :value => curr_value, :suit => curr_suit, :owned_by => 'none'}
+        curr_card = {:deck_number => new_number_of_decks, :value => curr_value, :suit => curr_suit, :owned_by => 'none'}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck number #{$NUMBER_OF_DECKS} was created."
+    flash[:notice] = "New card deck number #{new_number_of_decks} was created."
 
     redirect_to cards_path
 
