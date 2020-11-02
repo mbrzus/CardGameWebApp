@@ -8,12 +8,13 @@ describe CardsController do
       fake_result = double('Card')
       expect(cards_controller_double).to receive(:show).with('3').
           and_return(fake_result)
+
       post :show, {:id => '3'}
     end
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call be able to create new cards' do
-      fake_new_card = {:deck_number => '3', :value => '7', :suit => 'diamonds', :owned_by => 'Jacob'}
-      post :create, {:deck_number => '3', :value => '7', :suit => 'diamonds', :owned_by => 'Jacob'}
+      fake_new_card = {:room_id => '3', :value => '7', :suit => 'diamonds'}
+      post :create, {:room_id => '3', :value => '7', :suit => 'diamonds'}
       expect(assigns(:card)).to eq(fake_new_card)
     end
     # Need to downgrade to Ruby 2.4.4 to run this test

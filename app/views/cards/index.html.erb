@@ -3,10 +3,9 @@
 <table class="table table-striped col-md-12" id="cards">
   <thead>
     <tr>
-      <th>Deck Number</th>
+      <th>Room ID</th>
       <th>Suit</th>
       <th>Value</th>
-      <th>Owned By</th>
       <th>Edit Card</th>
     </tr>
   </thead>
@@ -14,7 +13,7 @@
     <% @cards.each do |card| %>
       <tr>
         <td>
-          <%= card.deck_number %>
+          <%= card.room_id %>
         </td>
         <td>
           <%= card.suit %>
@@ -23,15 +22,11 @@
           <%= card.value %>
         </td>
         <td>
-          <%= card.owned_by %>
-        </td>
-        <td>
           <%= link_to "More Details", card_path(card) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add new card', new_card_path, :class => 'btn btn-primary' %>
 <%= button_to 'Create New Deck', cards_create_new_deck_path, :method => :create_new_deck %>
-<%= button_to 'Delete Deck # 1', cards_delete_card_deck_path , :method => :delete_card_deck %>
+<%= button_to 'Delete Deck # 1', cards_delete_decks_in_room_path , :method => :delete_decks_in_room %>

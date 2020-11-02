@@ -1,6 +1,5 @@
 class Card < ActiveRecord::Base
-  @deck_number
+  @room_id
   @value
   @suit
-  @owned_by
 end

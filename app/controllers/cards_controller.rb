@@ -1,12 +1,10 @@
 class CardsController < ApplicationController
-
-  $NUMBER_OF_DECKS = 0
   SUITS = %w[diamonds clubs spades hearts]
   VALUES = %w[A 1 2 3 4 5 6 7 8 9 10 J Q K]
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:deck_number, :suit, :value, :owned_by)
+    params.require(:card).permit(:room_id, :suit, :value)
   end
 
   def show
@@ -54,34 +52,36 @@ class CardsController < ApplicationController
   end
 
   # This method can be used to create a new deck of 52 standard playing cards
+  # For now, it just defaults to creating a new room and assigning all cards to the new room
+  # We can change this after the first iteration
   def create_new_deck
     # Resource used to learn this command
     # https://stackoverflow.com/questions/4974049/ruby-on-rails-getting-the-max-value-from-a-db-column/4974069
-    curr_number_of_decks = Card.maximum("deck_number")
-    new_number_of_decks = curr_number_of_decks.to_i + 1
+    curr_number_of_rooms = Card.maximum("room_id")
+    new_number_of_rooms = curr_number_of_rooms.to_i + 1
 
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
-        curr_card = {:deck_number => new_number_of_decks, :value => curr_value, :suit => curr_suit, :owned_by => 'none'}
+        curr_card = {:room_id => new_number_of_rooms, :value => curr_value, :suit => curr_suit}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck number #{new_number_of_decks} was created."
+    flash[:notice] = "New card deck created in room #{new_number_of_rooms}"
 
     redirect_to cards_path
 
   end
 
   # This method can be used to delete any card that has a certain deck number
-  def delete_card_deck
+  def delete_decks_in_room
     # Hard coding this now but once someone creates the views they can integrate with this function
-    deck_num_to_delete = 1
+    room_num_to_delete = 1
 
     # Resource used to craft this query
     # https://blog.bigbinary.com/2019/03/13/rails-6-adds-activerecord-relation-delete_by-and-activerecord-relation-destroy_by.html
-    Card.where(deck_number: deck_num_to_delete.to_s).destroy_all
+    Card.where(room_id: room_num_to_delete.to_s).destroy_all
 
-    flash[:notice] = "Deck number #{deck_num_to_delete} was destroyed."
+    flash[:notice] = "All decks deleted from room #{room_num_to_delete}."
     redirect_to cards_path
     end
 
