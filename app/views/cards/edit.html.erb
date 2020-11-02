@@ -1,0 +1,14 @@
+<h2>Edit Existing card</h2>
+<%= form_tag card_path(@card), :method => :put do %>
+  <%= label :card, :deck_number, 'Deck Number', :class => 'col-form-label' %>
+  <%= text_field :card, 'deck_number', :class => 'form-control' %>
+  <%= label :card, :suit, 'Suit', :class => 'col-form-label' %>
+  <%= text_field :card, 'suit', :class => 'form-control' %>
+  <%= label :card, :value, 'Value', :class => 'col-form-label' %>
+  <%= text_field :card, 'value', :class => 'form-control' %>
+  <%= label :card, :owned_by, 'Owned By', :class => 'col-form-label' %>
+  <%= text_field :card, 'owned_by', :class => 'form-control' %>
+  <br/>
+  <%= submit_tag 'Update card Info', :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', cards_path, :class => 'btn btn-secondary' %>
+<% end %>

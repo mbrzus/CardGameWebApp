@@ -4,8 +4,9 @@ require 'rails_helper'
 describe CardsController do
   describe 'CRUD Operations' do
     it 'should call be able to search for cards' do
+      cards_controller_double = class_double("cards_controller")
       fake_result = double('Card')
-      expect(CardsController).to receive(:show).with('3').
+      expect(cards_controller_double).to receive(:show).with('3').
           and_return(fake_result)
       post :show, {:id => '3'}
     end
@@ -17,10 +18,15 @@ describe CardsController do
     end
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call be able to delete cards' do
-      allow(CardsController).to receive(:destory)
-      post :destory, {:id => 3}
+
+      cards_controller_double = class_double("cards_controller")
+
+      deck_num_to_delete = 1
+
+      allow(cards_controller_double).to receive(:delete_card_deck)
+      post :delete_card_deck
       resulting_flash_message = flash[:notice].to_s
-      expect(resulting_flash_message.eql?("#{@card.value} of #{@card.suit} was deleted.")).to be_truthy
+      expect_any_instance_of(resulting_flash_message.eql?("Deck number #{deck_num_to_delete} was destroyed.")).to be_truthy
     end
 
   end
