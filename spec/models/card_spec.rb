@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-describe MoviesController do
+describe Card do
 
   # Add RSpec tests here
 
