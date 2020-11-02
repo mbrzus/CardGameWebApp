@@ -1,0 +1,21 @@
+<!--  app/views/movies/show.html.erb -->
+<h3>Details about <%= @card.value %> of <%= @card.suit %></h3>
+<ul id="details">
+  <li>
+    Deck Number:
+    <%= @card.room_id %>
+  </li>
+  <li>
+    Suit:
+    <%= @card.suit %>
+  </li>
+  <li>
+    Value:
+    <%= @card.value %>
+  </li>
+</ul>
+<div class="row">
+  <%= link_to 'Edit', edit_card_path(@card), :class => 'btn btn-primary col-2' %>
+  <%= link_to 'Delete', card_path(@card), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
+  <%= link_to 'Back to card list', cards_path, :class => 'btn btn-primary col-2' %>
+</div>

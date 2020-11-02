@@ -33,7 +33,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'themoviedb'
+# Not needed for our final project
+#gem 'themoviedb'
 
 group :development do
    # Access an IRB console on exception pages or by using <%= console %> in views
