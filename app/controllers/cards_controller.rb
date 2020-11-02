@@ -45,10 +45,8 @@ class CardsController < ApplicationController
   def destroy
     @card = Card.find(params[:id])
     @card.destroy
-    flash[:notice] = "#{@card.value} of #{@card.suit} was deleted."
-
-    # Put an appropriate redirect path here
-    #redirect_to movies_path
+    flash[:notice] = "Room #{@card.room_id}'s #{@card.value} of #{@card.suit} was deleted."
+    redirect_to cards_path
   end
 
   # This method can be used to create a new deck of 52 standard playing cards
