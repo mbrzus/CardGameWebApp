@@ -6,7 +6,7 @@ class CardsController < ApplicationController
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:id, :deck_number, :suit, :value, :owned_by)
+    params.require(:card).permit(:deck_number, :suit, :value, :owned_by)
   end
 
   def show
@@ -31,6 +31,7 @@ class CardsController < ApplicationController
   end
 
   def edit
+    debugger
     @card = Card.find params[:id]
   end
 
@@ -38,9 +39,9 @@ class CardsController < ApplicationController
     @card = Card.find params[:id]
     @card.update_attributes!(card_params)
     flash[:notice] = "#{@card.value} of #{@card.suit} was successfully updated."
-
     # Put an appropriate redirect path here
-    #redirect_to movies_path
+    redirect_to card_path(@card)
+
   end
 
   def destroy
