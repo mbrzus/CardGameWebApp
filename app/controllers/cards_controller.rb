@@ -71,5 +71,17 @@ class CardsController < ApplicationController
 
   end
 
+  # This method can be used to delete any card that has a certain deck number
+  def delete_card_deck
+    # Hard coding this now but once someone creates the views they can integrate with this function
+    deck_num_to_delete = 1
+
+    # Resource used to craft this query
+    # https://blog.bigbinary.com/2019/03/13/rails-6-adds-activerecord-relation-delete_by-and-activerecord-relation-destroy_by.html
+    Card.where(deck_number: deck_num_to_delete.to_s).destroy_all
+
+    flash[:notice] = "Deck number #{deck_num_to_delete} was destroyed."
+    redirect_to cards_path
+    end
 
 end
