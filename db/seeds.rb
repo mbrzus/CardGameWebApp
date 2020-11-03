@@ -11,10 +11,7 @@
 
 
 # define a few rooms to be inserted into the database
-rooms =  [{:name => 'First Test Game'},
-          {:name => 'Euchre Tourney'},
-          {:name => 'War'},
-         ]
+rooms =  [{}, {}, {}]
 
 # add each room to the development database
 rooms.each do |room|
