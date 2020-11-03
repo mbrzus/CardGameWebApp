@@ -9,10 +9,11 @@ Feature: display a list of cards held by different players
 
     Given the following cards have been dealt to players
 
-      | Deck Number                   | Suit | Value | Owned By |
-      | 1     | spades      | A  |     Jack        |
-      | 1    | hearts      | 7  |    Daniel   |
-      | 2    | diamonds      | Q  |   Jacob    |
-      | 2    | hearts  | K  |   Sink1    |
+      | Deck Number                   | Suit | Value |
+      | 1     | spades      | A  |
+      | 1    | hearts      | 7  |
+      | 2    | diamonds      | Q  |
+      | 2    | hearts  | K  |
 
     And I am on the card deck home page
+
