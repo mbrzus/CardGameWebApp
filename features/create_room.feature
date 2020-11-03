@@ -9,3 +9,7 @@ Feature: Create a new room to play cards in
   Scenario: Create New Room
     When I have pressed the create-room-button
     Then The Rooms table in the database should contain this room
+
+  Scenario: Automatically enter the create room
+    When I have pressed the create-room-button
+    Then I should should automatically enter the newly created room
