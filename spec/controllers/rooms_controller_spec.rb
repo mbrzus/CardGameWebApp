@@ -17,4 +17,12 @@ if RUBY_VERSION>='2.6.0'
   end
 end
 
-
+describe RoomsController do
+  describe 'Creating a new Room' do
+    it 'should call the create! function' do
+      # there is no information for Rooms besides auto-generated id
+      expect(Room).to receive(:create!).with({})
+      post :create, {}
+    end
+  end
+end
