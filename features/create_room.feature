@@ -6,6 +6,12 @@ Feature: Create a new room to play cards in
 
   Background I am on the main page
 
-  Scenario: Create new Room
-    When I have pressed the new-room button
+  Scenario: Navigate to the Create New Room Page
+    When I have pressed the create-new-room-button
     Then I should be directed to a new page with a form for creating the new Room
+
+  Scenario: Create New Room
+    When I have filled out the room-name-field with the value "Euchre"
+    And I have pressed the room-submit-button
+    Then The Rooms table in the database should contain this room
+
