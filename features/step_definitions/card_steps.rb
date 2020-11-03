@@ -2,20 +2,20 @@
 
 Given /^I am on the card deck home page$/ do
   visit cards_path
- end
+end
 
+  When /^I have added a deck in room number "(.*?)"$/ do |room_id|
+    # this is a potential path to the cards database
+    visit cards_path
 
- When /^I have added a movie with title "(.*?)" and rating "(.*?)"$/ do |title, rating|
-  visit new_movie_path
-  fill_in 'Title', :with => title
-  select rating, :from => 'Rating'
-  click_button 'Save Changes'
- end
+    #TODO Fill 52 cards in the new room
 
- Then /^I should see a movie list entry with title "(.*?)" and rating "(.*?)"$/ do |title, rating|
+  end
+
+ Then /^I should see a list of cards with all suits and values in room id "(.*?)"$/ do |room_id|
    result=false
    all("tr").each do |tr|
-     if tr.has_content?(title) && tr.has_content?(rating)
+     if tr.has_content?(room_id)
        result = true
        break
      end
@@ -44,7 +44,7 @@ Given /^I am on the card deck home page$/ do
 
 # Add a declarative step here for populating the DB with add_name.
 
-Given /the following cards have been dealt to players:/ do |cards_table|
+Given /the following cards have been dealt to players/ do |cards_table|
   cards_table.hashes.each do |card|
     Card.create!(card)
   end
