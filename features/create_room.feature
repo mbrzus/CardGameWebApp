@@ -15,3 +15,8 @@ Feature: Create a new room to play cards in
     And I have pressed the room-submit-button
     Then The Rooms table in the database should contain this room
 
+  Scenario: Fail to New Room
+    When I have filled out the room-name-field with the value ""
+    And I have pressed the room-submit-button
+    Then I should be redirected-to the main page
+    And There should be a warning flash message with content "Room must have a name"
