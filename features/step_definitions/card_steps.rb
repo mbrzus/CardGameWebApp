@@ -23,8 +23,10 @@ end
   expect(result).to be_truthy
  end
 
- When /^I have visited the Details about "(.*?)" page$/ do |title|
-   visit movies_path
+ When /^I have visited the Details about the card with suit "(.*?)" and value "(.*?)" in deck "(.*?)"$/ do |suit,value, deck|
+   visit cards_path
+
+   # TODO NEED TO CHANGE MORE ABOUT LINK
    click_on "More about #{title}"
  end
 
