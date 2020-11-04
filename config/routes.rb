@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resources :movies
-  # map '/' to be a redirect to '/add_name'
-  root :to => redirect('/add_name')
-
+  resources :cards
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
+  post 'cards/create_new_deck'
+  post 'cards/delete_decks_in_room'
+  root :to => redirect('/cards')
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
