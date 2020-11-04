@@ -19,16 +19,17 @@ end
 
 describe RoomsController do
   describe 'Creating a new Room' do
-    it 'should call the create! function' do
+    it 'should create a new room in the database' do
       # there is no information for Rooms besides auto-generated id
-      expect(Room).to receive(:create!).with({})
+      room_count = Room.count
       post :create, {}
+      expect(Room.count).to be > room_count
     end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation
-      room_id = expect(assigns(:room_id))
-      expect(response).to redirect_to("/rooms/#{room_id}")
       post :create, {}
+      room_id = assigns(:room_id)
+      expect(response).to redirect_to(room_path(:id => room_id))
     end
   end
 end
