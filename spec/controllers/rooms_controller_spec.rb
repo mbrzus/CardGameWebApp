@@ -24,5 +24,11 @@ describe RoomsController do
       expect(Room).to receive(:create!).with({})
       post :create, {}
     end
+    it 'should redirect to the show specific room controller' do
+      # get the room_id returned by the room creation
+      room_id = expect(assigns(:room_id))
+      expect(response).to redirect_to("/rooms/#{room_id}")
+      post :create, {}
+    end
   end
 end
