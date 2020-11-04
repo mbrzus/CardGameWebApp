@@ -20,6 +20,10 @@ class RoomsController < ApplicationController
     redirect_to room_path(:id => @room_id)
   end
 
+  def join_room
+
+  end
+
   def edit
 
   end
