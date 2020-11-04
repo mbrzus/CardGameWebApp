@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :rooms
   post 'cards/create_new_deck'
   post 'cards/delete_decks_in_room'
-  root :to => redirect('/cards')
+  root :to => redirect('/rooms')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
