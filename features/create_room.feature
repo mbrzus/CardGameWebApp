@@ -4,12 +4,19 @@ Feature: Create a new room to play cards in
   So that I can start a new game of cards with my family on the internet
   I want to be able to create a new room
 
-  Background I am on the main page
+  Scenario: Directed to New Room Form
+    Given I am on the main page
+    When I have pressed new_room_button
+    Then I should be at the new room form
 
   Scenario: Create New Room
-    When I have pressed the create-room-button
-    Then The Rooms table in the database should contain this room
+    Given I am on the main page
+    When I have pressed new_room_button
+    And  I have pressed create_room_submit
+    Then a room should be created in the database
 
-  Scenario: Automatically enter the create room
-    When I have pressed the create-room-button
-    Then I should should automatically enter the newly created room
+  Scenario: Automatically Enter the Created Room
+    Given I am on the main page
+    When I have pressed new_room_button
+    And  I have pressed create_room_submit
+    Then I should be in the newly created room
