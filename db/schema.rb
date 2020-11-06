@@ -16,8 +16,7 @@ ActiveRecord::Schema.define(version: 20150809022253) do
     create_table "players", force: :cascade do |t|
       t.string   "name"
       t.references "room"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
 end
