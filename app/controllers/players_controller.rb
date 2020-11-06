@@ -19,4 +19,8 @@ class PlayersController < ApplicationController
 
   end
 
+  def index
+
+  end
+
 end
