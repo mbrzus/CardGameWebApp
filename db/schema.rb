@@ -27,8 +27,7 @@ ActiveRecord::Schema.define(version: 20201106034918) do
     t.integer  "room_id"
     t.text     "description"
     t.datetime "release_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.timestamps 
   end
 
 end
