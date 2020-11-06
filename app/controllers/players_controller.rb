@@ -11,4 +11,12 @@ class PlayersController < ApplicationController
     end
   end
 
+  def new
+
+  end
+
+  def show
+
+  end
+
 end
