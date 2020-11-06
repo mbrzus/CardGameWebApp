@@ -15,17 +15,17 @@ rooms.each do |room|
 end
 
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades',
-            :image_url => '2D.png'},
+            :image_url => 'AS.png'},
          {:room_id => 1, :value => '7', :suit => 'hearts',
-            :image_url => '2D.png'},
+            :image_url => '7H.png'},
          {:room_id => 1, :value => '9', :suit => 'clubs',
-            :image_url => '2D.png'},
+            :image_url => '9C.png'},
          {:room_id => 2, :value => 'Q', :suit => 'diamonds',
-            :image_url => '2D.png'},
+            :image_url => 'QD.png'},
          {:room_id => 2, :value => 'K', :suit => 'hearts',
-            :image_url => '2D.png'},
+            :image_url => 'KH.png'},
          {:room_id => 2, :value => '6', :suit => 'spades',
-            :image_url => '2D.png'}
+            :image_url => '6S.png'}
           # add more cards to seed with a full deck of 52 if this works
         ]
 
