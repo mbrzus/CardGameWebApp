@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 20201106034918) do
     t.string   "value"
     t.string   "suit"
     t.string   "owned_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.timestamps
   end
 
   create_table "players", force: :cascade do |t|
@@ -27,7 +26,7 @@ ActiveRecord::Schema.define(version: 20201106034918) do
     t.integer  "room_id"
     t.text     "description"
     t.datetime "release_date"
-    t.timestamps 
+    t.timestamps
   end
 
 end
