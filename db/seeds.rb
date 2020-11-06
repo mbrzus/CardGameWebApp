@@ -6,6 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# define a few rooms to be inserted into the database
+rooms =  [{:ID => 1}, {:ID => 2}, {:ID => 3}]
+
+# add each room to the development database
+rooms.each do |room|
+  Room.create!(room)
+end
+
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades'},
          {:room_id => 1, :value => '7', :suit => 'hearts'},
          {:room_id => 1, :value => '9', :suit => 'clubs'},
@@ -18,3 +26,4 @@ cards = [{:room_id => 1, :value => 'A', :suit => 'spades'},
 cards.each do |curr_card|
   Card.create!(curr_card)
 end
+

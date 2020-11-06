@@ -30,4 +30,7 @@ ActiveRecord::Schema.define(version: 20201106194846) do
     t.datetime "updated_at"
   end
 
+  create_table "rooms", force: :cascade do |t|
+  end
+
 end
