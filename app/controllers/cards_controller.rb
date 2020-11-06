@@ -4,7 +4,7 @@ class CardsController < ApplicationController
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:room_id, :suit, :value)
+    params.require(:card).permit(:room_id, :suit, :value, :image_url)
   end
 
   def show

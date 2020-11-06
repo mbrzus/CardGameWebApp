@@ -6,6 +6,7 @@
       <th>Room ID</th>
       <th>Suit</th>
       <th>Value</th>
+      <th>Image</th>
       <th>Edit Card</th>
     </tr>
   </thead>
@@ -20,6 +21,10 @@
         </td>
         <td>
           <%= card.value %>
+        </td>
+        <td>
+          <!--http://railscasts.com/episodes/253-carrierwave-file-uploads?view=asciicast -->
+          <%= image_tag(card.image_url) %>
         </td>
         <td>
           <%= link_to "More Details", card_path(card) %>
