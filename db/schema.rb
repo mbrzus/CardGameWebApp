@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20201102200419) do
 
   create_table "rooms", force: :cascade do |t|
-
+    t.integer   "ID"
   end
 
 end
