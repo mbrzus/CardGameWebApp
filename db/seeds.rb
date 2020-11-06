@@ -7,13 +7,15 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # define a few rooms to be inserted into the database
-rooms =  [{}, {}, {}]
+rooms =  [{:ID => 1}, {:ID => 2}, {:ID => 3}]
 
 # add each room to the development database
 rooms.each do |room|
   Room.create!(room)
 end
 
+
+# TODO Do we need the card database here? Didn't jglsn have the Card model? Is this for testing purposes?
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades'},
          {:room_id => 1, :value => '7', :suit => 'hearts'},
          {:room_id => 1, :value => '9', :suit => 'clubs'},
