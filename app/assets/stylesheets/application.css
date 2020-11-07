@@ -62,3 +62,19 @@ form label {
   font-weight: bold;
   color: maroon;
 }
+
+.player {
+    display: flex;
+    flex-direction: column;
+}
+
+.hand {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    height: 89px;
+    width: 64px;
+    margin-right: 20px;
+}
