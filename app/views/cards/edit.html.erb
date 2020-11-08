@@ -1,4 +1,5 @@
 <h2>Edit Existing card</h2>
+<%= image_tag(@card.image_url, size: "78x120") %>
 <%= form_tag card_path(@card), :method => :put do %>
   <%= label :card, :room_id, 'Room ID', :class => 'col-form-label' %>
   <%= text_field :card, 'room_id', :class => 'form-control' %>
