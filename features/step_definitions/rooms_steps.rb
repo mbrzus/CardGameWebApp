@@ -2,7 +2,7 @@ Given /^I am on the main page$/ do
   visit "/rooms"
 end
 
-When /I have pressed (new_room_button)/ do |button_id|
+When /I have clicked (.+)/ do |button_id|
   find_by_id(button_id).click
 end
 
