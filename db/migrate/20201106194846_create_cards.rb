@@ -6,6 +6,7 @@ class CreateCards < ActiveRecord::Migration
       t.integer   "room_id"
       t.string   "value"
       t.string   "suit"
+      t.string "owned_by"
       t.string "image_url"
       # Though we won't probably have a use for these fields, it doesn't hurt to keep them
       t.timestamps

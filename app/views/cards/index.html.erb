@@ -6,6 +6,7 @@
       <th>Room ID</th>
       <th>Suit</th>
       <th>Value</th>
+      <th>Owned By</th>
       <th>Image</th>
       <th>Edit Card</th>
     </tr>
@@ -21,6 +22,9 @@
         </td>
         <td>
           <%= card.value %>
+        </td>
+        <td>
+          <%= card.owned_by %>
         </td>
         <td>
           <!--https://apidock.com/rails/ActionView/Helpers/AssetTagHelper/image_tag -->

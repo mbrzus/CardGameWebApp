@@ -4,7 +4,7 @@ class CardsController < ApplicationController
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:room_id, :suit, :value, :image_url)
+    params.require(:card).permit(:room_id, :suit, :value, :owned_by, :image_url)
   end
 
   def show
@@ -63,7 +63,7 @@ class CardsController < ApplicationController
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
         # convention that was used for the images
         curr_card = {:room_id => new_number_of_rooms, :value => curr_value, :suit => curr_suit,
-                     :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+                     :owned_by => "dealer", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
