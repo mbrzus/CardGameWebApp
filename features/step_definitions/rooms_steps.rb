@@ -7,25 +7,24 @@ Given /the following rooms exist in the database:/ do |rooms_table|
 end
 
 Given /^I am on the main page$/ do
-  visit "/rooms"
+  visit rooms_path
 end
 
-When /I have clicked (.+)/ do |button_id|
+When /^I have pressed (.*?)$/ do |button_id|
+
+  if button_id == "create_room_submit"
+    @number_of_rooms = Room.count
+  end
+
   find_by_id(button_id).click
 end
 
-Then /I should be at the new room form/ do
+Then /^I should be at the new room form$/ do
   # the current url should match the room path (rooms)
   expect(current_path).to match(/.*\/rooms\/new/)
 end
 
-When /I have pressed (create_room_submit)/ do |submit_id|
-  # store the current number of rooms in the database
-  @number_of_rooms = Room.count
-  find_by_id(submit_id).click
-end
-
-Then /a room should be created in the database/ do
+Then /^A room should be created in the database$/ do
   # the current number of rooms in the database is greater than before
   expect(Room.count).to be > @number_of_rooms
 end
