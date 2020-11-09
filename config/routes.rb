@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
-  resources :movies
-  # map '/' to be a redirect to '/add_name'
-  root :to => redirect('/add_name')
+
+  resources :cards
+  # adds in the paths associated with rooms, which are the game sessions
+  resources :rooms
+  post 'rooms/join_room'
+  root :to => redirect('/rooms')
+
+  post 'cards/create_new_deck'
+  post 'cards/delete_decks_in_room'
+  # root :to => redirect('/rooms')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
+  resources :players
+  post 'players/create'
+  #root :to => redirect('/players')
+
+ # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
   # Example of regular route:
@@ -56,4 +67,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end

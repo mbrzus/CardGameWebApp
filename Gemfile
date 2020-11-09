@@ -33,7 +33,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'themoviedb'
+# Not needed for our final project
+#gem 'themoviedb'
 
 group :development do
    # Access an IRB console on exception pages or by using <%= console %> in views
@@ -59,6 +60,7 @@ end
 group :test do
   gem 'rspec-expectations'
   gem 'cucumber-rails'#, :require=>false
+  gem 'simplecov', :require => false
   gem 'database_cleaner'
 end
 
