@@ -32,4 +32,17 @@ describe RoomsController do
       expect(response).to redirect_to(room_path(:id => room_id))
     end
   end
+
+  describe 'Joining a room' do
+    it 'should redirect the user to a page where they can create a new user (if no session is set)' do
+      # there is no information for Rooms besides auto-generated id
+      post :show, { :id => "1" }, { :room_to_join => "1" }
+      expect(response).to redirect_to('/players/new')
+    end
+    it 'should redirect the user to the room page (if the session exists)' do
+      # there is no information for Rooms besides auto-generated id
+      post :show, { :id => "1" }, { :room_to_join => "1", "1" => Player.create(:name => "Daniel", :room => Room.find(1)) }
+      expect(response).to_not redirect_to('/players/new')
+    end
+  end
 end
