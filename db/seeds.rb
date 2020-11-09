@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # define a few rooms to be inserted into the database
-rooms =  [{:ID => 1}, {:ID => 2}, {:ID => 3}]
+rooms =  [{:id => 1}, {:id => 2}, {:id => 3}]
 
 # add each room to the development database
 rooms.each do |room|
