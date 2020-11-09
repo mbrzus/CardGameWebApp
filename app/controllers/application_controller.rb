@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
 
   def set_current_room
     @current_room ||= session[:room_token] && Room.find_by_room_token(session[:room_token])
+    redirect_to '/rooms' and return unless @current_room
   end
 end
