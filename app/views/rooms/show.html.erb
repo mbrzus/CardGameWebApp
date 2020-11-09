@@ -10,14 +10,11 @@ for this game.
       <%= player[:name] %>
       <div class="hand">
   <!--      <%# player.cards.each do |card| %> This probably won't work, needs to select from PlayerCard where PlayerID = Player.ID (maybe this is done in the controller?) -->
-        <% [{:suit => "Heart", :value => "Ace"}, {:suit => "Club", :value => "Six"}].each do |card| %>
-          <div class="card"> <!-- Or use an asset here instead -->
+        <% [{:suit => "Heart", :value => "10"}, {:suit => "Club", :value => "A"}].each do |card| %>
+          <div class="card">
             <% if player[:name] == 'Player 1' %>
               <div>
-                <%= card[:value] %>
-              </div>
-              <div>
-                <%= card[:suit] %>
+                <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
               </div>
             <% else %>
               <div>
