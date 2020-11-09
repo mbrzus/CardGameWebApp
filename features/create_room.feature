@@ -19,4 +19,4 @@ Feature: Create a new room to play cards in
     Given I am on the main page
     When I have clicked new_room_button
     And  I have pressed create_room_submit
-    Then I should be in the newly created room
+    Then I should be directed to the create_player page
