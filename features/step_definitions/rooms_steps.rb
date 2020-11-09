@@ -1,3 +1,11 @@
+Given /the following rooms exist in the database:/ do |rooms_table|
+  # Remove this statement when you finish implementing the test step
+  rooms_table.hashes.each do |room|
+    # this code was taken from homework 5 and modified for this project
+    Room.create!(room)
+  end
+end
+
 Given /^I am on the main page$/ do
   visit "/rooms"
 end
@@ -22,7 +30,12 @@ Then /a room should be created in the database/ do
   expect(Room.count).to be > @number_of_rooms
 end
 
-Then /I should be in the newly created room/ do
+When /I input "(.+)" into (.+)/ do |input_value, element_id|
+  fill_in element_id, :with => input_value
+end
+
+
+Then /I should be directed to the create_player page/ do
   # the current url should match the room path (room/id)
-  expect(current_path).to match(/\/rooms\/[0-9]+/)
+  expect(current_path).to match(/\/players\/new/)
 end
