@@ -7,19 +7,25 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # define a few rooms to be inserted into the database
-rooms =  [{:ID => 1}, {:ID => 2}, {:ID => 3}]
+rooms =  [{:id => 1}, {:id => 2}, {:id => 3}]
 
 # add each room to the development database
 rooms.each do |room|
   Room.create!(room)
 end
 
-cards = [{:room_id => 1, :value => 'A', :suit => 'spades'},
-         {:room_id => 1, :value => '7', :suit => 'hearts'},
-         {:room_id => 1, :value => '9', :suit => 'clubs'},
-         {:room_id => 2, :value => 'Q', :suit => 'diamonds'},
-         {:room_id => 2, :value => 'K', :suit => 'hearts'},
-         {:room_id => 2, :value => '6', :suit => 'spades'}
+cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :owned_by => 'dealer',
+            :image_url => 'AS.png'},
+         {:room_id => 1, :value => '7', :suit => 'hearts', :owned_by => 'dealer',
+            :image_url => '7H.png'},
+         {:room_id => 1, :value => '9', :suit => 'clubs', :owned_by => 'dealer',
+            :image_url => '9C.png'},
+         {:room_id => 2, :value => 'Q', :suit => 'diamonds', :owned_by => 'dealer',
+            :image_url => 'QD.png'},
+         {:room_id => 2, :value => 'K', :suit => 'hearts', :owned_by => 'dealer',
+            :image_url => 'KH.png'},
+         {:room_id => 2, :value => '6', :suit => 'spades', :owned_by => 'dealer',
+            :image_url => '6S.png'}
           # add more cards to seed with a full deck of 52 if this works
         ]
 

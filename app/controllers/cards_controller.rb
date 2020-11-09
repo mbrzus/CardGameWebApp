@@ -1,10 +1,10 @@
 class CardsController < ApplicationController
   SUITS = %w[diamonds clubs spades hearts]
-  VALUES = %w[A 1 2 3 4 5 6 7 8 9 10 J Q K]
+  VALUES = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:room_id, :suit, :value)
+    params.require(:card).permit(:room_id, :suit, :value, :owned_by, :image_url)
   end
 
   def show
@@ -60,7 +60,10 @@ class CardsController < ApplicationController
 
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
-        curr_card = {:room_id => new_number_of_rooms, :value => curr_value, :suit => curr_suit}
+        # Dynamically create the :image_url based off of the known card value and first character from the suit naming
+        # convention that was used for the images
+        curr_card = {:room_id => new_number_of_rooms, :value => curr_value, :suit => curr_suit,
+                     :owned_by => "dealer", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
