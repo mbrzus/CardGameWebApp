@@ -13,5 +13,4 @@ Feature: Join an existing room to play cards in
     Given I am on the main page
     When I input "1" into room_id_input
     And I have clicked join_room_button
-    And I have a username for room 1 in the session
-    Then I should be directed to room 1
+    Then I should be directed to the create_player page
