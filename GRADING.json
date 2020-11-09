@@ -1,0 +1,9 @@
+{
+  "GROUP": "G008",
+  "ALL_SPRINTS": {
+    "SPRINT1_URL": "",
+    "SPRINT2_URL": "http://sprint2url/pleasechangeme",
+    "SPRINT3_URL": "http://sprint3_url/pleasechangemeaswell",
+  }
+
+}
