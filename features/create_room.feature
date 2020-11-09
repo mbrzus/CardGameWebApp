@@ -6,17 +6,17 @@ Feature: Create a new room to play cards in
 
   Scenario: Directed to New Room Form
     Given I am on the main page
-    When I have clicked new_room_button
+    When I have pressed new_room_button
     Then I should be at the new room form
 
   Scenario: Create New Room
     Given I am on the main page
-    When I have clicked new_room_button
+    When I have pressed new_room_button
     And  I have pressed create_room_submit
     Then a room should be created in the database
 
   Scenario: Automatically Enter the Created Room
     Given I am on the main page
-    When I have clicked new_room_button
+    When I have pressed new_room_button
     And  I have pressed create_room_submit
     Then I should be directed to the create_player page
