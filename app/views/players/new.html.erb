@@ -1,0 +1,4 @@
+
+<%= form_tag players_path, :method => :post %>
+  <%= text_field :player_name, "name", :id => 'player_name_input' %>
+  <%= submit_tag 'Create or Login as Player', :id => 'create_player_button', :class => 'btn btn-primary' %>

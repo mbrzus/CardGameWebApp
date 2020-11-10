@@ -1,7 +1,17 @@
 class RoomsController < ApplicationController
 
   def show
-
+    @room_id = session[:room_to_join]
+    # get the player_id stored in this sessions id
+    @player_id = session[@room_id.to_s]
+    # if the player_id exists, join the game
+    if !! @player_id
+      # get all the game info
+    else
+      session[:room_to_join] = @room_id
+      # the player has not logged in or doesnt exist, redirect to where they can create
+      redirect_to new_player_path
+    end
   end
 
   def index
@@ -16,11 +26,15 @@ class RoomsController < ApplicationController
     # room has no info so just create an empty object
     new_room = Room.create_room!
     @room_id = new_room.id
+    session[:room_to_join] = @room_id
     redirect_to room_path(:id => @room_id)
   end
 
+  # the main page links to here. This controller just gets the room_id
+  # from the submitted form and redirects the user to that path
   def join_room
-
+    session[:room_to_join] = params.require(:room_id)["room_id"]
+    redirect_to room_path(:id => session[:room_to_join])
   end
 
   def edit

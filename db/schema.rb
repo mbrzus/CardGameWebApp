@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 20201109145053) do
     t.integer  "room_id"
     t.string   "value"
     t.string   "suit"
+    t.string   "owned_by"
+    t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

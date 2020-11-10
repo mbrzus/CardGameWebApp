@@ -1,5 +1,6 @@
 class Room < ActiveRecord::Base
   before_save :create_room_token
+  has_many :player
 
   def self.create_room!
     Room.create!
@@ -19,4 +20,5 @@ class Room < ActiveRecord::Base
   #   end
   #
   # end
-end
+endbe
+
