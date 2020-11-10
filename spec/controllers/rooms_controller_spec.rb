@@ -44,5 +44,9 @@ describe RoomsController do
       post :show, { :id => "1" }, { :room_to_join => "1", "1" => Player.create(:name => "Daniel", :room => Room.find(1)) }
       expect(response).to_not redirect_to('/players/new')
     end
+    it '(the join_room action) should direct the user to the show action' do
+      post :join_room, { :room_id => { "room_id" => "1"} }, { }
+      expect(response).to redirect_to('/rooms/1')
+    end
   end
 end
