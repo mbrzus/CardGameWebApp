@@ -4,6 +4,10 @@ and if they arent logged in, redirect them to a login page (just give your user 
 That way they can be connected to their hand. They can also opt to create a player
 for this game.
 
+<br>
+<%= 'Room ID: ' +  @room_id.to_s %>
+<br>
+<%= "You are: " + @player_id["name"].to_s %>
 <% [{:name => 'Player 1'}, {:name => 'Player 2'}].each do |player| %>
   <div class="player-box">
     <div class="player">
