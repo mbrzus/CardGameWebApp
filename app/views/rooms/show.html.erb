@@ -34,6 +34,7 @@ for this game.
       </div>
     </div>
   </div>
-  <%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
-  <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
 <% end %>
+<br>
+<%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
+<%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
