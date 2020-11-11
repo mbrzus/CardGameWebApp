@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
+  post 'rooms/reset'
   root :to => redirect('/rooms')
 
   post 'cards/create_new_deck'
