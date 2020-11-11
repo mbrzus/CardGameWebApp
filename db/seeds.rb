@@ -18,7 +18,8 @@ end
 players = [{:id => 1, :name => "dealer1", :room_id => 1},
            {:id => 2, :name => "dealer2", :room_id => 2},
            {:id => 3, :name => "dealer3", :room_id => 3},
-           {:id => 4, :name => "Steve", :room_id => 1}]
+           {:id => 4, :name => "Steve", :room_id => 1},
+           {:id => 5, :name => "Ted", :room_id => 1}]
 
 players.each do |curr_player|
   Player.create!(curr_player)

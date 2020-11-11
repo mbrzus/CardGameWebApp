@@ -59,14 +59,14 @@ class CardsController < ApplicationController
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
         # convention that was used for the images
 
-        #TODO: Remove the hardcoding of dealer = player_id 1000 and new cards are all created in room 1000
+        #TODO: Remove the hardcoding of dealer = player_id 1 and new cards are all created in room 1
 
-        curr_card = {:room_id => 1000, :value => curr_value, :suit => curr_suit,
-                     :player_id => "1000", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+        curr_card = {:room_id => 1, :value => curr_value, :suit => curr_suit,
+                     :player_id => "1", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck created in room 1000"
+    flash[:notice] = "New card deck created in room 1"
 
     redirect_to cards_path
 
@@ -102,35 +102,46 @@ class CardsController < ApplicationController
   # |                |      Jack           |
   # |________________|_____________________|
   def draw_cards_from_dealer
-    @dealer = Player.where(name: "Steve")
+    @dealer = Player.find_by(name: "dealer1")
 
     # TODO: Un-hardcode this after things work
     # Read in the users input
     #@recipient = Player.where(name: params[:recipient].to_s)
     #@quantity_to_draw = params[:quantity_to_draw]
 
-    @recipient = Player.where(name: "dealer1")
+    @recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
     @quantity_to_draw = 2
 
-    dealers_cards = Card.where(player_id: @dealer.ids[0])
+    dealers_cards = Card.where(player_id: @dealer.id)
 
     # TODO: Call function to "shuffle" the order of these cards
-    debugger
     # Ensure the dealer has enough cards to deal the requested quantity
-    if dealers_cards.length >= @quantity_to_draw
+    if dealers_cards.length >= ( @quantity_to_draw * @recipients.length)
 
-      (0..@quantity_to_draw).each { |i|
-        # Reassign the card from the dealer to the recipient
-        dealers_cards[i].change_owner(@recipient.ids[0])
+      (0..@quantity_to_draw - 1).each { |curr_dealer_card|
+        (0..@recipients.length - 1).each { |curr_recipient|
+          # Reassign the card from the dealer to the recipient
+          debugger
+          dealers_cards[curr_dealer_card].change_owner(@recipients[curr_recipient].id)
+        }
       }
-      debugger
-    else
-      flash[:warning] = "Dealer can not deal the requested number of cards"
-    end
-      flash[:warning] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{@recipient.name}"
+
+      recipient_names_string = ""
+
+      @recipients.each do |curr_recipient|
+        recipient_names_string.concat(curr_recipient.name, ", " )
+      end
+
+      flash[:warning] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{recipient_names_string}"
 
       # Send the user back to their room view
       redirect_to room_path(:id => session[:room_to_join])
+
+    else
+      flash[:warning] = "Dealer can not deal the requested number of cards"
+      redirect_to room_path(:id => session[:room_to_join])
+    end
+
   end
 
 
