@@ -30,8 +30,8 @@ class RoomsController < ApplicationController
     new_room.save!
     @room_id = new_room.id
 
-    Player.create!({:name => "dealer", :room => @room_id})
-    Player.create!({:name => "sink", :room => @room_id})
+    Player.create!({:name => "dealer", :room => Room.find(@room_id)})
+    Player.create!({:name => "sink", :room => Room.find(@room_id)})
 
     session[:room_to_join] = @room_id
     redirect_to room_path(:id => @room_id)
