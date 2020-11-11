@@ -104,7 +104,7 @@ class CardsController < ApplicationController
   def draw_cards_from_dealer
     @dealer = Player.find_by(name: "dealer1")
 
-    # TODO: Un-hardcode this after things work
+    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
     # Read in the users input
     #@recipient = Player.where(name: params[:recipient].to_s)
     #@quantity_to_draw = params[:quantity_to_draw]
@@ -112,9 +112,15 @@ class CardsController < ApplicationController
     @recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
     @quantity_to_draw = 2
 
+    # Get the dealer's cards
     dealers_cards = Card.where(player_id: @dealer.id)
 
-    # TODO: Call function to "shuffle" the order of these cards
+    # Shuffle them before you distribute them to other players
+    # Resource used: https://apidock.com/ruby/Array/shuffle%21
+    debugger
+    dealers_cards_array = dealers_cards.to_a
+    dealers_cards_array.shuffle!
+
     # Ensure the dealer has enough cards to deal the requested quantity
     if dealers_cards.length >= ( @quantity_to_draw * @recipients.length)
 
