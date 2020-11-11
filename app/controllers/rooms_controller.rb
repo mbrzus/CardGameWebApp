@@ -29,6 +29,10 @@ class RoomsController < ApplicationController
     new_room = Room.new
     new_room.save!
     @room_id = new_room.id
+
+    Player.create!({:name => "dealer", :room => @room_id})
+    Player.create!({:name => "sink", :room => @room_id})
+
     session[:room_to_join] = @room_id
     redirect_to room_path(:id => @room_id)
   end
@@ -50,6 +54,23 @@ class RoomsController < ApplicationController
 
   def destroy
 
+  end
+
+  def reset
+    @room_id = params[:id]
+    print("\n\n\nHere\n\n")
+    print(@room_id)
+    @room_cards = Card.where(room_id: @room_id)
+    print("\n\n")
+    print(@room_cards)
+    @dealer_id = Player.where(room_id: @room_id, name: "dealer")
+    print("\n\n")
+    print(@dealer_id)
+    @room_cards.each do |card|
+      card.change_owner(@dealer_id)
+    end
+
+    redirect_to room_path(:id => @room_id)
   end
 
 end
