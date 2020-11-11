@@ -1,13 +1,13 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/helpers/application_helper.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/controllers/cards_controller.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/controllers/cards_controller.rb": {
         "lines": [
           1,
           1,
@@ -65,12 +65,11 @@
           null,
           1,
           null,
-          null,
           0,
           0,
           null,
-          0,
-          0,
+          null,
+          null,
           null,
           null,
           0,
@@ -95,12 +94,75 @@
           null,
           0,
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/controllers/application_controller.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/controllers/application_controller.rb": {
         "lines": [
           1,
           null,
@@ -109,19 +171,25 @@
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/controllers/players_controller.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/controllers/players_controller.rb": {
         "lines": [
           1,
           null,
           1,
           null,
-          0,
+          1,
           null,
           null,
           1,
-          0,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
           0,
           null,
+          0,
           null,
           null,
           1,
@@ -138,8 +206,20 @@
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/controllers/rooms_controller.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/controllers/rooms_controller.rb": {
         "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
           1,
           null,
           1,
@@ -160,10 +240,14 @@
           2,
           2,
           2,
+          2,
+          null,
+          null,
           null,
           null,
           1,
-          null,
+          0,
+          0,
           null,
           null,
           1,
@@ -181,15 +265,10 @@
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/models/card.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/models/card.rb": {
         "lines": [
           1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          1,
           null,
           null,
           null,
@@ -197,35 +276,45 @@
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/models/room.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/models/room.rb": {
         "lines": [
           1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/models/player.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
           null,
           null
         ]
       },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/models/player.rb": {
+      "/mnt/c/Users/Jacob/Documents/SELT/feature_card_transactions_and_shuffling/app/models/Room.rb": {
         "lines": [
           0,
           0,
-          0,
-          null,
-          null,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/mnt/c/Users/Jacob/Documents/SELT/Team8_SELT2020/app/models/Room.rb": {
-        "lines": [
-          0,
-          null,
           0
         ],
         "branches": {
         }
       }
     },
-    "timestamp": 1604940316
+    "timestamp": 1605110905
   }
 }

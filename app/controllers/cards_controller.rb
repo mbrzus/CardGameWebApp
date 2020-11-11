@@ -86,20 +86,79 @@ class CardsController < ApplicationController
     end
 
 
-  # I'm hoping to have a single GUI that every player has which will control all types of transactions
-  # player-to-player, player-to-sink, source-to-player etc. The GUI will have drop down boxes that will
-  # allow the user to input all the information required to complete the transaction similar to the sample
-  # shown below.
-  #  ________________________________________
-  # | Player Name | From / To | Player Name |
-  # -----------------------------------------
-  #
-  # For now, I will build this method using hardcoded values to prove that transacting works in the persistence
-  # layer. After that is established, I will construct the associated views and pass the required params to the
-  # controller from there.
-  #
-  def card_transaction
+  # This method will be used strictly for drawing cards from the dealer and will have
+  # an associated GUI where the user can say how many cards they want to draw
+  def draw_cards_from_dealer
 
   end
 
+
+  # This method will be used strictly for player-to-player and player-to-sink card transactions where the
+  # calling user is GIVING cards to another user or discarding cards to a sink. An associated GUI will show
+  # checkboxes next to all of the players cards and checkboxes next to all of the other players or sinks in
+  # a game, allowing the user to select multiple cards and a single user or sink that they want to give the cards to.
+  # The GUI could look something like this
+  #
+  #  GIVE CARDS TO
+  #  ----------------------------------------
+  # | Select Cards V | Select Destination V |
+  #  ----------------------------------------
+  # |      7H     X  |      Jacob          |
+  # |      10D       |      Daniel         |
+  # |      QC     X  |      Sink1      X   |
+  # |      9S        |      Shriram        |
+  # |                |      Jack           |
+  # |________________|_____________________|
+  #
+  def give_cards_transaction
+    # TODO: Implement this so it actually works -- starting hardcoded
+    # @player1 = Player.find_by_name(params[:player_1_name])
+    # @transaction_action = params[:transaction_action]
+    # @transaction_quantity = params[:transaction_quantity]
+    # @transaction_direction = params[:transaction_direction]
+    # @player2 = Player.find_by_name(params[:player_1_name])
+
+    # This corresponds to the seeded player with id = 4, steve
+
+    # Credit for Ruby exceptions: http://rubylearning.com/satishtalim/ruby_exceptions.html
+    begin
+      @player1 = Player.find(4)
+      # This corresponds to the seeded player with id = 1, dealer
+      @player2 = Player.find(1)
+
+
+      @transaction_action = "draw"
+      @transaction_quantity = 5
+      @transaction_direction = "from"
+
+      debugger
+
+      # Handle the user input
+
+    rescue
+      flash[:warning] = "The transaction could not be completed"
+    end
+  end
+
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
