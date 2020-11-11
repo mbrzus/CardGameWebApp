@@ -4,7 +4,12 @@ and if they arent logged in, redirect them to a login page (just give your user 
 That way they can be connected to their hand. They can also opt to create a player
 for this game.
 
-<% [{:name => 'Player 1'}, {:name => 'Player 2'}].each do |player| %>
+<br>
+<%= 'Room ID: ' +  @room_id.to_s %>
+<br>
+<% player_name = @player_id["name"].to_s %>
+<%= "You are: " + player_name %>
+<% @players.each do |player| %>
   <div class="player-box">
     <div class="player">
       <%= player[:name] %>
@@ -12,7 +17,7 @@ for this game.
   <!--      <%# player.cards.each do |card| %> This probably won't work, needs to select from PlayerCard where PlayerID = Player.ID (maybe this is done in the controller?) -->
         <% [{:suit => "Heart", :value => "10"}, {:suit => "Club", :value => "A"}].each do |card| %>
           <div class="card">
-            <% if player[:name] == 'Player 1' %>
+            <% if player[:name] == player_name %>
               <div>
                 <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
               </div>

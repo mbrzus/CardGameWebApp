@@ -2,6 +2,8 @@ class RoomsController < ApplicationController
 
   def show
     @room_id = session[:room_to_join]
+    @players = Player.all.select { |player| player[:room_id].to_s == @room_id.to_s }
+
     # get the player_id stored in this sessions id
     @player_id = session[@room_id.to_s]
     # if the player_id exists, join the game
@@ -26,7 +28,7 @@ class RoomsController < ApplicationController
     # room has no info so just create an empty object
     new_room = Room.create_room!
     @room_id = new_room.id
-    session[:room_to_join] = @room_id
+    session[:room_token] = @room_id
     redirect_to room_path(:id => @room_id)
   end
 
