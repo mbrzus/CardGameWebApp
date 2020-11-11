@@ -85,4 +85,21 @@ class CardsController < ApplicationController
     redirect_to cards_path
     end
 
+
+  # I'm hoping to have a single GUI that every player has which will control all types of transactions
+  # player-to-player, player-to-sink, source-to-player etc. The GUI will have drop down boxes that will
+  # allow the user to input all the information required to complete the transaction similar to the sample
+  # shown below.
+  #  ________________________________________
+  # | Player Name | From / To | Player Name |
+  # -----------------------------------------
+  #
+  # For now, I will build this method using hardcoded values to prove that transacting works in the persistence
+  # layer. After that is established, I will construct the associated views and pass the required params to the
+  # controller from there.
+  #
+  def card_transaction
+
+  end
+
 end
