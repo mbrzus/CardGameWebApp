@@ -24,8 +24,9 @@
           <%= card.value %>
         </td>
         <td>
-          <!--You'll probably have to put some kind of query here to use the ID to find the string name -->
-          <%= card.player_id %>
+          <!-- This query works exactly how we want but it slows down the rendering significantly -->
+          <%player_name = Player.find_by(id: card.player_id ).name %>
+          <%= player_name %>
         </td>
         <td>
           <!--https://apidock.com/rails/ActionView/Helpers/AssetTagHelper/image_tag -->
