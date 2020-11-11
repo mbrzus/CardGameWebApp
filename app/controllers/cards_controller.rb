@@ -102,30 +102,28 @@ class CardsController < ApplicationController
   # |                |      Jack           |
   # |________________|_____________________|
   def draw_cards_from_dealer
-    debugger
-
-    @dealer = Player.where(name: "dealer")
+    @dealer = Player.where(name: "Steve")
 
     # TODO: Un-hardcode this after things work
     # Read in the users input
     #@recipient = Player.where(name: params[:recipient].to_s)
     #@quantity_to_draw = params[:quantity_to_draw]
 
-    @recipient = Player.where(name: "Jacob")
+    @recipient = Player.where(name: "dealer1")
     @quantity_to_draw = 2
 
-    dealers_cards = Card.where(player_id: @dealer.id)
+    dealers_cards = Card.where(player_id: @dealer.ids[0])
 
     # TODO: Call function to "shuffle" the order of these cards
-
+    debugger
     # Ensure the dealer has enough cards to deal the requested quantity
     if dealers_cards.length >= @quantity_to_draw
 
       (0..@quantity_to_draw).each { |i|
         # Reassign the card from the dealer to the recipient
-        dealers_cards[i].change_owner(@recipient.id)
+        dealers_cards[i].change_owner(@recipient.ids[0])
       }
-
+      debugger
     else
       flash[:warning] = "Dealer can not deal the requested number of cards"
     end

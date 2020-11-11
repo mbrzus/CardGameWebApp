@@ -15,10 +15,10 @@ rooms.each do |room|
 end
 
 # Create a dealer for every room you create, starting with ids 1,2,3
-players = [{:id => 1, :name => "dealer", :room_id => 1},
-           {:id => 2, :name => "dealer", :room_id => 2},
-           {:id => 3, :name => "dealer", :room_id => 3},
-           {:id => 4, :name => "steve", :room_id => 1}]
+players = [{:id => 1, :name => "dealer1", :room_id => 1},
+           {:id => 2, :name => "dealer2", :room_id => 2},
+           {:id => 3, :name => "dealer3", :room_id => 3},
+           {:id => 4, :name => "Steve", :room_id => 1}]
 
 players.each do |curr_player|
   Player.create!(curr_player)
