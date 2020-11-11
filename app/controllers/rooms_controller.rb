@@ -63,12 +63,14 @@ class RoomsController < ApplicationController
   def reset
     @room_id = params[:id]
     print("\n\n\nHere\n\n")
+    print(params)
+    print("\nroom id\n")
     print(@room_id)
     @room_cards = Card.where(room_id: @room_id)
-    print("\n\n")
+    print("\nroom cards\n")
     print(@room_cards)
     @dealer_id = Player.where(room_id: @room_id, name: "dealer")
-    print("\n\n")
+    print("\ndealer id\n")
     print(@dealer_id)
     @room_cards.each do |card|
       card.change_owner(@dealer_id)
