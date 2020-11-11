@@ -1,4 +1,7 @@
 class Player < ActiveRecord::Base
+  # When the player is deleted, also delete all the cards they owned from the DB
+  # Credit: https://apidock.com/rails/ActiveRecord/Associations/CollectionProxy/delete_all
+  has_many :cards, dependent: :delete_all
   belongs_to :room
 
   # search for the player. If none found, create a new player

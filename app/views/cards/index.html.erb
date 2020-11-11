@@ -6,7 +6,7 @@
       <th>Room ID</th>
       <th>Suit</th>
       <th>Value</th>
-      <th>Owned By</th>
+      <th>Player ID</th>
       <th>Image</th>
       <th>Edit Card</th>
     </tr>
@@ -24,7 +24,8 @@
           <%= card.value %>
         </td>
         <td>
-          <%= card.owned_by %>
+          <!--You'll probably have to put some kind of query here to use the ID to find the string name -->
+          <%= card.player_id %>
         </td>
         <td>
           <!--https://apidock.com/rails/ActionView/Helpers/AssetTagHelper/image_tag -->

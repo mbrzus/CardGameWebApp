@@ -4,7 +4,7 @@ class CardsController < ApplicationController
 
   # Define what params should follow the Card Model
   def card_params
-    params.require(:card).permit(:room_id, :suit, :value, :owned_by, :image_url)
+    params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
   end
 
   def show
@@ -53,21 +53,20 @@ class CardsController < ApplicationController
   # For now, it just defaults to creating a new room and assigning all cards to the new room
   # We can change this after the first iteration
   def create_new_deck
-    # Resource used to learn this command
-    # https://stackoverflow.com/questions/4974049/ruby-on-rails-getting-the-max-value-from-a-db-column/4974069
-    curr_number_of_rooms = Card.maximum("room_id")
-    new_number_of_rooms = curr_number_of_rooms.to_i + 1
 
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
         # convention that was used for the images
-        curr_card = {:room_id => new_number_of_rooms, :value => curr_value, :suit => curr_suit,
-                     :owned_by => "dealer", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+
+        #TODO: Remove the hardcoding of dealer = player_id 1000 and new cards are all created in room 1000
+
+        curr_card = {:room_id => 1000, :value => curr_value, :suit => curr_suit,
+                     :player_id => "1000", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck created in room #{new_number_of_rooms}"
+    flash[:notice] = "New card deck created in room 1000"
 
     redirect_to cards_path
 
