@@ -87,9 +87,52 @@ class CardsController < ApplicationController
 
 
   # This method will be used strictly for drawing cards from the dealer and will have
-  # an associated GUI where the user can say how many cards they want to draw
+  # an associated GUI where the user can say how many cards they want to draw and
+  # which user the cards should go to. Can be themselves OR others in the game.
+  # There could be a drop down box
+  #
+  # DRAW CARDS
+  #  ----------------------------------------
+  # | Input Quantity | Select Destination V |
+  #  ----------------------------------------
+  # |       5        |      Jacob          |
+  # |                |      Daniel     X   |
+  # |                |      Sink1          |
+  # |                |      Shriram        |
+  # |                |      Jack           |
+  # |________________|_____________________|
   def draw_cards_from_dealer
+    debugger
 
+    @dealer = Player.where(name: "dealer")
+
+    # TODO: Un-hardcode this after things work
+    # Read in the users input
+    #@recipient = Player.where(name: params[:recipient].to_s)
+    #@quantity_to_draw = params[:quantity_to_draw]
+
+    @recipient = Player.where(name: "Jacob")
+    @quantity_to_draw = 2
+
+    dealers_cards = Card.where(player_id: @dealer.id)
+
+    # TODO: Call function to "shuffle" the order of these cards
+
+    # Ensure the dealer has enough cards to deal the requested quantity
+    if dealers_cards.length >= @quantity_to_draw
+
+      (0..@quantity_to_draw).each { |i|
+        # Reassign the card from the dealer to the recipient
+        dealers_cards[i].change_owner(@recipient.id)
+      }
+
+    else
+      flash[:warning] = "Dealer can not deal the requested number of cards"
+    end
+      flash[:warning] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{@recipient.name}"
+
+      # Send the user back to their room view
+      redirect_to room_path(:id => session[:room_to_join])
   end
 
 
@@ -118,10 +161,10 @@ class CardsController < ApplicationController
     # @transaction_direction = params[:transaction_direction]
     # @player2 = Player.find_by_name(params[:player_1_name])
 
-    # This corresponds to the seeded player with id = 4, steve
-
+=begin
     # Credit for Ruby exceptions: http://rubylearning.com/satishtalim/ruby_exceptions.html
     begin
+      # This corresponds to the seeded player with id = 4, steve
       @player1 = Player.find(4)
       # This corresponds to the seeded player with id = 1, dealer
       @player2 = Player.find(1)
@@ -138,8 +181,8 @@ class CardsController < ApplicationController
     rescue
       flash[:warning] = "The transaction could not be completed"
     end
+=end
   end
-
 
 end
 

@@ -1,20 +1,21 @@
 Rails.application.routes.draw do
 
   resources :cards
+  post 'cards/create_new_deck'
+  post 'cards/delete_decks_in_room'
+  post 'cards/draw_cards_from_dealer'
+  post 'cards/give_cards_transaction'
+
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
   root :to => redirect('/rooms')
 
-  post 'cards/create_new_deck'
-  post 'cards/delete_decks_in_room'
-  # root :to => redirect('/rooms')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   resources :players
   post 'players/create'
-  #root :to => redirect('/players')
 
  # You can have the root of your site routed with "root"
   # root 'welcome#index'
