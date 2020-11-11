@@ -53,7 +53,11 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-
+    @room_id = params[:id]
+    @room = Room.find(@room_id)
+    @room.destroy
+    flash[:notice] = "Game ended successfully. Thank you for playing!."
+    redirect_to rooms_path
   end
 
   def reset
