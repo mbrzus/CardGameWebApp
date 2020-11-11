@@ -1,7 +1,9 @@
 
+<br>
 <%= button_to 'Create New Room', new_room_path,  { :method => :get, :id => "new_room_button", :class => 'btn btn-primary' } %>
-
+<br>
 <%= form_tag rooms_join_room_path, :method => :post %>
+    <%= "Enter Room ID:" %>
     <%= text_field :room_id, "room_id", :id => 'room_id_input' %>
     <%= submit_tag 'Join a room', :id => 'join_room_button', :class => 'btn btn-primary' %>
 
