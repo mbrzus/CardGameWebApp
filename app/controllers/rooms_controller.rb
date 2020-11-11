@@ -2,7 +2,6 @@ class RoomsController < ApplicationController
 
   def show
     @room_id = session[:room_to_join]
-    @players = Player.all.select { |player| player[:room_id].to_s == @room_id.to_s }
 
     # get the player_id stored in this sessions id
     @player_id = session[@room_id.to_s]
