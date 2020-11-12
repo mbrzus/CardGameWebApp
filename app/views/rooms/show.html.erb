@@ -7,7 +7,7 @@ for this game.
 <br>
 <%= 'Room ID: ' +  @room_id.to_s %>
 <br>
-<% player_name = @player_id["name"].to_s %>
+<% player_name = @player["name"].to_s %>
 <%= "You are: " + player_name %>
 <% players = Player.where(room_id: @room_id) %>
 <% players.each do |player| %>
