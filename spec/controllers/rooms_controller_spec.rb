@@ -25,11 +25,21 @@ describe RoomsController do
       post :create, {}
       expect(Room.count).to be > room_count
     end
-    it 'should create a dealer associated with this room in the database' do
+    it 'should create a dealer player associated with this room in the database' do
       # there is no information for Rooms besides auto-generated id
-      room_count = Room.count
       post :create, {}
-      expect(Room.count).to be > room_count
+      id = assigns(:room_id)
+      room = Room.find(id)
+      dealer = Player.where(name: 'dealer', room: room)
+      expect(dealer.length).to be(1)
+    end
+    it 'should create a sink player associated with this room in the database' do
+      # there is no information for Rooms besides auto-generated id
+      post :create, {}
+      id = assigns(:room_id)
+      room = Room.find(id)
+      dealer = Player.where(name: 'sink', room: room)
+      expect(dealer.length).to be(1)
     end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation

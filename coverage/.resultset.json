@@ -37,15 +37,15 @@
           null,
           1,
           null,
-          2,
-          2,
-          2,
+          4,
+          4,
+          4,
           null,
-          2,
-          2,
           null,
-          2,
-          2,
+          null,
+          null,
+          4,
+          4,
           null,
           null,
           null,
@@ -99,8 +99,8 @@
       "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/models/room.rb": {
         "lines": [
           1,
-          null,
-          null,
+          1,
+          1,
           null
         ]
       },
@@ -275,6 +275,6 @@
         }
       }
     },
-    "timestamp": 1605208923
+    "timestamp": 1605209723
   }
 }
