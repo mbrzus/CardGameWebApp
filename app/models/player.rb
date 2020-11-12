@@ -13,8 +13,4 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def self.get_id
-    id = self.id
-    return id
-  end
 end
