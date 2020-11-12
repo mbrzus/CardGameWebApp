@@ -24,10 +24,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    # room has no info so just create an empty object
-    new_room = Room.new
-    new_room.save!
-    @room_id = new_room.id
+    @room_id = Room.create_new_room(params["room_name"]["room_name"], !!params["public"]["public"])
     session[:room_to_join] = @room_id
     redirect_to room_path(:id => @room_id)
   end
