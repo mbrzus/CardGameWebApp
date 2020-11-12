@@ -66,7 +66,6 @@ class RoomsController < ApplicationController
     @dealer = Player.where(room_id: @room_id, name: "dealer")[0]
     @dealer_id = @dealer.id
     @room_cards.each do |card|
-      debugger
       card.change_owner(@dealer_id)
     end
     flash[:notice] = "Game reset successfully!"

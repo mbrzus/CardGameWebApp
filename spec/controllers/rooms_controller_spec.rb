@@ -89,4 +89,29 @@ describe RoomsController do
       expect(players.length).to be(0)
     end
   end
+
+  describe 'Reset a room' do
+    it 'should redirect the user to the same page' do
+      # there is no information for Rooms besides auto-generated id
+      post :reset, { :id => "1" }, { :room_to_join => "1" }
+      expect(response).to redirect_to('/rooms/1')
+    end
+    it "should give all the cards in the room to the room's dealer" do
+      # there is no information for Rooms besides auto-generated id
+      room = Room.find(1)
+      player = Player.where(room: room, name: "Ted")[0]
+      Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
+      post :reset, { :id => "1" }, { :room_to_join => "1" }
+      cards = Card.where(room: room)
+      dealer = Player.where(room: room, name: "dealer")[0]
+      helper = TRUE
+      cards.each do |card|
+        owned_id = card.player_id
+        if owned_id != dealer.id
+          helper = FALSE
+        end
+      end
+      expect(helper).to be(TRUE)
+    end
+  end
 end
