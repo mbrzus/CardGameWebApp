@@ -1,8 +1,10 @@
 <h3> This is the view for draw cards</h3>
 
-<!--We should modify the cards_path later in th elink_to and the form_tag -->
 
-<%= form_tag cards_path, :class => 'form' do %>
+<!--We should modify the cards_path later in the link_to and the form_tag
+THIS RIGHT NOW IS AN ERROR -->
+
+<%= form_tag cards_draw_cards_from_dealer_path :class => 'form' do %>
   <%= label :quantity, 'Input quantity', :class => 'col-form-label' %>
   <%= text_field :quantity, 'quantity', :class => 'form-control' %>
 
