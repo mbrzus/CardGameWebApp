@@ -21,6 +21,9 @@ Feature: Delete an existing room
     | 5| Jack| 2       |
 
   Scenario: Delete an existing room
-    Given I am on Room "1"
-    When I have pressed end_game
+
+    # TODO I DONT KNOW HOW TO GO TO A ROOM THAT HAS ALREADY BEEN CREATED
+    # JUST LIKE THE ROTTEN POTATOES APP, I WANT TO ACCESS THE ROOM PAGE DIRECTLY
+    Given I am on Room 1
+    When I have pressed "end_game"
     Then I should be on the main page with the notice "Game ended successfully. Thank you for playing!."
