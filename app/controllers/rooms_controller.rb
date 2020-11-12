@@ -63,13 +63,10 @@ class RoomsController < ApplicationController
   def reset
     @room_id = params[:id]
     @room_cards = Card.where(room_id: @room_id)
-    @dealer = Player.where(room_id: @room_id, name: "dealer")
-    print("\n\nhere\n\n")
-    print(@dealer)
+    @dealer = Player.where(room_id: @room_id, name: "dealer")[0]
     @dealer_id = @dealer.id
-    print("\n\nhere\n\n")
-    print(@dealer_id)
     @room_cards.each do |card|
+      debugger
       card.change_owner(@dealer_id)
     end
     flash[:notice] = "Game reset successfully!"
