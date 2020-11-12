@@ -29,7 +29,6 @@ class CardsController < ApplicationController
   end
 
   def edit
-    debugger
     @card = Card.find params[:id]
   end
 
@@ -125,14 +124,10 @@ class CardsController < ApplicationController
 
       (0..@quantity_to_draw - 1).each { |curr_dealer_card|
         (0..@recipients.length - 1).each { |curr_recipient|
-          # Reassign the card from the dealer to the recipient
+          # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
           debugger
-          dealers_cards[curr_dealer_card].change_owner(@recipients[curr_recipient].id)
-
-          #TODO: RESUME HERE -- you're on the right track but the command below isn't working
-          # how you think it should and then the card is not actually being assigned to Steve somehow
-          # Remove the card from the dealers array so it can't be "dealt" again
-          dealers_cards.delete![curr_dealer_card]
+          dealers_cards_array[curr_dealer_card].change_owner(@recipients[curr_recipient].id)
+          dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
         }
       }
 
