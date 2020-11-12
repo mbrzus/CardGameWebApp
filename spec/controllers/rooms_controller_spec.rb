@@ -22,12 +22,12 @@ describe RoomsController do
     it 'should create a new room in the database' do
       # there is no information for Rooms besides auto-generated id
       room_count = Room.count
-      post :create, { :room_name => { "room_name" => "Test Name" }, :public => { "public" => "Test Name" } }
+      post :create, { :room_name => { "room_name" => "Test Name" }, :public => { "public" => 1 } }
       expect(Room.count).to be > room_count
     end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation
-      post :create, { :room_name => { "room_name" => "Test Name" }, :public => { "public" => "Test Name" } }
+      post :create, { :room_name => { "room_name" => "Test Name" }, :public => { "public" => 1 } }
       room_id = assigns(:room_id)
       expect(response).to redirect_to(room_path(:id => room_id))
     end
