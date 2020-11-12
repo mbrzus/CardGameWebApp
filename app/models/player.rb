@@ -12,4 +12,9 @@ class Player < ActiveRecord::Base
       return existing_player
     end
   end
+
+  def self.get_id
+    id = self.id
+    return id
+  end
 end
