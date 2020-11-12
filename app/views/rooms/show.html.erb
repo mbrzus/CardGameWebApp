@@ -16,8 +16,8 @@ for this game.
       <div class="hand">
         <%# val = rand(1..10) %>
         <%# suit = ["Clubs", "Spades", "Hearts", "Diamonds"][rand(0..3)] %>
-        <%# Card.create!(:room_id => @room_id, :value => val, :suit =>  suit, :owned_by => player_name) %>
-        <% cards = Card.where(owned_by: player[:name], room_id: @room_id) %>
+        <%# Card.create!(:room_id => @room_id, :value => val, :suit =>  suit, :player_id => player[:id]) %>
+        <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
         <% cards.each do |card| %>
           <div class="card">
             <% if player[:name] == player_name %>
@@ -28,11 +28,11 @@ for this game.
               <div>
                 <%= image_tag("red_back.png", size: "64x89") %>
               </div>
-            <% end %>
           </div>
         <% end %>
       </div>
     </div>
+<% end %>
   </div>
 <% end %>
 <br>
