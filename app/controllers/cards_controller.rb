@@ -117,7 +117,6 @@ class CardsController < ApplicationController
 
     # Shuffle them before you distribute them to other players
     # Resource used: https://apidock.com/ruby/Array/shuffle%21
-    debugger
     dealers_cards_array = dealers_cards.to_a
     dealers_cards_array.shuffle!
 
@@ -129,6 +128,11 @@ class CardsController < ApplicationController
           # Reassign the card from the dealer to the recipient
           debugger
           dealers_cards[curr_dealer_card].change_owner(@recipients[curr_recipient].id)
+
+          #TODO: RESUME HERE -- you're on the right track but the command below isn't working
+          # how you think it should and then the card is not actually being assigned to Steve somehow
+          # Remove the card from the dealers array so it can't be "dealt" again
+          dealers_cards.delete![curr_dealer_card]
         }
       }
 
