@@ -7,7 +7,6 @@ class Room < ActiveRecord::Base
     new_room.name = room_name
     new_room.public = public_boolean
     new_room.save!
-    puts "I am running"
     return new_room.id
   end
 end
