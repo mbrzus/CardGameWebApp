@@ -1,2 +1,18 @@
 <h3> This is the view for draw cards</h3>
 
+<!--We should modify the cards_path later in th elink_to and the form_tag -->
+
+<%= form_tag cards_path, :class => 'form' do %>
+  <%= label :quantity, 'Input quantity', :class => 'col-form-label' %>
+  <%= text_field :quantity, 'quantity', :class => 'form-control' %>
+
+
+  <%= @recipients.each do |recipient| %>
+    <%= recipient.name %>
+    <% check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+  <% end %>
+
+
+  <%= link_to 'Add cards to the players', cards_path, :class => 'btn btn-secondary' %>
+<% end %>
+
