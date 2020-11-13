@@ -25,6 +25,22 @@ describe RoomsController do
       post :create, {}
       expect(Room.count).to be > room_count
     end
+    it 'should create a dealer player associated with this room in the database' do
+      # there is no information for Rooms besides auto-generated id
+      post :create, {}
+      id = assigns(:room_id)
+      room = Room.find(id)
+      dealer = Player.where(name: 'dealer', room: room)
+      expect(dealer.length).to be(1)
+    end
+    it 'should create a sink player associated with this room in the database' do
+      # there is no information for Rooms besides auto-generated id
+      post :create, {}
+      id = assigns(:room_id)
+      room = Room.find(id)
+      dealer = Player.where(name: 'sink', room: room)
+      expect(dealer.length).to be(1)
+    end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation
       post :create, {}
@@ -43,6 +59,63 @@ describe RoomsController do
       # there is no information for Rooms besides auto-generated id
       post :show, { :id => "1" }, { :room_to_join => "1", "1" => Player.create(:name => "Daniel", :room => Room.find(1)) }
       expect(response).to_not redirect_to('/players/new')
+    end
+    it '(the join_room action) should direct the user to the show action' do
+      post :join_room, { :room_id => { "room_id" => "1"} }, { }
+      expect(response).to redirect_to('/rooms/1')
+    end
+  end
+
+  describe 'Delete a room' do
+    it 'should redirect the user home page' do
+      # there is no information for Rooms besides auto-generated id
+      post :destroy, { :id => "1" }, { :room_to_join => "1" }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'should delete room from database Room table' do
+      # there is no information for Rooms besides auto-generated id
+      post :destroy, { :id => "1" }, { :room_to_join => "1" }
+      room = Room.where(id: 1)
+      expect(room.length).to be(0)
+    end
+    it 'should delete cards associated with the room' do
+      # there is no information for Rooms besides auto-generated id
+      room = Room.find(1)
+      post :destroy, { :id => "1" }, { :room_to_join => "1" }
+      cards = Card.where(room: room)
+      expect(cards.length).to be(0)
+    end
+    it 'should delete players associated with the room' do
+      # there is no information for Rooms besides auto-generated id
+      room = Room.find(1)
+      post :destroy, { :id => "1" }, { :room_to_join => "1" }
+      players = Player.where(room: room)
+      expect(players.length).to be(0)
+    end
+  end
+
+  describe 'Reset a room' do
+    it 'should redirect the user to the same page' do
+      # there is no information for Rooms besides auto-generated id
+      post :reset, { :id => "1" }, { :room_to_join => "1" }
+      expect(response).to redirect_to('/rooms/1')
+    end
+    it "should give all the cards in the room to the room's dealer" do
+      # there is no information for Rooms besides auto-generated id
+      room = Room.find(1)
+      player = Player.where(room: room, name: "Ted")[0]
+      Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
+      post :reset, { :id => "1" }, { :room_to_join => "1" }
+      cards = Card.where(room: room)
+      dealer = Player.where(room: room, name: "dealer")[0]
+      helper = TRUE
+      cards.each do |card|
+        owned_id = card.player_id
+        if owned_id != dealer.id
+          helper = FALSE
+        end
+      end
+      expect(helper).to be(TRUE)
     end
   end
 end

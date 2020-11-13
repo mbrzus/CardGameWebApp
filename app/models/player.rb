@@ -16,4 +16,5 @@ class Player < ActiveRecord::Base
       return existing_player
     end
   end
+
 end

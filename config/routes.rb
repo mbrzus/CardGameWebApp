@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
+  post 'rooms/:id/reset', :controller => 'rooms', :action => 'reset'
   root :to => redirect('/rooms')
 
   # The priority is based upon order of creation: first created -> highest priority.

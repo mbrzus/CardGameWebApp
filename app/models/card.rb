@@ -12,6 +12,4 @@ class Card < ActiveRecord::Base
     # Resource: https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-save
     self.save!
   end
-  
-  
 end

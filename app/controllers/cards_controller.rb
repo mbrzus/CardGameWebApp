@@ -106,7 +106,7 @@ class CardsController < ApplicationController
   # :recipient_names - an array of the name of players who are being dealt to
   #
   def draw_cards_from_dealer
-    @dealer = Player.find_by(name: "dealer1")
+    dealer = Player.find_by(room_id: 1, name: "dealer")
 
     # TODO: Un-hardcode this after Ram has the view that feels this method implemented
     # Read in the users input
@@ -123,11 +123,11 @@ class CardsController < ApplicationController
     #   end
     # }
 
-    recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
-    @quantity_to_draw = 2
+    recipients = [Player.find_by(room_id: 1, name: "Steve"), Player.find_by(room_id: 1, name: "Ted")]
+    quantity_to_draw = 5
 
     # Get the dealer's cards
-    dealers_cards = Card.where(player_id: @dealer.id)
+    dealers_cards = Card.where(room_id: 1, player_id: dealer.id)
 
     # Shuffle them before you distribute them to other players
     # Resource used: https://apidock.com/ruby/Array/shuffle%21
@@ -135,9 +135,9 @@ class CardsController < ApplicationController
     dealers_cards_array.shuffle!
 
     # Ensure the dealer has enough cards to deal the requested quantity
-    if dealers_cards.length >= ( @quantity_to_draw * recipients.length)
+    if dealers_cards.length >= ( quantity_to_draw * recipients.length)
 
-      (0..@quantity_to_draw - 1).each { |curr_dealer_card|
+      (0..quantity_to_draw - 1).each { |curr_dealer_card|
         (0..recipients.length - 1).each { |curr_recipient|
           # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
           dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
@@ -151,7 +151,7 @@ class CardsController < ApplicationController
         recipient_names_string.concat(curr_recipient.name, ", " )
       end
 
-      flash[:notice] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{recipient_names_string}"
+      flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
 
       # Send the user back to their room view
       redirect_to room_path(:id => session[:room_to_join])
@@ -162,7 +162,6 @@ class CardsController < ApplicationController
     end
 
   end
-
 
   # This method will be used strictly for player-to-player and player-to-sink card transactions where the
   # calling user is GIVING cards to another user or discarding cards to a sink. An associated GUI will show
