@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20201113044136) do
     t.integer  "room_id"
     t.string   "value"
     t.string   "suit"
-    t.string   "owned_by"
     t.string   "image_url"
+    t.integer  "player_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

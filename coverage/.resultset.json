@@ -1,97 +1,49 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/helpers/application_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/sessions_controller.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          10,
-          null,
-          null,
-          1,
-          5,
-          5,
-          2,
-          2,
-          null,
-          3,
-          3,
-          null,
-          null,
-          null,
-          1,
-          3,
-          3,
-          3,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          0,
-          0,
-          0,
-          null,
-          null
-        ]
-      },
       "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/account.rb": {
         "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          10,
-          null,
-          null,
-          1,
-          10,
-          null,
-          null,
-          1,
-          10,
-          null,
-          null,
-          1,
+          0,
+          0,
+          0,
           0,
           0,
           0,
           0,
           0,
           null,
-          null,
-          null,
+          0,
+          0,
           0,
           null,
+          0,
+          0,
+          0,
           null,
-          null
-        ]
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/Room.rb": {
+      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/room.rb": {
         "lines": [
+          0,
           0,
           0,
           0
@@ -106,8 +58,10 @@
           0,
           0,
           0,
+          0,
           null,
-          null,
+          0,
+          0,
           null,
           null,
           0,
@@ -133,6 +87,26 @@
           0,
           0,
           0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
           0
         ],
         "branches": {
@@ -172,6 +146,10 @@
           0,
           0,
           0,
+          null,
+          0,
+          0,
+          null,
           0,
           0,
           0,
@@ -192,7 +170,23 @@
           0,
           null,
           0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           null,
           0
@@ -200,9 +194,43 @@
         "branches": {
         }
       },
+      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/sessions_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null
+        ],
+        "branches": {
+        }
+      },
       "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/cards_controller.rb": {
         "lines": [
           0,
+          null,
+          0,
+          null,
           0,
           0,
           null,
@@ -331,6 +359,8 @@
           0,
           null,
           0,
+          null,
+          0,
           0,
           null,
           0,
@@ -360,8 +390,16 @@
         ],
         "branches": {
         }
+      },
+      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1605280749
+    "timestamp": 1605292291
   }
 }
