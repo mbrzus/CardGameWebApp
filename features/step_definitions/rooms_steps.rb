@@ -29,12 +29,33 @@ Then /^A room should be created in the database$/ do
   expect(Room.count).to be > @number_of_rooms
 end
 
-When /I input "(.+)" into (.+)/ do |input_value, element_id|
+When /^I input "(.+)" into (.+)/ do |input_value, element_id|
   fill_in element_id, :with => input_value
 end
 
 
-Then /I should be directed to the create_player page/ do
+Then /^I should be directed to the create_player page$/ do
   # the current url should match the room path (room/id)
   expect(current_path).to match(/\/players\/new/)
+end
+
+Given /^I am on Room (.*?)$/ do |room|
+  visit "/rooms/" + "#{room.to_i}"
+end
+
+Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|
+  expect(current_path).to match(rooms_path)
+  expect(page).to have_content(notice)
+end
+
+Given /^The following rooms have been added to the database$/ do |rooms_table|
+  rooms_table.hashes.each do |room|
+    Room.create!(room)
+  end
+end
+
+Given /^The following players have been added to the database$/ do |players_table|
+  players_table.hashes.each do |player|
+    Player.create!(player)
+  end
 end

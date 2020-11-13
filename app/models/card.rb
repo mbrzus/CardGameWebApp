@@ -1,13 +1,8 @@
 class Card < ActiveRecord::Base
-  @room_id
+  belongs_to :room
+  belongs_to :player
   @value
   @suit
-  @owned_by
-  # This field will be used in program memory to determine if the image
-  # of the back or front of the card will be shown to the player. It is
-  # not stored in the persistence layer because visibility of cards depends
-  # on which player you are (you can see your own hand but others can't etc).
-  @is_visible
   @image_url
 
   def self.suits
@@ -19,4 +14,11 @@ class Card < ActiveRecord::Base
   end
 
 
+  # Helper function that will is called by methods in CardController that are used for card transactions
+  def change_owner(new_owner_id)
+    self.player_id = new_owner_id
+    # Save the changes to the card to the database without validation
+    # Resource: https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-save
+    self.save!
+  end
 end

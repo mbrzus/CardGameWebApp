@@ -19,8 +19,7 @@ for this game.
       <div class="hand">
         <%# val = rand(1..10) %>
         <%# suit = ["Clubs", "Spades", "Hearts", "Diamonds"][rand(0..3)] %>
-        <%# Card.create!(:room_id => @room_id, :value => val, :suit =>  suit, :owned_by => player_name) %>
-        <% cards = Card.where(owned_by: player[:name], room_id: @room_id) %>
+        <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
         <% if player[:name] == 'dealer' %>
           <%= "Number of cards in Deck: #{@deck.size.to_s}" %>
           <div class="card">
@@ -45,3 +44,6 @@ for this game.
     </div>
   </div>
 <% end %>
+<br>
+<%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
+<%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
