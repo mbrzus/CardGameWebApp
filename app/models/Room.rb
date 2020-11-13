@@ -1,9 +1,9 @@
 class Room < ActiveRecord::Base
   before_save :create_room_token
+  after_save :initialize_room
   has_many :player
 
-  def self.create_room
-    initialize_room
+  def self.create_room!
     Room.create!
   end
 
@@ -12,10 +12,11 @@ class Room < ActiveRecord::Base
   end
 
   def initialize_room
-    Player.create!({ name: 'dealer', room: id} )
+    Player.create!({ name: 'dealer', room: self })
+    Player.create!({ name: 'sink', room: self })
     Card.suits.each do |curr_suit|
       Card.values.each do |curr_value|
-        curr_card = { room_id: id, value: curr_value, suit: curr_suit, owned_by: "dealer" }
+        curr_card = { room_id: id, value: curr_value, suit: curr_suit, owned_by: 'dealer' }
         Card.create!(curr_card)
       end
     end
