@@ -40,11 +40,17 @@ Then /^I should be directed to the create_player page$/ do
 end
 
 Given /^I am on Room (.*?)$/ do |room|
-  visit room_path(:id => room.to_i)
+  visit room_path(:id => room.to_s)
+  print page.body
 end
 
 Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|
   expect(current_path).to match(rooms_path)
+  expect(page).to have_content(notice)
+end
+
+Then /^I still should be on room (.*?) with the notice "(.*?)"$/ do |room, notice|
+  expect(current_path).to match(room_path(:id => room.to_i))
   expect(page).to have_content(notice)
 end
 
