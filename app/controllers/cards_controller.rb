@@ -82,7 +82,7 @@ class CardsController < ApplicationController
 
     flash[:notice] = "All decks deleted from room #{room_num_to_delete}."
     redirect_to cards_path
-    end
+  end
 
 
   # This method will be used strictly for drawing cards from the dealer and will have
@@ -122,8 +122,6 @@ class CardsController < ApplicationController
     #     recipients << temp
     #   end
     # }
-
-
 
     recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
     @quantity_to_draw = 2
@@ -208,27 +206,20 @@ class CardsController < ApplicationController
     giving_player = Player.find_by(room_id: 1, name: "Steve")
     receiving_player = Player.find_by(room_id: 1, name: "Ted")
 
-
     #TODO: Un-hard code these test values once the view passes you the card id's you need
     cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
     cards_to_give_array = cards_to_give.to_a
     cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
 
-    debugger
+    (0..cards_to_give_array.length - 1).each{ |i|
+      # Reassign the card from the giver to the recipient
+      cards_to_give_array[i].change_owner(receiving_player.id)
+    }
 
-    cards_to_give_array.each do |curr_card_to_give|
-      # Reassign the card from the giver to the recipient, being sure to remove it from cards_to_give[] array
-      debugger
-      curr_card_to_give.change_owner(receiving_player.id)
-      cards_to_give_array.delete(curr_card_to_give)
-    end
-
-    flash[:notice] = "Successfully gave cards to #{receiving_player.name.to_s}"
+    flash[:notice] = "Successfully gave #{cards_to_give_array.length} cards to #{receiving_player.name.to_s}"
 
     # Send the user back to their room view
     redirect_to room_path(:id => session[:room_to_join])
-
-
   end
 
 end

@@ -7,7 +7,6 @@ class Card < ActiveRecord::Base
   
   # Helper function that will is called by methods in CardController that are used for card transactions
   def change_owner(new_owner_id)
-    debugger
     self.player_id = new_owner_id
     # Save the changes to the card to the database without validation
     # Resource: https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-save
