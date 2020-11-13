@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   match '/login_create', to: 'sessions#create', via: :post
   match '/logout', to: 'sessions#destroy', via: :delete
   match '/signup', to: 'accounts#new', via: :get
-  match '/signup_create', to: 'accounts#new', via: :post
+  match '/signup_create', to: 'accounts#create', via: :post
 
   resources :cards
   # adds in the paths associated with rooms, which are the game sessions

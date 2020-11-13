@@ -33,12 +33,3 @@ cards.each do |curr_card|
   Card.create!(curr_card)
 end
 
-accounts = [
-  { name: 'fake account', username: 'fake1', email: 'fake1@email.com', password: 'password' },
-  { name: 'another fake account', username: 'fake2', email: 'fake2@email.com', password: 'password' }
-]
-
-accounts.each do |acc|
-  Account.create_account!(acc)
-end
-
