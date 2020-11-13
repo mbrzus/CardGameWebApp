@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     @current_user ||= session[:session_token] && Account.find_by_session_token(session[:session_token])
-    flash[:notice] = @current_user.nil? ? 'Please login before using our application' : "Welcome #{@current_user.name}!"
+    flash[:notice] = 'Please login before using our application' unless @current_user
     redirect_to '/login' and return unless @current_user
   end
 

@@ -6,13 +6,11 @@ class SessionsController < ApplicationController
 
   def create
     account = Account.find_by(username: session_params[:username]).try(:authenticate, session_params[:password])
-    if account
-      session[:session_token] = account.session_token
-      redirect_to rooms_path
-    else
-      flash[:notice] = 'Incorrect username or password'
-      redirect_to login_path
-    end
+    flash[:notice] = account ? "Welcome #{account.username}!" : 'Incorrect username or password'
+    redirect_to login_path and return unless account
+
+    session[:session_token] = account.session_token
+    redirect_to rooms_path
   end
 
   def destroy
