@@ -28,7 +28,7 @@ describe AccountsController do
     end
     it 'should redirect you to the login page if account is created successfully' do
       post :create, account: { name: 'test', username: 'test', email: 'test@gmail.com', password: 'valid123!!' }
-      expect(subject).to redirect_to controller: :sessions, action: :new
+      expect(subject).to redirect_to login_path
     end
     it 'should create a flash message if an account is created successfully' do
       post :create, account: { name: 'test', username: 'test', email: 'test@gmail.com', password: 'valid123!!' }
