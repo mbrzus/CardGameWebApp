@@ -20,8 +20,8 @@ end
 describe SessionsController do
   describe 'logging into the application' do
     before :each do
-      Account.create_account!(name: 'test', username: 'test', email: 'test@gmail.com', password: 'test123!!')
-      @account = Account.create_account!(name: 'valid', username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
+      Account.create_account!(username: 'test', email: 'test@gmail.com', password: 'test123!!')
+      @account = Account.create_account!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
     end
     it 'should redirect you to the login page if the password is incorrect' do
       post :create, { account: {username: 'valid', password: 'incorrect'} }
