@@ -27,7 +27,7 @@ describe RoomsController do
     end
     it 'should create a dealer player associated with this room in the database' do
       # there is no information for Rooms besides auto-generated id
-      post :create, {}
+      post :create, { :room_name => { "room_name" => "Test Name" } , :public => { "public" => 1 } }
       id = assigns(:room_id)
       room = Room.find(id)
       dealer = Player.where(name: 'dealer', room: room)
@@ -35,7 +35,7 @@ describe RoomsController do
     end
     it 'should create a sink player associated with this room in the database' do
       # there is no information for Rooms besides auto-generated id
-      post :create, {}
+      post :create, { :room_name => { "room_name" => "Test Name" } , :public => { "public" => 1 } }
       id = assigns(:room_id)
       room = Room.find(id)
       dealer = Player.where(name: 'sink', room: room)
