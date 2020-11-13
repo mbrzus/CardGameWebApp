@@ -39,6 +39,6 @@ accounts = [
 ]
 
 accounts.each do |acc|
-  Account.create!(acc)
+  Account.create_account!(acc)
 end
 
