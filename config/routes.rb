@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
 
+  # A user should first be directed to a welcome page that allows them to either login, signup or continue as a guest
+  root to: redirect('/login')
+  resources :accounts
+  match '/login', to: 'sessions#new', via: :get
+  match '/login_create', to: 'sessions#create', via: :post
+  match '/logout', to: 'sessions#destroy', via: :delete
+  match '/signup', to: 'accounts#new', via: :get
+  match '/signup_create', to: 'accounts#new', via: :get
   resources :cards
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
-  root :to => redirect('/rooms')
-
   post 'cards/create_new_deck'
   post 'cards/delete_decks_in_room'
   # root :to => redirect('/rooms')
