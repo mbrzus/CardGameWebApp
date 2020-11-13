@@ -4,6 +4,6 @@
 <br>
 <%= form_tag rooms_join_room_path, :method => :post %>
     <%= "Enter Room ID:" %>
-    <%= text_field :room_id, "room_id", :id => 'room_id_input' %>
+    <%= text_field :room, "room_token", :id => 'room_token_input' %>
     <%= submit_tag 'Join a room', :id => 'join_room_button', :class => 'btn btn-primary' %>
 

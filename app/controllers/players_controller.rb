@@ -7,14 +7,14 @@ class PlayersController < ApplicationController
 
   def create
     # get the id of the room the user is creating a player for
-    @room_id = session[:room_to_join].to_i
-    player_hash = { :name => player_params["name"],
-                    :room => Room.find(@room_id)
-    }
+    room = Room.find_by_room_token(session[:room_token])
+    @room_id = room.id
+    player_hash = { name: player_params['name'],
+                    room: room }
     # create the player and store their information
     session[@room_id] = Player.create_or_load(player_hash)
     # go the rooms view
-    redirect_to room_path(@room_id)
+    redirect_to room_path(id: session[:room_token])
   end
 
   def new
