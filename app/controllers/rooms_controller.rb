@@ -3,7 +3,8 @@ class RoomsController < ApplicationController
   def show
     # get the player_id stored in this sessions id
     @room_id = Room.find_by_room_token(session[:room_token]).id
-    @deck = Card.where(owned_by: 'dealer', room_id: @room_id)
+    dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
+    @deck = Card.where(player: dealer, room_id: @room_id)
     @player = session[@room_id]
     # if the player_id exists, join the game
     if !! @player
