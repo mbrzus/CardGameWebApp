@@ -40,7 +40,7 @@ Then /^I should be directed to the create_player page$/ do
 end
 
 Given /^I am on Room (.*?)$/ do |room|
-  visit "/rooms/" + "#{room.to_i}"
+  visit room_path(:id => room.to_i)
 end
 
 Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|
