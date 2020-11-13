@@ -24,10 +24,9 @@ class RoomsController < ApplicationController
   end
 
   def create
-    # room has no info so just create an empty object
-    new_room = Room.new
-    new_room.save!
-    @room_id = new_room.id
+    # pass in the room name and boolean describing if the room is public
+    # function creates a new room and returns the room id
+    @room_id = Room.create_new_room(params["room_name"]["room_name"], !!params["public"]["public"])
 
     Player.create!({:name => "dealer", :room => Room.find(@room_id)})
     Player.create!({:name => "sink", :room => Room.find(@room_id)})
