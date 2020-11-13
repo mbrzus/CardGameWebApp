@@ -205,22 +205,23 @@ class CardsController < ApplicationController
     #   end
     # }
 
-
-
     giving_player = Player.find_by(room_id: 1, name: "Steve")
     receiving_player = Player.find_by(room_id: 1, name: "Ted")
 
+
     #TODO: Un-hard code these test values once the view passes you the card id's you need
     cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
-    cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
     cards_to_give_array = cards_to_give.to_a
+    cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
 
+    debugger
 
-    (0..cards_to_give_array.length - 1).each { |curr_card_index|
+    cards_to_give_array.each do |curr_card_to_give|
       # Reassign the card from the giver to the recipient, being sure to remove it from cards_to_give[] array
-      cards_to_give_array[curr_card_index].change_owner(receiving_player.id)
-      cards_to_give_array.delete(cards_to_give_array[curr_card_index])
-    }
+      debugger
+      curr_card_to_give.change_owner(receiving_player.id)
+      cards_to_give_array.delete(curr_card_to_give)
+    end
 
     flash[:notice] = "Successfully gave cards to #{receiving_player.name.to_s}"
 
