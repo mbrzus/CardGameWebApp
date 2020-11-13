@@ -1,5 +1,6 @@
 class Room < ActiveRecord::Base
-  has_many :player
+  has_many :player, dependent: :destroy
+  has_many :card, dependent: :destroy
 
   # create a new room and return its id to the caller
   def self.create_new_room(room_name, public_boolean)
