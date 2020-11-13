@@ -1,20 +1,22 @@
+<!--
 <h3> This is the view for draw cards</h3>
 
 
 <!--We should modify the cards_path later in the link_to and the form_tag
 THIS RIGHT NOW IS AN ERROR -->
 
-<%= form_tag cards_draw_cards_from_dealer_path :class => 'form' do %>
-  <%= label :quantity, 'Input quantity', :class => 'col-form-label' %>
-  <%= text_field :quantity, 'quantity', :class => 'form-control' %>
+<%#= form_tag cards_draw_cards_from_dealer_path :class => 'form' do %>
+  <%#= label :quantity, 'Input quantity', :class => 'col-form-label' %>
+  <%#= text_field :quantity, 'quantity', :class => 'form-control' %>
 
 
-  <%= @recipients.each do |recipient| %>
-    <%= recipient.name %>
-    <% check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
-  <% end %>
+  <%#= @recipients.each do |recipient| %>
+    <%#= recipient.name %>
+    <%# check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+  <%# end %>
 
 
-  <%= link_to 'Add the number to the players', cards_path, :class => 'btn btn-secondary' %>
-<% end %>
+  <%#= link_to 'Add the number to the players', cards_path, :class => 'btn btn-secondary' %>
+<%# end %>
 
+-->

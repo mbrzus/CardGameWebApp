@@ -100,15 +100,32 @@ class CardsController < ApplicationController
   # |                |      Shriram        |
   # |                |      Jack           |
   # |________________|_____________________|
+  #
+  # Expected params:
+  # :room_id_of_transaction - the id of the room that the transaction is occurring in
+  # :recipient_names - an array of the name of players who are being dealt to
+  #
   def draw_cards_from_dealer
     @dealer = Player.find_by(name: "dealer1")
 
     # TODO: Un-hardcode this after Ram has the view that feels this method implemented
     # Read in the users input
-    #@recipient = Player.where(name: params[:recipient].to_s)
     #@quantity_to_draw = params[:quantity_to_draw]
 
-    @recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
+    # recipients = []
+    # (0..params[:recipient_names].length - 1).each{ |curr_recipient_index|
+    #   temp = Player.find_by(room_id: params[:room_id_of_transaction],
+    #                         name: params[:recipient_names][curr_recipient_index])
+    #
+    #   # If a Player with that id exists, add it to the array of cards being transacted
+    #   unless temp.nil?
+    #     recipients << temp
+    #   end
+    # }
+
+
+
+    recipients = [Player.find_by(name: "Steve"), Player.find_by(name: "Ted")]
     @quantity_to_draw = 2
 
     # Get the dealer's cards
@@ -120,24 +137,23 @@ class CardsController < ApplicationController
     dealers_cards_array.shuffle!
 
     # Ensure the dealer has enough cards to deal the requested quantity
-    if dealers_cards.length >= ( @quantity_to_draw * @recipients.length)
+    if dealers_cards.length >= ( @quantity_to_draw * recipients.length)
 
       (0..@quantity_to_draw - 1).each { |curr_dealer_card|
-        (0..@recipients.length - 1).each { |curr_recipient|
+        (0..recipients.length - 1).each { |curr_recipient|
           # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
-          debugger
-          dealers_cards_array[curr_dealer_card].change_owner(@recipients[curr_recipient].id)
+          dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
           dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
         }
       }
 
       recipient_names_string = ""
 
-      @recipients.each do |curr_recipient|
+      recipients.each do |curr_recipient|
         recipient_names_string.concat(curr_recipient.name, ", " )
       end
 
-      flash[:warning] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{recipient_names_string}"
+      flash[:notice] = "Successfully dealt #{@quantity_to_draw.to_s} cards to #{recipient_names_string}"
 
       # Send the user back to their room view
       redirect_to room_path(:id => session[:room_to_join])
@@ -167,35 +183,51 @@ class CardsController < ApplicationController
   # |                |      Jack           |
   # |________________|_____________________|
   #
+  # Expected params:
+  # :room_id - the id of the room that the transaction is occurring in
+  # :giving_players_name - the name of the player who is giving the cards
+  # :receiving_player_name - the name of the player who is receiving the cards
+  # :ids_of_cards_to_give - an array of ids for cards that the giving player has chosen to give
+  #
   def give_cards_transaction
-    # TODO: Implement this so it actually works -- starting hardcoded
-    # @player1 = Player.find_by_name(params[:player_1_name])
-    # @transaction_action = params[:transaction_action]
-    # @transaction_quantity = params[:transaction_quantity]
-    # @transaction_direction = params[:transaction_direction]
-    # @player2 = Player.find_by_name(params[:player_1_name])
+    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
+    # Read in the users input
+    # giving_player = Player.find_by(room_id: params[:room_id], name: params[:giving_players_name])
+    # receiving_player = Player.find_by(room_id: params[:room_id], name: params[:receiving_player_name])
+    # cards_to_give = []
+    # (0..params[:ids_of_cards_to_give].length - 1).each{ |curr_card_to_give_index|
+    #
+    #   temp = Card.find_by(id: params[:ids_of_cards_to_give][curr_card_to_give_index])
+    #
+    #   # If a card with that id exists, add it to the array of cards being transacted
+    #   unless temp.nil?
+    #     cards_to_give << temp
+    #   end
+    # }
 
-=begin
-    # Credit for Ruby exceptions: http://rubylearning.com/satishtalim/ruby_exceptions.html
-    begin
-      # This corresponds to the seeded player with id = 4, steve
-      @player1 = Player.find(4)
-      # This corresponds to the seeded player with id = 1, dealer
-      @player2 = Player.find(1)
 
 
-      @transaction_action = "draw"
-      @transaction_quantity = 5
-      @transaction_direction = "from"
+    giving_player = Player.find_by(room_id: 1, name: "Steve")
+    receiving_player = Player.find_by(room_id: 1, name: "Ted")
 
-      debugger
+    #TODO: Un-hard code these test values once the view passes you the card id's you need
+    cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
+    cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
+    cards_to_give_array = cards_to_give.to_a
 
-      # Handle the user input
 
-    rescue
-      flash[:warning] = "The transaction could not be completed"
-    end
-=end
+    (0..cards_to_give_array.length - 1).each { |curr_card_index|
+      # Reassign the card from the giver to the recipient, being sure to remove it from cards_to_give[] array
+      cards_to_give_array[curr_card_index].change_owner(receiving_player.id)
+      cards_to_give_array.delete(cards_to_give_array[curr_card_index])
+    }
+
+    flash[:notice] = "Successfully gave cards to #{receiving_player.name.to_s}"
+
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_to_join])
+
+
   end
 
 end
