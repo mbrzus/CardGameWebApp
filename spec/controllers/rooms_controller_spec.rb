@@ -69,7 +69,7 @@ describe RoomsController do
   describe 'Delete a room' do
     it 'should redirect the user home page' do
       # there is no information for Rooms besides auto-generated id
-      post :destroy, { :id => "1" }, { :room_to_join => "1" }
+      post :destroy, { :id => "AA001" }, { :room_to_join => "AA001" }
       expect(response).to redirect_to('/rooms')
     end
     it 'should delete room from database Room table' do
@@ -97,7 +97,7 @@ describe RoomsController do
   describe 'Reset a room' do
     it 'should redirect the user to the same page' do
       # there is no information for Rooms besides auto-generated id
-      post :reset, { :id => "1" }, { :room_to_join => "1" }
+      post :reset, { :id => "1" }, { :room_to_join => "1", :room_token => "XA123" }
       expect(response).to redirect_to('/rooms/1')
     end
     it "should give all the cards in the room to the room's dealer" do
