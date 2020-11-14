@@ -56,18 +56,20 @@ describe RoomsController do
       # there is no information for Rooms besides auto-generated id
       room = Room.find(1)
       token = room.room_token
-      post :show, { :id => token }, { :room_to_join => "1" }
+      post :show, { :id => token }, { :room_to_join => token }
       expect(response).to redirect_to('/players/new')
     end
     it 'should redirect the user to the room page (if the session exists)' do
       # there is no information for Rooms besides auto-generated id
-      post :show, { :id => "1" }, { :room_to_join => "1", "1" => Player.create(:name => "Daniel", :room => Room.find(1)) }
+      room = Room.find(1)
+      token = room.room_token
+      post :show, { :id => token }, { :room_to_join => "1", "1" => Player.create(:name => "Daniel", :room => Room.find(1)) }
       expect(response).to_not redirect_to('/players/new')
     end
     it '(the join_room action) should direct the user to the show action' do
       room = Room.find(1)
       token = room.room_token
-      post :join_room, { :room_id => { "room_id" => "1"} }, { }
+      post :join_room, { :room_id => { "room_id" => token} }, { }
       expect(response).to redirect_to("/rooms/#{token}")
     end
   end
