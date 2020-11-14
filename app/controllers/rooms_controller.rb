@@ -1,17 +1,15 @@
 class RoomsController < ApplicationController
 
   def show
-    # get the player_id stored in this sessions id
-    @room_id = Room.find_by_room_token(session[:room_token]).id
-    dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
-    @deck = Card.where(player: dealer, room_id: @room_id)
-    @player = session[@room_id]
-    # if the player_id exists, join the game
-    if !! @player
-      # get all the game info
+    # If the user doesn't have room_token in their session set, they need to create a player first
+    if session[:room_token].nil?
+      redirect_to new_player_path
     else
       # the player has not logged in or doesnt exist, redirect to where they can create
-      redirect_to new_player_path
+      @room_id = Room.find_by_room_token(session[:room_token]).id
+      dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
+      @deck = Card.where(player: dealer, room_id: @room_id)
+      @player = session[@room_id]
     end
   end
 
@@ -35,8 +33,14 @@ class RoomsController < ApplicationController
   # the main page links to here. This controller just gets the room_id
   # from the submitted form and redirects the user to that path
   def join_room
-    session[:room_token] = params.require(:room)["room_token"]
-    redirect_to room_path(id: session[:room_token])
+    room_token = params.require(:room)["room_token"]
+    if Room.find_by_room_token(room_token).nil?
+      flash[:notice] = "No room exists with code: #{room_token}!"
+      redirect_to rooms_path
+    else
+      session[:room_token] = room_token
+      redirect_to room_path(id: session[:room_token])
+    end
   end
 
   def edit
