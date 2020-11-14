@@ -73,6 +73,14 @@ describe RoomsController do
       post :join_room, room: { room_token: token }
       expect(response).to redirect_to("/rooms/#{token}")
     end
+    it 'should redirect the user to the index page' do
+      post :join_room, room: { room_token: 'dsafsadgljsadf' }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'should create a flash message to notify the user if the room does not exist' do
+      post :join_room, room: { room_token: 'dsafsadgljsadf' }
+      expect(flash[:notice]).to eq('No room exists with code: dsafsadgljsadf!')
+    end
   end
 
   describe 'Delete a room' do
