@@ -44,10 +44,11 @@ class RoomsController < ApplicationController
   end
 
   def update
-    @room_id = Room.find_by_room_token(session[:room_token]).id
-    @deck = Card.where(owned_by: 'dealer', room_id: @room_id)
+    room = Room.find_by_room_token(session[:room_token])
+    dealer = Player.where(room: room)
+    @deck = Card.where(player: dealer, room: room)
     card = @deck.pop
-    card.update_attributes!(owned_by: session[@room_id])
+    card.update_attributes!(owned_by: session[room.id])
   end
 
   def destroy
