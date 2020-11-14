@@ -21,7 +21,7 @@ for this game.
         <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
         <% cards.each do |card| %>
           <div class="card">
-            <% if player[:name] == player_name %>
+            <% if player[:name] == player_name or card.visible %>
               <div>
                 <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
               </div>
