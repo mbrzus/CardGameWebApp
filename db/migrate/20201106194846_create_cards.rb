@@ -6,6 +6,7 @@ class CreateCards < ActiveRecord::Migration
       t.string   "value"
       t.string   "suit"
       t.string "image_url"
+      t.boolean "visible"
       # Foreign Key relationship
       t.belongs_to "player"
       # Though we won't probably have a use for these fields, it doesn't hurt to keep them
