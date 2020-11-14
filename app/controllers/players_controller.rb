@@ -1,5 +1,7 @@
 class PlayersController < ApplicationController
 
+  before_filter :set_current_user
+
   def player_params
     # function to extract a player_name string from params object
     params.require(:player_name)

@@ -1,4 +1,7 @@
 class CardsController < ApplicationController
+
+  before_filter :set_current_user
+
   SUITS = %w[diamonds clubs spades hearts]
   VALUES = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
 
