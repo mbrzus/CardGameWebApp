@@ -45,7 +45,9 @@ describe RoomsController do
       # get the room_id returned by the room creation
       post :create, {}
       room_id = assigns(:room_id)
-      expect(response).to redirect_to(room_path(:id => room_id))
+      room = Room.find(room_id)
+      token = room.room_token
+      expect(response).to redirect_to(room_path(:id => token))
     end
   end
 

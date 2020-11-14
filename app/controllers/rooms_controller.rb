@@ -2,6 +2,7 @@ class RoomsController < ApplicationController
 
   def show
     # get the player_id stored in this sessions id
+    debugger
     @room_id = Room.find_by_room_token(session[:room_token]).id
     dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
     @deck = Card.where(player: dealer, room_id: @room_id)
