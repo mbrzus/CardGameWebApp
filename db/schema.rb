@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20201113044136) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "room_id"
-    t.integer  "player_id"
     t.string   "value"
     t.string   "suit"
+    t.string   "image_url"
+    t.integer  "player_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 20201113044136) do
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "public"
   end
 
 end
