@@ -51,23 +51,24 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room_id = params[:id]
-    @room = Room.find(@room_id)
+    room_token = params[:id]
+    @room = Room.find_by(room_token: room_token)
     @room.destroy
     flash[:notice] = "Game ended successfully. Thank you for playing!"
     redirect_to rooms_path
   end
 
   def reset
-    @room_id = params[:id]
-    @room_cards = Card.where(room_id: @room_id)
-    @dealer = Player.where(room_id: @room_id, name: "dealer")[0]
+    room_token = params[:id]
+    @room = Room.find_by(room_token: room_token)
+    @room_cards = Card.where(room: @room)
+    @dealer = Player.where(room: @room, name: "dealer")[0]
     @dealer_id = @dealer.id
     @room_cards.each do |card|
       card.change_owner(@dealer_id)
     end
     flash[:notice] = "Game reset successfully!"
-    redirect_to room_path(:id => @room_id)
+    redirect_to room_path(:id => room_token)
   end
 
 end
