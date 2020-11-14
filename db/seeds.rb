@@ -17,13 +17,7 @@ rooms.each do |room|
 end
 
 # Create a dealer for every room you create, starting with ids 1,2,3
-players = [{:id => 1, :name => "dealer", :room_id => 1},
-           {:id => 3, :name => "dealer", :room_id => 2},
-           {:id => 5, :name => "dealer", :room_id => 3},
-           {:id => 2, :name => "sink", :room_id => 1},
-           {:id => 4, :name => "sink", :room_id => 2},
-           {:id => 6, :name => "sink", :room_id => 3},
-           {:id => 7, :name => "Steve", :room_id => 1},
+players = [{:id => 7, :name => "Steve", :room_id => 1},
            {:id => 8, :name => "Ted", :room_id => 1}]
 
 players.each do |curr_player|
@@ -34,13 +28,13 @@ cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
             :image_url => 'AS.png'},
          {:room_id => 1, :value => '7', :suit => 'hearts', :player_id => 1,
             :image_url => '7H.png'},
-         {:room_id => 1, :value => '9', :suit => 'clubs', :player_id => 1,
+         {:room_id => 1, :value => '9', :suit => 'clubs', :player_id => 7,
             :image_url => '9C.png'},
-         {:room_id => 2, :value => 'Q', :suit => 'diamonds', :player_id => 1,
+         {:room_id => 2, :value => 'Q', :suit => 'diamonds', :player_id => 3,
             :image_url => 'QD.png'},
-         {:room_id => 2, :value => 'K', :suit => 'hearts', :player_id => 1,
+         {:room_id => 2, :value => 'K', :suit => 'hearts', :player_id => 3,
             :image_url => 'KH.png'},
-         {:room_id => 2, :value => '6', :suit => 'spades', :player_id => 1,
+         {:room_id => 2, :value => '6', :suit => 'spades', :player_id => 3,
             :image_url => '6S.png'}
           # add more cards to seed with a full deck of 52 if this works
         ]
