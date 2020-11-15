@@ -209,10 +209,10 @@ class CardsController < ApplicationController
     #   end
     # }
 
-    # TODO this player should be input on the view
+    # TODO I DONT KNOW HOW TO GET THIS PLAYER FORM THE VIEW. MAYBE WE SHOULD NEED A VARIABLE ON THE CONTROLLER
     giving_player = Player.find_by(room_id: 1, name: "Steve")
 
-    # This player should come from the view
+    # This player should come from the view from the select checkboxes
     receiving_player = Player.find_by(room_id: 1, name: "Ted")
 
     #TODO: Un-hard code these test values once the view passes you the card id's you need
