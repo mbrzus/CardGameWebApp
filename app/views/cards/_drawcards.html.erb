@@ -9,7 +9,7 @@
 
   <%= players.each do |player| %>
     <%= player.name %>
-    <% check_box_tag "players_selected[#{player.id}]", 1, nil, :id => "checkbox_#{player.id}" %>
+    <% check_box_tag "players_selected[#{player.id}]", 1, false, :id => "checkbox_#{player.id}" %>
   <% end %>
 
 

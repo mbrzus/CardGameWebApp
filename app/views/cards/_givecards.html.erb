@@ -1,8 +1,7 @@
-<!--
 <h3> This is the view for give cards</h3>
 
 
-<%#= form_tag cards_give_cards_transaction_path :class => 'form' do %>
+<%= form_tag cards_give_cards_transaction_path :class => 'form' do %>
   <thead>
   <tr>
     <th>Cards</th>
@@ -10,16 +9,16 @@
   </tr>
   </thead>
   <tbody>
-  <%#= @cards.each do |card| %>
+  <%= @cards.each do |card| %>
   <tr>
     <td>
-    <%#= card.value +" "+ card.suit %>
+    <%= card.value +" "+ card.suit %>
     </td>
     <td>
-    <%# check_box_tag "cards_selected[#{card.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+    <% check_box_tag "cards_selected[#{card.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
     </td>
   </tr>
-  <%# end %>
+  <% end %>
   </tbody>
 
   <thead>
@@ -29,19 +28,18 @@
   </tr>
   </thead>
   <tbody>
-  <%#= @recipients.each do |recipient| %>
+  <%= @recipients.each do |recipient| %>
     <tr>
       <td>
-        <%#= recipient.name %>
+        <%= recipient.name %>
       </td>
       <td>
-        <%# check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+        <% check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
       </td>
     </tr>
-  <%# end %>
+  <% end %>
   </tbody>
 
-  <%#= link_to 'Add cards to the players', cards_path, :class => 'btn btn-secondary' %>
-<%# end %>
+  <%= link_to 'Add cards to the players', cards_path, :class => 'btn btn-secondary' %>
+<% end %>
 
--->
