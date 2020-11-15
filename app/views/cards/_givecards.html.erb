@@ -1,5 +1,9 @@
 <h3> This is the view for give cards</h3>
 
+<%
+  cards_to_give = Card.where(room_id: give.room_id, player_id: give.id)%>
+<% cards_to_give_array = cards_to_give.to_a %>
+
 
 <%= form_tag cards_give_cards_transaction_path :class => 'form' do %>
   <thead>
@@ -9,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-  <%= @cards.each do |card| %>
+  <%= cards_to_give_array.each do |card| %>
   <tr>
     <td>
     <%= card.value +" "+ card.suit %>
