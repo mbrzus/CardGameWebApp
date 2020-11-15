@@ -124,7 +124,14 @@ class CardsController < ApplicationController
     # }
 
     recipients = [Player.find_by(room_id: 1, name: "Steve"), Player.find_by(room_id: 1, name: "Ted")]
+
+    # TODO THIS COMES FROM THE _drawcards view
     quantity_to_draw = 5
+
+    # TODO THIS COMES FROM THE _drawcards view
+    selected_players = params[:players_selected].keys
+
+
 
     # Get the dealer's cards
     dealers_cards = Card.where(room_id: 1, player_id: dealer.id)
