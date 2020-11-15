@@ -43,7 +43,10 @@ for this game.
   <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
 </div>
 
+<%giving_player = Player.where(room_id: 1, name: "Steve") %>
+<% receiving_player = Player.where(room_id: 1, name: "Ted") %>
+
 
 <%= render partial: "cards/drawcards", :locals =>  {players: players}%>
 
-<%#= render "cards/givecards" %>
+<%= render partial: "cards/givecards", :locals => {players: players, give: giving_player, receive: receiving_player}%>
