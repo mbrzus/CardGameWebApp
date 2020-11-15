@@ -4,6 +4,8 @@
   cards_to_give = Card.where(room_id: give.room_id, player_id: give.id)%>
 <% cards_to_give_array = cards_to_give.to_a %>
 
+<% players = Player.all %>
+
 
 <%= form_tag cards_give_cards_transaction_path :class => 'form' do %>
   <thead>
@@ -16,10 +18,10 @@
   <%= cards_to_give_array.each do |card| %>
   <tr>
     <td>
-    <%= card.value +" "+ card.suit %>
+      <% card.value.to_s + card.suit.to_s %>
     </td>
     <td>
-    <% check_box_tag "cards_selected[#{card.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+    <% check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
     </td>
   </tr>
   <% end %>
@@ -27,18 +29,18 @@
 
   <thead>
   <tr>
-    <th>Cards</th>
-    <th>Select cards</th>
+    <th>Receiving players</th>
+    <th>Select players</th>
   </tr>
   </thead>
   <tbody>
-  <%= @recipients.each do |recipient| %>
+  <%= players.each do |recipient| %>
     <tr>
       <td>
         <%= recipient.name %>
       </td>
       <td>
-        <% check_box_tag "recipients_selected[#{recipient.id}]", 1, nil, :id => "checkbox_#{recipient.id}" %>
+        <% check_box_tag "players_selected[#{recipient.id}]", 1, false, :id => "checkbox_#{recipient.id}" %>
       </td>
     </tr>
   <% end %>
