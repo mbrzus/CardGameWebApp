@@ -1,15 +1,17 @@
 class RoomsController < ApplicationController
 
   def show
-    # If the user doesn't have room_token in their session set, they need to create a player first
+    # If the user doesn't have room_token in their session set, they didn't click the button
     if session[:room_token].nil?
-      redirect_to new_player_path
+      flash[:notice] = 'Please join a room by entering a room code below'
+      redirect_to rooms_path
     else
       # the player has not logged in or doesnt exist, redirect to where they can create
       @room_id = Room.find_by_room_token(session[:room_token]).id
       dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
       @deck = Card.where(player: dealer, room_id: @room_id)
       @player = session[@room_id]
+      redirect_to new_player_path if session[@room_id].nil?
     end
   end
 
