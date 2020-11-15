@@ -7,26 +7,26 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # define a few rooms to be inserted into the database
-rooms =  [{:id => 1}, {:id => 2}, {:id => 3}]
-
-# add each room to the development database
-rooms.each do |room|
-  Room.create!(room)
-end
+# rooms =  [{:id => 1}, {:id => 2}, {:id => 3}]
+#
+# # add each room to the development database
+# rooms.each do |room|
+#   Room.create!(room)
+# end
 
 # Create a dealer for every room you create, starting with ids 1,2,3
-players = [{:id => 1, :name => "dealer", :room_id => 1},
-           {:id => 3, :name => "dealer", :room_id => 2},
-           {:id => 5, :name => "dealer", :room_id => 3},
-           {:id => 2, :name => "sink", :room_id => 1},
-           {:id => 4, :name => "sink", :room_id => 2},
-           {:id => 6, :name => "sink", :room_id => 3},
-           {:id => 7, :name => "Steve", :room_id => 1},
-           {:id => 8, :name => "Ted", :room_id => 1}]
-
-players.each do |curr_player|
-  Player.create!(curr_player)
-end
+# players = [{:id => 1, :name => "dealer", :room_id => 1},
+#            {:id => 3, :name => "dealer", :room_id => 2},
+#            {:id => 5, :name => "dealer", :room_id => 3},
+#            {:id => 2, :name => "sink", :room_id => 1},
+#            {:id => 4, :name => "sink", :room_id => 2},
+#            {:id => 6, :name => "sink", :room_id => 3},
+#            {:id => 7, :name => "Steve", :room_id => 1},
+#            {:id => 8, :name => "Ted", :room_id => 1}]
+#
+# players.each do |curr_player|
+#   Player.create!(curr_player)
+# end
 
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
             :image_url => 'AS.png'},
