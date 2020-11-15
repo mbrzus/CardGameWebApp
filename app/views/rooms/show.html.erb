@@ -44,6 +44,6 @@ for this game.
 </div>
 
 
-<%= render "cards/drawcards" %>
+<%= render partial: "cards/drawcards", :locals =>  {players: players}%>
 
-<%= render "cards/givecards" %>
+<%#= render "cards/givecards" %>
