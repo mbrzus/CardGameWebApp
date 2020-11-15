@@ -23,12 +23,14 @@ for this game.
         <% if player[:name] == 'dealer' %>
           <%= "Number of cards in Deck: #{@deck.size.to_s}" %>
           <div class="card">
-            <%= image_tag("red_back.png", size: "64x89") %>
+            <div>
+              <%= image_tag("red_back.png", size: "64x89") %>
+            </div>
           </div>
         <% else %>
           <% cards.each do |card| %>
             <div class="card">
-              <% if player[:name] == player_name %>
+              <% if player[:name] == player_name or card.visible %>
                 <div>
                   <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
                 </div>
