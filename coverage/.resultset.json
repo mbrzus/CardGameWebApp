@@ -7,16 +7,17 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/rooms_controller.rb": {
-=======
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/sessions_controller.rb": {
->>>>>>> main
         "lines": [
           1,
           null,
           1,
-<<<<<<< HEAD
+          null,
+          1,
+          4,
+          null,
+          null,
+          1,
           null,
           2,
           0,
@@ -29,25 +30,63 @@
           2,
           2,
           null,
-=======
-          10,
           null,
           null,
           1,
-          5,
-          5,
-          5,
           null,
-          2,
-          2,
->>>>>>> main
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          4,
+          3,
+          3,
+          3,
+          null,
+          null,
           null,
           null,
           1,
           3,
           3,
-          3,
+          2,
+          2,
           null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          4,
+          4,
+          4,
+          4,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          111,
+          null,
+          2,
+          2,
           null,
           null,
           null
@@ -60,32 +99,12 @@
           null,
           1,
           null,
-<<<<<<< HEAD
-          4,
-          4,
-          4,
-          4,
-          4,
-          null,
-          null,
           null,
           null,
           1,
-          3,
-          3,
-          2,
-          2,
-          null,
-          1,
-          1,
-          null,
-=======
-          null,
-          1,
-          0,
-          0,
-          0,
->>>>>>> main
+          15,
+          15,
+          15,
           null,
           null,
           null
@@ -102,80 +121,29 @@
           1,
           null,
           1,
-          10,
-          10,
+          0,
+          0,
           null,
           null,
           1,
-<<<<<<< HEAD
-          0,
-          0,
-          0,
-          0,
-          0,
-=======
-          10,
->>>>>>> main
+          15,
           null,
           null,
           1,
-          10,
+          15,
           null,
           null,
           1,
-<<<<<<< HEAD
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          111,
-=======
-          0,
-          0,
-          0,
-          0,
-          0,
->>>>>>> main
-          null,
-          null,
-          null,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-<<<<<<< HEAD
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/application_controller.rb": {
-=======
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/room.rb": {
->>>>>>> main
-        "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/card.rb": {
-        "lines": [
-          0,
           0,
           0,
           0,
           0,
           0,
           null,
-          0,
-          0,
           null,
           null,
-<<<<<<< HEAD
-          1,
+          0,
+          null,
           null,
           null
         ]
@@ -188,22 +156,22 @@
           1,
           1,
           null,
-          1,
-          4,
-          null,
           null,
           1,
-          4,
+          3,
           null,
           null,
           1,
-          4,
-          4,
+          3,
           null,
-          4,
-          16,
-          208,
-          208,
+          null,
+          1,
+          3,
+          3,
+          3,
+          12,
+          156,
+          156,
           null,
           null,
           null,
@@ -212,48 +180,12 @@
         ]
       },
       "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/player.rb": {
-=======
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/player.rb": {
         "lines": [
-          0,
-          0,
+          1,
+          1,
           null,
           null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/rooms_controller.rb": {
->>>>>>> main
-        "lines": [
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
+          1,
           null,
           0,
           null,
@@ -261,14 +193,9 @@
           0,
           null,
           0,
-          0,
-          0,
           null,
-          0,
           null,
-          0,
           null,
-<<<<<<< HEAD
           null
         ]
       },
@@ -278,63 +205,41 @@
           1,
           1,
           null,
-=======
-          0,
->>>>>>> main
           null,
-          0,
           null,
-          0,
-          null,
-<<<<<<< HEAD
-          1,
-          4,
           null,
           null,
           1,
-          16,
+          3,
           null,
+          null,
+          1,
+          12,
           null,
           null,
           null,
           1,
           111,
-=======
-          0,
-          0,
-          0,
           null,
-          0,
-          0,
->>>>>>> main
           null,
-          0,
-          0,
-          0,
-          null,
-<<<<<<< HEAD
           111,
-=======
->>>>>>> main
           null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
+          null
+        ]
+      },
+      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/sessions_controller.rb": {
+        "lines": [
           0,
           null,
           0,
-          null,
           0,
-          null,
           0,
           null,
           0,
           0,
           0,
           0,
+          null,
           0,
           0,
           0,
@@ -344,14 +249,9 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           null,
-          0
+          0,
+          null
         ],
         "branches": {
         }
@@ -454,11 +354,7 @@
         "branches": {
         }
       },
-<<<<<<< HEAD
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/players_controller.rb": {
-=======
       "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/accounts_controller.rb": {
->>>>>>> main
         "lines": [
           0,
           null,
@@ -526,10 +422,6 @@
         }
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1605399386
-=======
-    "timestamp": 1605298757
->>>>>>> main
+    "timestamp": 1605414571
   }
 }
