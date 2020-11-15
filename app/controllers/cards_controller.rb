@@ -209,13 +209,20 @@ class CardsController < ApplicationController
     #   end
     # }
 
+    # TODO this player should be input on the view
     giving_player = Player.find_by(room_id: 1, name: "Steve")
+
+    # This player should come from the view
     receiving_player = Player.find_by(room_id: 1, name: "Ted")
 
     #TODO: Un-hard code these test values once the view passes you the card id's you need
     cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
     cards_to_give_array = cards_to_give.to_a
     cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
+
+
+    # TODO: CARDS SELECTED FROM THE VIEW
+    cards_to_give = params[:cards_selected].keys
 
     (0..cards_to_give_array.length - 1).each{ |i|
       # Reassign the card from the giver to the recipient
