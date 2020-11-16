@@ -6,46 +6,46 @@
 <%# players = Player.where(room_id: give.room_id) %>
 
 
-<%= form_tag cards_give_cards_transaction_path :class => 'form' do %>
-  <table><thead>
-  <tr>
-    <th>Cards</th>
-    <th>Select cards</th>
-  </tr>
-  </thead>
-    <tbody>
-    <%= cards_to_give_array.each do |card| %>
-      <tr>
-        <td>
-          <% card.value.to_s + card.suit.to_s %>
-        </td>
-            <td>
-        <% check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
-            </td>
-      </tr>
-    <% end %>
-    </tbody></table>
+<%#= form_tag cards_give_cards_transaction_path :class => 'form' do %>
+<!--  <table><thead>-->
+<!--  <tr>-->
+<!--    <th>Cards</th>-->
+<!--    <th>Select cards</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--    <tbody>-->
+    <%#= cards_to_give_array.each do |card| %>
+<!--      <tr>-->
+<!--        <td>-->
+          <%# card.value.to_s + card.suit.to_s %>
+<!--        </td>-->
+<!--            <td>-->
+        <%# check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
+<!--            </td>-->
+<!--      </tr>-->
+    <%# end %>
+<!--    </tbody></table>-->
 
-  <table><thead>
-  <tr>
-    <th>Receiving players</th>
-    <th>Select players</th>
-  </tr>
-  </thead>
-    <tbody>
-    <%= players.each do |recipient| %>
-      <tr>
-        <td>
-          <%= recipient.name %>
-        </td>
-        <td>
-        <% check_box_tag "players_selected[#{recipient.id}]", 1, false, :id => "checkbox_#{recipient.id}" %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody></table>
+<!--  <table><thead>-->
+<!--  <tr>-->
+<!--    <th>Receiving players</th>-->
+<!--    <th>Select players</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--    <tbody>-->
+    <%#= players.each do |recipient| %>
+<!--      <tr>-->
+<!--        <td>-->
+          <%#= recipient.name %>
+<!--        </td>-->
+<!--        <td>-->
+        <%# check_box_tag "players_selected[#{recipient.id}]", 1, false, :id => "checkbox_#{recipient.id}" %>
+<!--        </td>-->
+<!--      </tr>-->
+    <%# end %>
+<!--    </tbody></table>-->
 
 
-  <%= button_to 'Add cards to the players', :class => 'btn btn-secondary' %>
-<% end %>
+  <%#= button_to 'Add cards to the players', :class => 'btn btn-secondary' %>
+<%# end %>
 

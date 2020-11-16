@@ -47,6 +47,13 @@ for this game.
 <%# receiving_player = Player.where(room_id: 1, name: "Ted").first %>
 
 
-<%= render :template => "cards/draw_cards"%>
+<%= form_tag cards_draw_cards_path :class => 'form' do %>
 
-<%= render :template => "cards/give_cards"%>
+  <% button_to 'Draw cards', :class => 'btn btn-secondary' %>
+<% end %>
+
+
+<%= form_tag cards_give_cards_path :class => 'form' do %>
+
+  <% button_to 'Give cards', :class => 'btn btn-secondary' %>
+<% end %>
