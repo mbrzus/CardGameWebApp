@@ -47,13 +47,14 @@ for this game.
 <%# receiving_player = Player.where(room_id: 1, name: "Ted").first %>
 
 
-<%= form_tag cards_draw_cards_path :class => 'form' do %>
+<%= form_tag cards_draw_cards_path :room_id => @room_id do %>
 
   <% button_to 'Draw cards', :class => 'btn btn-secondary' %>
 <% end %>
 
 
 <%= form_tag cards_give_cards_path :class => 'form' do %>
-
+  <% label :giver, "Giving player" %>
+  <% text_field :giver, "Giving player" %>
   <% button_to 'Give cards', :class => 'btn btn-secondary' %>
 <% end %>
