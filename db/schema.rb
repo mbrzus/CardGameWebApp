@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20201116051250) do
     t.string   "value"
     t.string   "suit"
     t.string   "image_url"
+    t.boolean  "visible"
     t.integer  "player_id"
     t.datetime "created_at"
     t.datetime "updated_at"
