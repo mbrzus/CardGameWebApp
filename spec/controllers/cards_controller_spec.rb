@@ -2,6 +2,9 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe CardsController do
+  before :each do
+    session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
+  end
   describe 'CRUD Operations' do
     it 'should call be able to search for cards' do
       cards_controller_double = class_double("cards_controller")

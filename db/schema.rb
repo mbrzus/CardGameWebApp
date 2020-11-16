@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20201113044136) do
     t.datetime "updated_at"
   end
 
-ActiveRecord::Schema.define(version: 20201112053848) do
-
   create_table "cards", force: :cascade do |t|
     t.integer  "room_id"
     t.string   "value"
