@@ -235,7 +235,21 @@ class CardsController < ApplicationController
     redirect_to room_path(:id => session[:room_to_join])
   end
 
+  def draw_cards
+
+  end
+
+  def give_cards
+    cards_to_give = Card.where(room_id: give.room_id, player_id: give.id)
+    @cards_to_give_array = cards_to_give.to_a
+
+    @players = Player.where(room_id: give.room_id)
+  end
 end
+
+
+
+
 
 
 
