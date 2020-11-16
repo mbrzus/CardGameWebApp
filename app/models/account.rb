@@ -1,7 +1,7 @@
 class Account < ActiveRecord::Base
   has_secure_password
   before_save :create_session_token
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 15 }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 50 }
   validates :password, presence: true, length: { minimum: 6 }
   validate :email_is_a_valid_address
@@ -9,6 +9,18 @@ class Account < ActiveRecord::Base
   def self.create_account!(param_hash)
     param_hash[:email].downcase!
     Account.create!(param_hash)
+  end
+
+  def self.create_from_omniauth!(auth)
+    create! do |account|
+      account.provider = auth['provider']
+      account.uid = auth['uid']
+      account.oauth_username = auth['info']['nickname'] if account.provider == 'twitter'
+      account.oauth_username = auth["info"]["email"] if account.provider == 'google_oauth2'
+      account.username = account.oauth_username << '@' << account.provider
+      account.email = 'oauthuser@email.com'
+      account.password = 'AuthPassword!1'
+    end
   end
 
   def create_session_token
