@@ -13,6 +13,14 @@ class SessionsController < ApplicationController
     redirect_to rooms_path
   end
 
+  def create_omniauth
+    auth = request.env['omniauth.auth']
+    account = Account.find_by_provider_and_uid(auth['provider'], auth['uid']) || Account.create_from_omniauth!(auth)
+    session[:session_token] = account.session_token
+    flash[:notice] = "Welcome #{account.username}"
+    redirect_to rooms_path
+  end
+
   def destroy
     session[:session_token] = nil
     flash[:notice] = 'Successfully logged out.'
