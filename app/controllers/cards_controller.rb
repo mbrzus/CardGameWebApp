@@ -236,7 +236,7 @@ class CardsController < ApplicationController
   end
 
   def draw_cards
-
+    players = Player.where(room_id: @room_id)
   end
 
   def give_cards
