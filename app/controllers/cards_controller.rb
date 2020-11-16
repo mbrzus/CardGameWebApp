@@ -193,13 +193,17 @@ class CardsController < ApplicationController
       receiving_player = Player.where(room_id: session["room_to_join"].to_i,
                                       id: receiving_player_id[0].to_i).first
     else
-      flash[:warning] = "ERROR: You may only give cards to one player at a time"
-      # Send the user back to their room view
+      flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
+      invalid_input = true
+    end
+
+    # Read in the ids of the selected cards from the view. Ensure they selected at least 1 card
+    if params[:cards_selected].eql?(nil)
+      flash[:warning] = "Transaction Failed. You selected 0 cards to transfer."
       invalid_input = true
     end
 
     if invalid_input == false
-      # Read in the ids of the selected cards from the view
       cards_to_give_ids = params[:cards_selected].keys
       cards_to_give = []
 
