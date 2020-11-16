@@ -28,6 +28,7 @@ players.each do |curr_player|
   Player.create!(curr_player)
 end
 
+=begin
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
             :image_url => 'AS.png', :visible => false},
          {:room_id => 1, :value => '7', :suit => 'hearts', :player_id => 1,
@@ -50,4 +51,5 @@ cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
 cards.each do |curr_card|
   Card.create!(curr_card)
 end
+=end
 

@@ -104,33 +104,23 @@ class CardsController < ApplicationController
   # |                |      Jack           |
   # |________________|_____________________|
   #
-  # Expected params:
-  # :room_id_of_transaction - the id of the room that the transaction is occurring in
-  # :recipient_names - an array of the name of players who are being dealt to
-  #
   def draw_cards_from_dealer
-    dealer = Player.find_by(room_id: 1, name: "dealer")
+    dealer = Player.find_by(room_id: session["room_to_join"].to_i, name: "dealer")
 
-    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
-    # Read in the users input
-    #@quantity_to_draw = params[:quantity_to_draw]
+    # Read input quantity from view
+    quantity_to_draw = params[:quantity][:quantity].to_i
 
-    # recipients = []
-    # (0..params[:recipient_names].length - 1).each{ |curr_recipient_index|
-    #   temp = Player.find_by(room_id: params[:room_id_of_transaction],
-    #                         name: params[:recipient_names][curr_recipient_index])
-    #
-    #   # If a Player with that id exists, add it to the array of cards being transacted
-    #   unless temp.nil?
-    #     recipients << temp
-    #   end
-    # }
+    # Read input player IDs array from view
+    selected_players_ids = params[:players_selected].keys
+    recipients = []
 
-    recipients = [Player.find_by(room_id: 1, name: "Steve"), Player.find_by(room_id: 1, name: "Ted")]
-    quantity_to_draw = 5
+    # Fetch the Player models corresponding to the passed in IDs
+    selected_players_ids.each do |curr_id|
+      recipients << Player.where(room_id: session["room_to_join"].to_i, id: curr_id).first
+    end
 
     # Get the dealer's cards
-    dealers_cards = Card.where(room_id: 1, player_id: dealer.id)
+    dealers_cards = Card.where(room_id: session["room_to_join"].to_i, player_id: dealer.id)
 
     # Shuffle them before you distribute them to other players
     # Resource used: https://apidock.com/ruby/Array/shuffle%21
@@ -190,41 +180,72 @@ class CardsController < ApplicationController
   # :ids_of_cards_to_give - an array of ids for cards that the giving player has chosen to give
   #
   def give_cards_transaction
-    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
-    # Read in the users input
-    # giving_player = Player.find_by(room_id: params[:room_id], name: params[:giving_players_name])
-    # receiving_player = Player.find_by(room_id: params[:room_id], name: params[:receiving_player_name])
-    # cards_to_give = []
-    # (0..params[:ids_of_cards_to_give].length - 1).each{ |curr_card_to_give_index|
-    #
-    #   temp = Card.find_by(id: params[:ids_of_cards_to_give][curr_card_to_give_index])
-    #
-    #   # If a card with that id exists, add it to the array of cards being transacted
-    #   unless temp.nil?
-    #     cards_to_give << temp
-    #   end
-    # }
+    invalid_input = false
 
-    giving_player = Player.find_by(room_id: 1, name: "Steve")
-    receiving_player = Player.find_by(room_id: 1, name: "Ted")
+    # Get the giving player from information stored in the session
+    giving_player = Player.where(room_id: session["room_to_join"].to_i,
+                                 name: session[session["room_to_join"].to_i]["name"]).first
 
-    #TODO: Un-hard code these test values once the view passes you the card id's you need
-    cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
-    cards_to_give_array = cards_to_give.to_a
-    cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
+    # Get the receiving player from information passed into the view
+    receiving_player_id = params[:players_selected].keys
+    receiving_player = nil
 
-    (0..cards_to_give_array.length - 1).each{ |i|
-      # Reassign the card from the giver to the recipient
-      cards_to_give_array[i].change_owner(receiving_player.id)
-    }
+    # Ensure the user only selected a SINGLE recipient
+    debugger
+    if receiving_player_id.length == 1
+      receiving_player = Player.where(room_id: session["room_to_join"].to_i,
+                                      id: receiving_player_id[0].to_i).first
+    else
+      flash[:warning] = "ERROR: You may only give cards to one player at a time"
+      # Send the user back to their room view
+      invalid_input = true
+    end
 
-    flash[:notice] = "Successfully gave #{cards_to_give_array.length} cards to #{receiving_player.name.to_s}"
+    if invalid_input == false
+      # Read in the ids of the selected cards from the view
+      cards_to_give_ids = params[:cards_selected].keys
+      cards_to_give = []
+
+      # Get the Card models associated with the passed in IDs
+      cards_to_give_ids.each do |curr_card_id|
+        cards_to_give << Card.where(room_id: giving_player.room_id, player_id: giving_player.id,
+                                    id: curr_card_id.to_i).first
+      end
+
+      (0..cards_to_give.length - 1).each{ |i|
+        # Reassign the card from the giver to the recipient
+        cards_to_give[i].change_owner(receiving_player.id)
+      }
+
+      # Output success message to user
+      if cards_to_give.length == 1
+        flash[:notice] = "Successfully gave #{cards_to_give.length} card to #{receiving_player.name.to_s}"
+      else
+        flash[:notice] = "Successfully gave #{cards_to_give.length} cards to #{receiving_player.name.to_s}"
+      end
+    end
 
     # Send the user back to their room view
     redirect_to room_path(:id => session[:room_to_join])
   end
 
+  def draw_cards
+    @players = Player.where(room_id: params[:room_id])
+  end
+
+  def give_cards
+    room_id = params[:room_id].to_i
+    giving_player = session[room_id.to_s]
+    cards_to_give = Card.where(room_id: giving_player["room_id"], player_id: giving_player["id"])
+    @cards_to_give_array = cards_to_give.to_a
+
+    @players = Player.where(room_id: room_id)
+  end
 end
+
+
+
+
 
 
 
