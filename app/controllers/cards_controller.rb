@@ -102,54 +102,70 @@ class CardsController < ApplicationController
   # |________________|_____________________|
   #
   def draw_cards_from_dealer
+    invalid_input = false
+
     dealer = Player.find_by(room_id: session["room_to_join"].to_i, name: "dealer")
 
     # Read input quantity from view
     quantity_to_draw = params[:quantity][:quantity].to_i
 
-    # Read input player IDs array from view
-    selected_players_ids = params[:players_selected].keys
-    recipients = []
-
-    # Fetch the Player models corresponding to the passed in IDs
-    selected_players_ids.each do |curr_id|
-      recipients << Player.where(room_id: session["room_to_join"].to_i, id: curr_id).first
+    # Check for invalid input
+    if quantity_to_draw.is_a?(Integer) == false || quantity_to_draw <= 0
+      flash[:warning] = "ERROR: Invalid input. Must input a positive, numeric value to deal."
+      invalid_input = true
     end
 
-    # Get the dealer's cards
-    dealers_cards = Card.where(room_id: session["room_to_join"].to_i, player_id: dealer.id)
 
-    # Shuffle them before you distribute them to other players
-    # Resource used: https://apidock.com/ruby/Array/shuffle%21
-    dealers_cards_array = dealers_cards.to_a
-    dealers_cards_array.shuffle!
+    if params[:players_selected].eql?(nil)
+      flash[:warning] = "ERROR: Invalid input. Must choose atleast 1 player to deal to."
+      invalid_input = true
+    end
 
-    # Ensure the dealer has enough cards to deal the requested quantity
-    if dealers_cards.length >= ( quantity_to_draw * recipients.length)
+    if invalid_input == false
 
-      (0..quantity_to_draw - 1).each { |curr_dealer_card|
-        (0..recipients.length - 1).each { |curr_recipient|
-          # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
-          dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
-          dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
-        }
-      }
+      # Read input player IDs array from view
+      selected_players_ids = params[:players_selected].keys
+      recipients = []
 
-      recipient_names_string = ""
-
-      recipients.each do |curr_recipient|
-        recipient_names_string.concat(curr_recipient.name, ", " )
+      # Fetch the Player models corresponding to the passed in IDs
+      selected_players_ids.each do |curr_id|
+        recipients << Player.where(room_id: session["room_to_join"].to_i, id: curr_id).first
       end
 
-      flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
+      # Get the dealer's cards
+      dealers_cards = Card.where(room_id: session["room_to_join"].to_i, player_id: dealer.id)
 
-      # Send the user back to their room view
-      redirect_to room_path(:id => session[:room_to_join])
+      # Shuffle them before you distribute them to other players
+      # Resource used: https://apidock.com/ruby/Array/shuffle%21
+      dealers_cards_array = dealers_cards.to_a
+      dealers_cards_array.shuffle!
 
-    else
-      flash[:warning] = "Dealer can not deal the requested number of cards"
-      redirect_to room_path(:id => session[:room_to_join])
+      # Ensure the dealer has enough cards to deal the requested quantity
+      if dealers_cards.length >= ( quantity_to_draw * recipients.length)
+
+        (0..quantity_to_draw - 1).each { |curr_dealer_card|
+          (0..recipients.length - 1).each { |curr_recipient|
+            # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
+            dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
+            dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
+          }
+        }
+
+        recipient_names_string = ""
+
+        recipients.each do |curr_recipient|
+          recipient_names_string.concat(curr_recipient.name, ", " )
+        end
+
+        flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
+
+      else
+        flash[:warning] = "Dealer can not deal the requested number of cards"
+      end
+
     end
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_to_join])
 
   end
 
@@ -179,24 +195,11 @@ class CardsController < ApplicationController
   def give_cards_transaction
     invalid_input = false
 
-    # Get the giving player from information stored in the session
-    giving_player = Player.where(room_id: session["room_to_join"].to_i,
-                                 name: session[session["room_to_join"].to_i]["name"]).first
-
-    # Get the receiving player from information passed into the view
-    receiving_player_id = params[:players_selected].keys
-    receiving_player = nil
-
-    # Ensure the user only selected a SINGLE recipient
-    debugger
-    if receiving_player_id.length == 1
-      receiving_player = Player.where(room_id: session["room_to_join"].to_i,
-                                      id: receiving_player_id[0].to_i).first
-    else
-      flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
+    # Read in the recipient and ensure input is as expected
+    if params[:players_selected].eql?(nil)
+      flash[:warning] = "Transaction Failed. You must select a recipient."
       invalid_input = true
     end
-
     # Read in the ids of the selected cards from the view. Ensure they selected at least 1 card
     if params[:cards_selected].eql?(nil)
       flash[:warning] = "Transaction Failed. You selected 0 cards to transfer."
@@ -204,6 +207,24 @@ class CardsController < ApplicationController
     end
 
     if invalid_input == false
+
+      # Get the giving player from information stored in the session
+      giving_player = Player.where(room_id: session["room_to_join"].to_i,
+                                   name: session[session["room_to_join"].to_i]["name"]).first
+
+      # Get the receiving player from information passed into the view
+      receiving_player_id = params[:players_selected].keys
+      receiving_player = nil
+
+      # Ensure the user only selected a SINGLE recipient
+      if receiving_player_id.length == 1
+        receiving_player = Player.where(room_id: session["room_to_join"].to_i,
+                                        id: receiving_player_id[0].to_i).first
+      else
+        flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
+        invalid_input = true
+      end
+
       cards_to_give_ids = params[:cards_selected].keys
       cards_to_give = []
 
@@ -224,6 +245,7 @@ class CardsController < ApplicationController
       else
         flash[:notice] = "Successfully gave #{cards_to_give.length} cards to #{receiving_player.name.to_s}"
       end
+
     end
 
     # Send the user back to their room view
