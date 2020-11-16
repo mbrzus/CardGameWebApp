@@ -23,7 +23,9 @@ class Room < ActiveRecord::Base
       player_names_list = []
       # get all the players in the room and add their name to the list
       Player.where(:room => room).each do |player|
-        player_names_list << player.name
+        if player.name != "dealer" and player.name != "sink"
+          player_names_list << player.name
+        end
       end
       # now that we have all the information, create the hash and add it in
       public_rooms_information << { :room_name => room.name, :room_id => room.id, :player_names_list => player_names_list }
