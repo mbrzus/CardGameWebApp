@@ -6,11 +6,11 @@ ruby '2.6.6'
 # gem 'therubyracer', platforms: :ruby
 # Use Haml as the templating library
 gem 'haml'
+gem 'json', '=1.8.6'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # Use the omniauth gem and twitter gem
 gem "omniauth"
 gem 'omniauth-twitter'
-gem 'json', '=1.8.6'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'

@@ -7,6 +7,7 @@
   <%= password_field :account, 'password', class: 'form-control', id: 'login_password' %>
   <br>
   <%= submit_tag 'Login', class: 'btn btn-primary', id: 'login_submit' %>
+  <%= link_to 'Login with Twitter', '/auth/twitter' %>
   <%= "Don't have an account?" %>
   <%= link_to 'Signup.', new_account_path, id: 'signup' %>
 <% end %>
