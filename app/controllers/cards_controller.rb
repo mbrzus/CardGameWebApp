@@ -56,35 +56,32 @@ class CardsController < ApplicationController
   # We can change this after the first iteration
   def create_new_deck
 
+    dealer = Player.where(room_id: session[:room_to_join], name: "dealer").first
+
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
         # convention that was used for the images
-
-        #TODO: Remove the hardcoding of dealer = player_id 1 and new cards are all created in room 1
-
-        curr_card = {:room_id => 1, :value => curr_value, :suit => curr_suit,
-                     :player_id => "1", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+        curr_card = {:room_id => session[:room_to_join], :value => curr_value, :suit => curr_suit,
+                     :player_id => dealer.id, :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck created in room 1"
+    flash[:notice] = "New card deck created in room #{session[:room_to_join].to_s}"
 
-    redirect_to cards_path
+    redirect_to room_path(:id => session[:room_to_join])
 
   end
 
   # This method can be used to delete any card that has a certain deck number
   def delete_decks_in_room
-    # Hard coding this now but once someone creates the views they can integrate with this function
-    room_num_to_delete = 1
 
     # Resource used to craft this query
     # https://blog.bigbinary.com/2019/03/13/rails-6-adds-activerecord-relation-delete_by-and-activerecord-relation-destroy_by.html
-    Card.where(room_id: room_num_to_delete.to_s).destroy_all
+    Card.where(room_id: session[:room_to_join]).destroy_all
 
-    flash[:notice] = "All decks deleted from room #{room_num_to_delete}."
-    redirect_to cards_path
+    flash[:notice] = "All cards deleted from room #{session[:room_to_join].to_s}."
+    redirect_to room_path(:id => session[:room_to_join])
   end
 
 
