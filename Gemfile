@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #gem "tzinfo-data"
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -38,7 +38,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
    # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console' 
+  gem 'web-console'
 end
 
 group :development, :test do
@@ -65,7 +65,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '~> 0.21' # for Heroku deployment
+  gem 'pg', '~> 0.21.0' # for Heroku deployment
   gem 'rails_12factor'
 end
 

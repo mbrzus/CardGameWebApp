@@ -1,0 +1,12 @@
+<h2>Login</h2>
+
+<%= form_tag login_create_path, :class => 'form' do %>
+  <%= label :account, :username, 'username', class: 'col-form-control' %>
+  <%= text_field :account, 'username', class: 'form-control', id: 'login_username' %>
+  <%= label :account, :password, 'password', class: 'col-form-control' %>
+  <%= password_field :account, 'password', class: 'form-control', id: 'login_password' %>
+  <br>
+  <%= submit_tag 'Login', class: 'btn btn-primary', id: 'login_submit' %>
+  <%= "Don't have an account?" %>
+  <%= link_to 'Signup.', new_account_path, id: 'signup' %>
+<% end %>

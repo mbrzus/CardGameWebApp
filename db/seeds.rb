@@ -31,17 +31,21 @@ players.each do |curr_player|
 end
 
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
-            :image_url => 'AS.png'},
+            :image_url => 'AS.png', :visible => false},
          {:room_id => 1, :value => '7', :suit => 'hearts', :player_id => 1,
-            :image_url => '7H.png'},
+            :image_url => '7H.png', :visible => false},
          {:room_id => 1, :value => '9', :suit => 'clubs', :player_id => 1,
             :image_url => '9C.png'},
-         {:room_id => 2, :value => 'Q', :suit => 'diamonds', :player_id => 1,
+         {:room_id => 1, :value => 'Q', :suit => 'diamonds', :player_id => 1,
             :image_url => 'QD.png'},
-         {:room_id => 2, :value => 'K', :suit => 'hearts', :player_id => 1,
+         {:room_id => 1, :value => 'K', :suit => 'hearts', :player_id => 1,
             :image_url => 'KH.png'},
-         {:room_id => 2, :value => '6', :suit => 'spades', :player_id => 1,
-            :image_url => '6S.png'}
+         {:room_id => 1, :value => '6', :suit => 'spades', :player_id => 1,
+            :image_url => '6S.png'},
+         {:room_id => 1, :value => '7', :suit => 'hearts', :player_id => 7,
+          :image_url => 'KH.png'},
+         {:room_id => 1, :value => '9', :suit => 'spades', :player_id => 7,
+          :image_url => '6S.png'}
           # add more cards to seed with a full deck of 52 if this works
         ]
 
