@@ -118,4 +118,18 @@ describe RoomsController do
       expect(helper).to be(TRUE)
     end
   end
+
+  describe 'Get the public rooms' do
+    it 'should get a list of public rooms' do
+      # assume that the test database has been seeded
+      post :index, { }, { }
+      public_rooms = assigns(:public_rooms_information)
+      # since the test database is seeded, there will be at least one result
+      expect(public_rooms.length).to_not eq(0)
+      public_room = public_rooms[0]
+      expect(public_room).to have_key(:room_name)
+      expect(public_room).to have_key(:room_id)
+      expect(public_room).to have_key(:player_names_list)
+    end
+  end
 end
