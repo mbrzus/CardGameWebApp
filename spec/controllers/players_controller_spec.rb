@@ -19,6 +19,9 @@ end
 
 
 describe PlayersController do
+  before :each do
+    session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
+  end
   describe 'CRUD Operations' do
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call create_or_load' do

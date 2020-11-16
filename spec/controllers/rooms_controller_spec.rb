@@ -18,6 +18,9 @@ if RUBY_VERSION>='2.6.0'
 end
 
 describe RoomsController do
+  before :each do
+    session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
+  end
   describe 'Creating a new Room' do
     it 'should create a new room in the database' do
       # there is no information for Rooms besides auto-generated id
