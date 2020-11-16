@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201113044136) do
+ActiveRecord::Schema.define(version: 20201116051250) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20201113044136) do
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_username"
   end
 
   create_table "cards", force: :cascade do |t|
