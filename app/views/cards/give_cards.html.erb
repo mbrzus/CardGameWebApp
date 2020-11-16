@@ -1,12 +1,12 @@
-<h3> This is the view for give cards</h3>
+<h3> Transfer cards from players to players or transfer cards to the sink</h3>
 
 
 
 <%= form_tag cards_give_cards_transaction_path :class => 'form' do %>
   <table><thead>
   <tr>
-    <th>Cards</th>
-    <th>Select cards</th>
+    <th>Card</th>
+    <th>Select card</th>
   </tr>
   </thead>
     <tbody>
@@ -42,6 +42,6 @@
     </tbody></table>
 
 
-  <%= button_to 'Add cards to the players', :class => 'btn btn-secondary' %>
+  <%= button_to 'Transfer cards to the selected players', :class => 'btn btn-secondary' %>
 <% end %>
 
