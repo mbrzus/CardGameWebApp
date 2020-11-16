@@ -54,7 +54,6 @@ for this game.
 
 
 <%= form_tag cards_give_cards_path :room_id => @room_id do %>
-  <%= label :giver, "Giving player" %>
-  <%= text_field :giver, "giver" %>
+
   <%= button_to 'Give cards', :class => 'btn btn-secondary' %>
 <% end %>
