@@ -5,6 +5,7 @@ class Card < ActiveRecord::Base
   @image_url
   @visible
   belongs_to :player
+  
   # Helper function that will is called by methods in CardController that are used for card transactions
   def change_owner(new_owner_id)
     self.player_id = new_owner_id

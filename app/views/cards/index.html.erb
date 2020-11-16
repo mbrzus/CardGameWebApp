@@ -24,7 +24,9 @@
           <%= card.value %>
         </td>
         <td>
-          <%= card.owned_by %>
+          <!-- This query works exactly how we want but it slows down the rendering significantly -->
+          <%player_name = Player.find_by(id: card.player_id).name %>
+          <%= player_name %>
         </td>
         <td>
           <!--https://apidock.com/rails/ActionView/Helpers/AssetTagHelper/image_tag -->
