@@ -44,6 +44,19 @@ describe SessionsController do
       expect(session[:session_token]).to eq(@account.session_token)
     end
   end
+  describe 'logging in with twitter' do
+    before :each do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
+    end
+    it 'should redirect you to the jobs_index page if successful login' do
+      post :create_omniauth, provider: :twitter
+      expect(subject).to redirect_to rooms_path
+    end
+    it 'should create a flash message if a successful login' do
+      post :create_omniauth, provider: :twitter
+      expect(flash[:notice]).to eq('Welcome mockuser@twitter')
+    end
+  end
   describe 'destroying session (logging out)' do
     it 'should set the session_token to nil when a user logs out' do
       post :destroy
