@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  # A user should first be directed to a welcome page that allows them to either login, signup or continue as a guest
+  root to: redirect('/login')
+  resources :accounts
+  match '/login', to: 'sessions#new', via: :get
+  match '/login_create', to: 'sessions#create', via: :post
+  match '/logout', to: 'sessions#destroy', via: :delete
+  match '/signup', to: 'accounts#new', via: :get
+  match '/signup_create', to: 'accounts#create', via: :post
+
   resources :cards
   post 'cards/create_new_deck'
   post 'cards/delete_decks_in_room'
@@ -9,8 +18,8 @@ Rails.application.routes.draw do
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
+
   post 'rooms/:id/reset', :controller => 'rooms', :action => 'reset'
-  root :to => redirect('/rooms')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

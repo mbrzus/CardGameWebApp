@@ -3,6 +3,7 @@ class Card < ActiveRecord::Base
   @value
   @suit
   @image_url
+  @visible
   belongs_to :player
   
   # Helper function that will is called by methods in CardController that are used for card transactions

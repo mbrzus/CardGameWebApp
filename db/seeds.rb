@@ -29,9 +29,9 @@ players.each do |curr_player|
 end
 
 cards = [{:room_id => 1, :value => 'A', :suit => 'spades', :player_id => 1,
-            :image_url => 'AS.png'},
+            :image_url => 'AS.png', :visible => false},
          {:room_id => 1, :value => '7', :suit => 'hearts', :player_id => 1,
-            :image_url => '7H.png'},
+            :image_url => '7H.png', :visible => false},
          {:room_id => 1, :value => '9', :suit => 'clubs', :player_id => 1,
             :image_url => '9C.png'},
          {:room_id => 1, :value => 'Q', :suit => 'diamonds', :player_id => 1,
