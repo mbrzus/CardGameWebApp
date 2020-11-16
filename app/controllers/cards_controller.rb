@@ -207,7 +207,6 @@ class CardsController < ApplicationController
     #   end
     # }
 
-    # TODO I DONT KNOW HOW TO GET THIS PLAYER FORM THE VIEW. MAYBE WE SHOULD NEED A VARIABLE ON THE CONTROLLER
     giving_player = Player.find_by(room_id: 1, name: "Steve")
 
     # This player should come from the view from the select checkboxes
@@ -219,8 +218,11 @@ class CardsController < ApplicationController
     cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
 
 
-    # TODO: CARDS SELECTED FROM THE VIEW
+    # CARDS SELECTED FROM THE VIEW
     cards_to_give = params[:cards_selected].keys
+
+    # PLAYERS SELECTED FROM THE VIEW
+    receiving_players = params[:players_selected].keys
 
     (0..cards_to_give_array.length - 1).each{ |i|
       # Reassign the card from the giver to the recipient
