@@ -236,14 +236,14 @@ class CardsController < ApplicationController
   end
 
   def draw_cards
-    players = Player.where(room_id: @room_id)
+    @players = Player.where(room_id: params[:room_id])
   end
 
   def give_cards
-    cards_to_give = Card.where(room_id: give.room_id, player_id: give.id)
+    cards_to_give = Card.where(room_id: params[:give].room_id, player_id: params[:give].id)
     @cards_to_give_array = cards_to_give.to_a
 
-    @players = Player.where(room_id: give.room_id)
+    @players = Player.where(room_id: params[:give].room_id)
   end
 end
 
