@@ -13,7 +13,7 @@
     <% @cards_to_give_array.each do |card| %>
       <tr>
         <td>
-          <%= card.value.to_s + card.suit.to_s %>
+          <%= image_tag(card.image_url, size: "78x120") %>
         </td>
         <td>
         <%= check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
