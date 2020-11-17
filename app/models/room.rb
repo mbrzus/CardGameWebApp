@@ -41,7 +41,9 @@ class Room < ActiveRecord::Base
         end
       end
       # now that we have all the information, create the hash and add it in
-      public_rooms_information << { :room_name => room.name, :room_id => room.id, :player_names_list => player_names_list }
+      public_rooms_information << { :room_name => room.name,
+                                    :room_token => room.room_token,
+                                    :player_names_list => player_names_list }
     end
 
     # return the public rooms information to the user
