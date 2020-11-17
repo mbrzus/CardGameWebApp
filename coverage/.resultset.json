@@ -1,13 +1,13 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/helpers/application_helper.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/accounts_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/accounts_controller.rb": {
         "lines": [
           1,
           null,
@@ -33,7 +33,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/application_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/application_controller.rb": {
         "lines": [
           1,
           null,
@@ -43,15 +43,15 @@
           null,
           null,
           1,
-          19,
-          19,
-          19,
+          20,
+          20,
+          20,
           null,
           null,
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/cards_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/cards_controller.rb": {
         "lines": [
           1,
           null,
@@ -302,7 +302,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/players_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/players_controller.rb": {
         "lines": [
           1,
           null,
@@ -339,7 +339,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/rooms_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/rooms_controller.rb": {
         "lines": [
           1,
           null,
@@ -366,6 +366,8 @@
           null,
           1,
           null,
+          null,
+          1,
           null,
           null,
           1,
@@ -402,6 +404,13 @@
           null,
           null,
           1,
+          null,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
           4,
           4,
           4,
@@ -423,7 +432,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/controllers/sessions_controller.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/controllers/sessions_controller.rb": {
         "lines": [
           1,
           null,
@@ -444,13 +453,14 @@
           3,
           3,
           3,
+          3,
           null,
           null,
           null,
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/card.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/models/card.rb": {
         "lines": [
           1,
           1,
@@ -478,7 +488,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/player.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/models/player.rb": {
         "lines": [
           1,
           null,
@@ -502,7 +512,7 @@
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/room.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/models/room.rb": {
         "lines": [
           1,
           1,
@@ -530,10 +540,33 @@
           null,
           null,
           null,
+          null,
+          1,
+          null,
+          null,
+          3,
+          null,
+          3,
+          null,
+          3,
+          6,
+          null,
+          6,
+          18,
+          6,
+          null,
+          null,
+          null,
+          6,
+          null,
+          null,
+          null,
+          3,
+          null,
           null
         ]
       },
-      "/Users/jacobwatters/SELT_REPOS_2020/Team8_SELT2020/app/models/account.rb": {
+      "/mnt/d/Users/micha/University of Iowa/SELT/Ruby/Team8_SELT2020/app/models/account.rb": {
         "lines": [
           1,
           1,
@@ -549,11 +582,11 @@
           null,
           null,
           1,
-          41,
+          42,
           null,
           null,
           1,
-          53,
+          54,
           null,
           null,
           1,
@@ -572,6 +605,6 @@
         ]
       }
     },
-    "timestamp": 1605578616
+    "timestamp": 1605586237
   }
 }
