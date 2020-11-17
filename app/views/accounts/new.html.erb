@@ -1,14 +1,22 @@
-<h2>Create your account</h2>
+<h2 class="accounts-header">Create your account</h2>
 
 <%= form_tag accounts_path, :class => 'form' do %>
-  <%= label :account, :username, 'username', class: 'col-form-control' %>
-  <%= text_field :account, 'username', class: 'form-control', id: 'signup_username' %>
-  <%= label :account, :email, 'Email', class: 'col-form-control' %>
-  <%= text_field :account, 'email', class: 'form-control', id: 'signup_email' %>
-  <%= label :account, :password, 'password', class: 'col-form-control' %>
-  <%= password_field :account, 'password', class: 'form-control', id: 'signup_password' %>
-  <br>
-  <%= submit_tag 'Signup', class: 'btn btn-primary', id: 'signup_submit' %>
-  <%= "Already have an account?" %>
-  <%= link_to 'Login.', login_path, id: 'login' %>
+  <div class="accounts-form-item">
+    <%= label :account, :username, 'username', class: 'col-form-control', id: 'signup_username_label' %>
+    <%= text_field :account, 'username', class: 'form-control', id: 'signup_username' %>
+  </div>
+  <div class="accounts-form-item">
+    <%= label :account, :email, 'Email', class: 'col-form-control', id: 'signup_email_label' %>
+    <%= text_field :account, 'email', class: 'form-control', id: 'signup_email' %>
+  </div>
+  <div class="accounts-form-item">
+    <%= label :account, :password, 'password', class: 'col-form-control', id: 'signup_password_label' %>
+    <%= password_field :account, 'password', class: 'form-control', id: 'signup_password' %>
+  </div>
+  <div class="accounts-form-item">
+    <%= submit_tag 'Signup', class: 'btn btn-primary', id: 'signup_submit' %>
+    &nbsp
+    <%= "Already have an account?" %>
+    <%= link_to 'Login.', login_path, id: 'login' %>
+  </div>
 <% end %>
