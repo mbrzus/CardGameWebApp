@@ -10,21 +10,22 @@ Rails.application.routes.draw do
   match '/signup_create', to: 'accounts#create', via: :post
 
   resources :cards
+  post 'cards/create_new_deck'
+  post 'cards/delete_decks_in_room'
+  post 'cards/draw_cards_from_dealer'
+  post 'cards/give_cards_transaction'
+
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
 
   post 'rooms/:id/reset', :controller => 'rooms', :action => 'reset'
 
-  post 'cards/create_new_deck'
-  post 'cards/delete_decks_in_room'
-  # root :to => redirect('/rooms')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   resources :players
   post 'players/create'
-  #root :to => redirect('/players')
 
  # You can have the root of your site routed with "root"
   # root 'welcome#index'

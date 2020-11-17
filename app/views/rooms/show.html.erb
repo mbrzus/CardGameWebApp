@@ -46,6 +46,14 @@ for this game.
     </div>
   </div>
 <% end %>
-<br>
-<%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
-<%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
+<div class="operation-box">
+  <%= button_to 'Draw Cards From Dealer', cards_draw_cards_from_dealer_path, :method => :draw_cards_from_dealer %>
+  <%= button_to 'Give Cards', cards_give_cards_transaction_path, :method => :give_cards_transaction %>
+  <%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
+  <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
+</div>
+
+
+<%= render "cards/drawcards" %>
+
+<%= render "cards/givecards" %>

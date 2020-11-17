@@ -80,3 +80,4 @@ pickle-email-*.html
 .sqlite3
 # tilde files are usually backup files from a text editor
 *~
+/.byebug_history

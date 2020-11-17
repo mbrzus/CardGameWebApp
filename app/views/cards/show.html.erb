@@ -3,7 +3,7 @@
 <%= image_tag(@card.image_url, size: "78x120") %>
 <ul id="details">
   <li>
-    Deck Number:
+    Room ID:
     <%= @card.room_id %>
   </li>
   <li>
@@ -16,7 +16,7 @@
   </li>
   <li>
     Owned By:
-    <%= @card.owned_by %>
+    <%= @card.player_id %>
   </li>
 </ul>
 <div class="row">
