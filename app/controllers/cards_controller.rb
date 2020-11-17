@@ -162,11 +162,11 @@ class CardsController < ApplicationController
       flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
 
       # Send the user back to their room view
-      redirect_to room_path(:id => session[:room_to_join])
+      redirect_to room_path(:id => session[:room_token])
 
     else
       flash[:warning] = "Dealer can not deal the requested number of cards"
-      redirect_to room_path(:id => session[:room_to_join])
+      redirect_to room_path(:id => session[:room_token])
     end
 
   end
@@ -226,7 +226,7 @@ class CardsController < ApplicationController
     flash[:notice] = "Successfully gave #{cards_to_give_array.length} cards to #{receiving_player.name.to_s}"
 
     # Send the user back to their room view
-    redirect_to room_path(:id => session[:room_to_join])
+    redirect_to room_path(:id => session[:room_token])
   end
 
 end
