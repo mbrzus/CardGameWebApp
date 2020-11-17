@@ -59,12 +59,15 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    debugger
-    #room_token = params[:id]
-    #@room = Room.find_by(room_token: room_token)
-    Room.find_by(room_token: session[:room_token]).destroy
+    #debugger
+    room_token = params[:id]
+    room = Room.find_by(room_token: room_token)
+    room_id = room.id
+    room.destroy
     flash[:notice] = 'Game ended successfully. Thank you for playing!'
-    session.delete(:session_id)
+    session.delete(:room_token)
+    session.delete(room_id)
+    debugger
     redirect_to rooms_path
   end
 
