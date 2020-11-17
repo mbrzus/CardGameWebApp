@@ -60,6 +60,7 @@ class RoomsController < ApplicationController
 
   def destroy
     Room.find_by(room_token: session[:room_token]).destroy
+    session[:room_token] = nil
     flash[:notice] = 'Game ended successfully. Thank you for playing!'
     redirect_to rooms_path
   end
