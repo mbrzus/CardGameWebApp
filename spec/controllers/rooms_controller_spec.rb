@@ -156,7 +156,7 @@ describe RoomsController do
       expect(public_rooms.length).to_not eq(0)
       public_room = public_rooms[0]
       expect(public_room).to have_key(:room_name)
-      expect(public_room).to have_key(:room_id)
+      expect(public_room).to have_key(:room_token)
       expect(public_room).to have_key(:player_names_list)
     end
   end

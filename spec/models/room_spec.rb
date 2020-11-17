@@ -22,7 +22,7 @@ describe Room do
       expect(public_rooms.length).to_not eq(0)
       public_room = public_rooms[0]
       expect(public_room).to have_key(:room_name)
-      expect(public_room).to have_key(:room_id)
+      expect(public_room).to have_key(:room_token)
       expect(public_room).to have_key(:player_names_list)
     end
     it 'it should get the information for rooms in the database' do
@@ -30,7 +30,9 @@ describe Room do
       public_rooms = Room.get_public_rooms_information
       has = false
       public_rooms.each do |room|
-        if room[:room_id] == 1
+        token = room[:room_token]
+        room = Room.find_by(room_token: token)
+        if room.id == 1
           has = true
         end
       end

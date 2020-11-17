@@ -43,7 +43,6 @@ class RoomsController < ApplicationController
   # from the submitted form and redirects the user to that path
   def join_room
     room_token = params.require(:room)['room_token']
-    debugger
     if Room.find_by_room_token(room_token).nil?
       flash[:notice] = "No room exists with code: #{room_token}!"
       redirect_to rooms_path
