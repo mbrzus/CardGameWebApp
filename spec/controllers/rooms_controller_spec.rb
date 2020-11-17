@@ -26,7 +26,7 @@ describe RoomsController do
     it 'should create a new room in the database' do
       # there is no information for Rooms besides auto-generated id
       room_count = Room.count
-      post :create, 'room' => { 'room_name' => 'go fish', 'public' => '1' }
+      post :create, room: { room_name: 'Test Name', public: 1 }
       expect(Room.count).to be > room_count
     end
     it 'should create a dealer player associated with this room in the database' do
@@ -47,7 +47,7 @@ describe RoomsController do
     end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation
-      post :create, { :room_name => { 'name' => 'Test Name' }, :public => { 'public' => 1 } }
+      post :create, room: { room_name: 'Test Name', public: 1 }
       room_id = assigns(:room_id)
       room = Room.find(room_id)
       token = room.room_token
@@ -89,34 +89,32 @@ describe RoomsController do
   end
 
   describe 'Delete a room' do
+    before :each do
+      session[:room_token] = Room.create_room!(name: 'name', public: 1).room_token
+    end
     it 'should redirect the user home page' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :destroy, { :id => token }, { :room_to_join => 1 }
+
+      post :destroy, { id: session[:room_token] }
       expect(response).to redirect_to('/rooms')
     end
     it 'should delete room from database Room table' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :destroy, { :id => token }, { :room_to_join => '1' }
-      room = Room.where(id: 1)
+      room = Room.where(room_token: session[:room_token])
+      post :destroy, { id: session[:room_token] }
       expect(room.length).to be(0)
     end
     it 'should delete cards associated with the room' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :destroy, { :id => token }, { :room_to_join => '1' }
+      room = Room.where(room_token: session[:room_token])
+      post :destroy, { id: session[:room_token] }
       cards = Card.where(room: room)
       expect(cards.length).to be(0)
     end
     it 'should delete players associated with the room' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :destroy, { :id => token }, { :room_to_join => '1' }
+      room = Room.where(room_token: session[:room_token])
+      post :destroy, { id: session[:room_token] }
       players = Player.where(room: room)
       expect(players.length).to be(0)
     end
