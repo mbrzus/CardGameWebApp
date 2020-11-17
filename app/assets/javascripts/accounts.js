@@ -22,3 +22,12 @@ function add_signup_event_listeners() {
     document.getElementById('signup_email').addEventListener('blur', deactivate_textbox_label);
     document.getElementById('signup_password').addEventListener('blur', deactivate_textbox_label);
 }
+
+function add_login_event_listeners() {
+    // add the event listeners for these text box label combos
+    document.getElementById('login_username').addEventListener('focus', activate_textbox_label);
+    document.getElementById('login_password').addEventListener('focus', activate_textbox_label);
+    // add event listeners to deactivate on blur
+    document.getElementById('login_username').addEventListener('blur', deactivate_textbox_label);
+    document.getElementById('login_password').addEventListener('blur', deactivate_textbox_label);
+}
