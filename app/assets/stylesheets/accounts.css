@@ -1,0 +1,43 @@
+/* css to govern all the form items that appear on the sign up and login page */
+.accounts-form-item {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.accounts-header {
+    position: relative;
+    width: 300px;
+    height: 40px;
+    top: -2px;
+    left: calc(50% - 150px);
+    background-color: Grey;
+    text-align: center;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+/* need to modify existing classes for extra effect */
+.alert {
+    margin-bottom: 2px;
+}
+/* the css for the form labels */
+.col-form-control {
+    position: relative;
+    display: inline;
+    left: auto;
+    width: auto;
+    height: 20px;
+    padding: 5px;
+    margin: 0px;
+    background-color: white;
+    border-top: 1px solid #ced4da;
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.form-control {
+    border-radius: 0px;
+}
