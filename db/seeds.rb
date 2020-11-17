@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # define a few rooms to be inserted into the database
-rooms =  [{:id => 1, :room_token => "AA001"},
-          {:id => 2, :room_token => "AA002"},
-          {:id => 3, :room_token => "AA003"}]
+rooms =  [{:id => 1, :name => "First Room", :public => true},
+          {:id => 2, :name => "Room 2", :public => false},
+          {:id => 3, :name => "The third Room", :public => true}]
 
 # add each room to the development database
 rooms.each do |room|

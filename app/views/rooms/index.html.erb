@@ -1,9 +1,45 @@
 
 <br>
-<%= button_to 'Create New Room', new_room_path,  { :method => :get, :id => "new_room_button", :class => 'btn btn-primary' } %>
-<br>
-<%= form_tag rooms_join_room_path, :method => :post %>
-    <%= "Enter Room ID:" %>
-    <%= text_field :room, "room_token", :id => 'room_token_input' %>
-    <%= submit_tag 'Join a room', :id => 'join_room_button', :class => 'btn btn-primary' %>
+<div class="main-page-split-container">
+  <div class="create-or-join-room-box">
+    <div class="main-page-box-title"> Create a Room </div>
+    <div class="box-explanation-text"> Click this button if you would like to create a new room. Rooms are where you and your friends/family can play cards together! </div>
+    <%= form_tag(new_room_path, { :method => :get, :id => "new_room_button", :class => 'centered default-button' }) do %>
+      <%= submit_tag 'Create New Room', :id => 'new_room_button', :class => 'btn btn-primary form-component' %>
+    <% end %>
+  </div>
+  <div class="create-or-join-room-box">
+    <div class="main-page-box-title"> Join a Room </div>
+    <div class="box-explanation-text"> Family member already has a room? Enter the room key and click "Join a room" to enter their room. </div>
+    <%= form_tag(rooms_join_room_path, :method => :post) do %>
+      <%= "Enter Room ID:" %>
+      <br>
+      <%= text_field :room_id, "room_id", :id => 'room_id_input', :class => "form-component" %>
+      <br>
+      <%= submit_tag 'Join a room', :id => 'join_room_button', :class => 'btn btn-primary form-component' %>
+    <% end %>
+  </div>
+</div>
 
+<div class="main-page-split-container">
+  <div class="public-rooms-box">
+    <div class="main-page-box-title"> Public Rooms </div>
+    <div class="box-explanation-text" style="margin-bottom: 0px;"> Click on a room to enter it. </div>
+    <% @public_rooms_information.each do |public_room| %>
+      <!-- This is the public rooms button that players can click on
+           When they do, it will join the room with the given id -->
+      <div class="public-room-singular-box" onclick="join_room('<%= public_room[:room_id] %>')">
+        <div class="public-room-singular-component">
+          <%= "Room Name: " + public_room[:room_name] %>
+          <%= ", Room ID: " + public_room[:room_id].to_s %>
+        </div>
+        <div class="public-room-singular-component">
+          <%= "Current Players: " %>
+          <% public_room[:player_names_list].each do |player_name| %>
+            <%= player_name + ", " %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

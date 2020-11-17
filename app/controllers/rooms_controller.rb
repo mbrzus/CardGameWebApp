@@ -22,7 +22,9 @@ class RoomsController < ApplicationController
   end
 
   def index
-
+    # need to get the public rooms from the database to display to the user
+    # public_rooms_information is a list of objects that contain - { room_name, room_id, [list of player names]}
+    @public_rooms_information = Room.get_public_rooms_information
   end
 
   def new
