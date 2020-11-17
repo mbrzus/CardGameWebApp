@@ -7,6 +7,8 @@ for this game.
 <br>
 <%= 'Room ID: ' +  @room_id.to_s %>
 <br>
+<%= "Room code: #{session[:room_token]}" %>
+<br>
 <% player_name = @player["name"].to_s %>
 <%= "You are: " + player_name %>
 <% players = Player.where(room_id: @room_id) %>
@@ -17,20 +19,28 @@ for this game.
       <div class="hand">
         <%# val = rand(1..10) %>
         <%# suit = ["Clubs", "Spades", "Hearts", "Diamonds"][rand(0..3)] %>
-        <%# Card.create!(:room_id => @room_id, :value => val, :suit =>  suit, :player_id => player[:id]) %>
         <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
-        <% cards.each do |card| %>
+        <% if player[:name] == 'dealer' %>
+          <%= "Number of cards in Deck: #{@deck.size.to_s}" %>
           <div class="card">
-            <% if player[:name] == player_name or card.visible %>
-              <div>
-                <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
-              </div>
-            <% else %>
-              <div>
-                <%= image_tag("red_back.png", size: "64x89") %>
-              </div>
-            <% end %>
+            <div>
+              <%= image_tag("red_back.png", size: "64x89") %>
+            </div>
           </div>
+        <% else %>
+          <% cards.each do |card| %>
+            <div class="card">
+              <% if player[:name] == player_name or card.visible %>
+                <div>
+                  <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+                </div>
+              <% else %>
+                <div>
+                  <%= image_tag("red_back.png", size: "64x89") %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

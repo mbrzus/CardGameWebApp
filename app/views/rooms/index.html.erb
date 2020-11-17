@@ -1,4 +1,5 @@
 
+<br>
 <div class="main-page-split-container">
   <div class="create-or-join-room-box">
     <div class="main-page-box-title"> Create a Room </div>
@@ -13,7 +14,7 @@
     <%= form_tag(rooms_join_room_path, :method => :post) do %>
       <%= "Enter Room ID:" %>
       <br>
-      <%= text_field :room_id, "room_id", :id => 'room_id_input', :class => "form-component" %>
+      <%= text_field :room, "room_token", :id => 'room_id_input', :class => "form-component" %>
       <br>
       <%= submit_tag 'Join a room', :id => 'join_room_button', :class => 'btn btn-primary form-component' %>
     <% end %>
@@ -27,10 +28,10 @@
     <% @public_rooms_information.each do |public_room| %>
       <!-- This is the public rooms button that players can click on
            When they do, it will join the room with the given id -->
-      <div class="public-room-singular-box" onclick="join_room('<%= public_room[:room_id] %>')">
+      <div class="public-room-singular-box" onclick="join_room('<%= public_room[:room_token] %>')">
         <div class="public-room-singular-component">
           <%= "Room Name: " + public_room[:room_name] %>
-          <%= ", Room ID: " + public_room[:room_id].to_s %>
+          <%= ", Room code: " + public_room[:room_token].to_s %>
         </div>
         <div class="public-room-singular-component">
           <%= "Current Players: " %>

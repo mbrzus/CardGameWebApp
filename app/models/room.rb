@@ -1,14 +1,27 @@
 class Room < ActiveRecord::Base
   has_many :player, dependent: :destroy
   has_many :card, dependent: :destroy
-
+  before_save :create_room_token
+  after_save :initialize_room
   # create a new room and return its id to the caller
-  def self.create_new_room(room_name, public_boolean)
-    new_room = Room.new
-    new_room.name = room_name
-    new_room.public = public_boolean
-    new_room.save!
-    return new_room.id
+
+  def self.create_room!(room_params)
+    Room.create!(room_params)
+  end
+
+  def create_room_token
+    self.room_token = SecureRandom.alphanumeric(5)
+  end
+
+  def initialize_room
+    dealer = Player.create!({ name: 'dealer', room: self })
+    Player.create!({ name: 'sink', room: self })
+    Card.suits.each do |curr_suit|
+      Card.values.each do |curr_value|
+        curr_card = { room_id: id, value: curr_value, suit: curr_suit, player: dealer, visible: false }
+        Card.create!(curr_card)
+      end
+    end
   end
 
   # gets information about the public rooms and returns them to the caller
@@ -28,7 +41,9 @@ class Room < ActiveRecord::Base
         end
       end
       # now that we have all the information, create the hash and add it in
-      public_rooms_information << { :room_name => room.name, :room_id => room.id, :player_names_list => player_names_list }
+      public_rooms_information << { :room_name => room.name,
+                                    :room_token => room.room_token,
+                                    :player_names_list => player_names_list }
     end
 
     # return the public rooms information to the user
