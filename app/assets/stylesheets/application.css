@@ -93,6 +93,12 @@ form label {
     margin: 0px 20px 5px 5px;
 }
 
+.deck {
+    height: 89px;
+    width: 192px;
+    margin: 0px 20px 5px 5px;
+}
+
 /* css specifically for the logout button */
 .logout-button {
     position: absolute;
