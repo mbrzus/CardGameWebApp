@@ -2,9 +2,6 @@ class CardsController < ApplicationController
 
   before_filter :set_current_user
 
-  SUITS = %w[diamonds clubs spades hearts]
-  VALUES = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
-
   # Define what params should follow the Card Model
   def card_params
     params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
@@ -51,27 +48,6 @@ class CardsController < ApplicationController
     redirect_to cards_path
   end
 
-  # This method can be used to create a new deck of 52 standard playing cards
-  # For now, it just defaults to creating a new room and assigning all cards to the new room
-  # We can change this after the first iteration
-  def create_new_deck
-    dealer = Player.where(room_id: session[:room_id], name: "dealer").first
-
-    SUITS.each do |curr_suit|
-      VALUES.each do |curr_value|
-        # Dynamically create the :image_url based off of the known card value and first character from the suit naming
-        # convention that was used for the images
-        curr_card = {:room_id => session[:room_id], :value => curr_value, :suit => curr_suit,
-                     :player_id => dealer.id, :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
-        Card.create!(curr_card)
-      end
-    end
-    flash[:notice] = "New card deck created in room #{session[:room_id].to_s}"
-
-    redirect_to room_path(:id => session[:room_id])
-
-  end
-
   # This method can be used to delete any card that has a certain deck number
   def delete_decks_in_room
 
@@ -82,7 +58,6 @@ class CardsController < ApplicationController
     flash[:notice] = "All cards deleted from room #{session[:room_id].to_s}."
     redirect_to room_path(:id => session[:room_id])
   end
-
 
   # This method will be used strictly for drawing cards from the dealer and will have
   # an associated GUI where the user can say how many cards they want to draw and

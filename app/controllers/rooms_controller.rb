@@ -43,6 +43,26 @@ class RoomsController < ApplicationController
     redirect_to room_path(id: session[:room_token])
   end
 
+  # This method is used to create a new deck of 52 standard playing cards
+  # In the future we can modify Card.suits/values to make a custom deck
+  def create_new_deck
+    dealer = Player.where(room_id: session[:room_id], name: "dealer").first
+
+    Card.suits.each do |curr_suit|
+      Card.values.each do |curr_value|
+        # Dynamically create the :image_url based off of the known card value and first character from the suit naming
+        # convention that was used for the images
+        curr_card = {:room_id => session[:room_id], :value => curr_value, :suit => curr_suit,
+                     :player_id => dealer.id, :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+        Card.create!(curr_card)
+      end
+    end
+    flash[:notice] = "New card deck created in room #{session[:room_id].to_s}"
+
+    redirect_to room_path(:id => session[:room_id])
+
+  end
+
   # the main page links to here. This controller just gets the room_id
   # from the submitted form and redirects the user to that path
   def join_room
