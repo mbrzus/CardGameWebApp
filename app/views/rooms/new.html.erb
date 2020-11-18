@@ -1,8 +1,8 @@
 
 <%= form_tag rooms_path, :method => :post %>
   <%= "Enter Room Name:" %>
-  <%= text_field :room_name, "room_name", :id => 'room_name_input' %>
+  <%= text_field :room, "name", :id => 'room_name_input' %>
   <br>
   <%= "Public Room?" %>
-  <%= check_box :public, "public", :id => 'public_name_input' %>
+  <%= check_box :room, "public", :id => 'public_name_input' %>
   <%= submit_tag 'Create the Room', :id => 'create_room_submit', :class => 'btn btn-primary' %>

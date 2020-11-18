@@ -55,21 +55,20 @@ class CardsController < ApplicationController
   # For now, it just defaults to creating a new room and assigning all cards to the new room
   # We can change this after the first iteration
   def create_new_deck
-
-    dealer = Player.where(room_id: session[:room_to_join], name: "dealer").first
+    dealer = Player.where(room_id: session[:room_id], name: "dealer").first
 
     SUITS.each do |curr_suit|
       VALUES.each do |curr_value|
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
         # convention that was used for the images
-        curr_card = {:room_id => session[:room_to_join], :value => curr_value, :suit => curr_suit,
+        curr_card = {:room_id => session[:room_id], :value => curr_value, :suit => curr_suit,
                      :player_id => dealer.id, :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
         Card.create!(curr_card)
       end
     end
-    flash[:notice] = "New card deck created in room #{session[:room_to_join].to_s}"
+    flash[:notice] = "New card deck created in room #{session[:room_id].to_s}"
 
-    redirect_to room_path(:id => session[:room_to_join])
+    redirect_to room_path(:id => session[:room_id])
 
   end
 
@@ -78,10 +77,10 @@ class CardsController < ApplicationController
 
     # Resource used to craft this query
     # https://blog.bigbinary.com/2019/03/13/rails-6-adds-activerecord-relation-delete_by-and-activerecord-relation-destroy_by.html
-    Card.where(room_id: session[:room_to_join]).destroy_all
+    Card.where(room_id: session[:room_id]).destroy_all
 
-    flash[:notice] = "All cards deleted from room #{session[:room_to_join].to_s}."
-    redirect_to room_path(:id => session[:room_to_join])
+    flash[:notice] = "All cards deleted from room #{session[:room_id].to_s}."
+    redirect_to room_path(:id => session[:room_id])
   end
 
 
@@ -104,7 +103,7 @@ class CardsController < ApplicationController
   def draw_cards_from_dealer
     invalid_input = false
 
-    dealer = Player.find_by(room_id: session["room_to_join"].to_i, name: "dealer")
+    dealer = Player.find_by(room_id: session["room_id"].to_i, name: "dealer")
 
     # Read input quantity from view
     quantity_to_draw = params[:quantity][:quantity].to_i
@@ -129,11 +128,11 @@ class CardsController < ApplicationController
 
       # Fetch the Player models corresponding to the passed in IDs
       selected_players_ids.each do |curr_id|
-        recipients << Player.where(room_id: session["room_to_join"].to_i, id: curr_id).first
+        recipients << Player.where(room_id: session["room_id"].to_i, id: curr_id).first
       end
 
       # Get the dealer's cards
-      dealers_cards = Card.where(room_id: session["room_to_join"].to_i, player_id: dealer.id)
+      dealers_cards = Card.where(room_id: session["room_id"].to_i, player_id: dealer.id)
 
       # Shuffle them before you distribute them to other players
       # Resource used: https://apidock.com/ruby/Array/shuffle%21
@@ -165,7 +164,7 @@ class CardsController < ApplicationController
 
     end
     # Send the user back to their room view
-    redirect_to room_path(:id => session[:room_to_join])
+    redirect_to room_path(:id => session[:room_id])
 
   end
 
@@ -206,24 +205,23 @@ class CardsController < ApplicationController
       invalid_input = true
     end
 
+    # Get the receiving player from information passed into the view
+    receiving_player_id = params[:players_selected].keys
+    receiving_player = nil
+    # Ensure the user only selected a SINGLE recipient
+    if receiving_player_id.length == 1
+      receiving_player = Player.where(room_id: session["room_id"].to_i,
+                                      id: receiving_player_id[0].to_i).first
+    else
+      flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
+      invalid_input = true
+    end
+
     if invalid_input == false
 
       # Get the giving player from information stored in the session
-      giving_player = Player.where(room_id: session["room_to_join"].to_i,
-                                   name: session[session["room_to_join"].to_i]["name"]).first
-
-      # Get the receiving player from information passed into the view
-      receiving_player_id = params[:players_selected].keys
-      receiving_player = nil
-
-      # Ensure the user only selected a SINGLE recipient
-      if receiving_player_id.length == 1
-        receiving_player = Player.where(room_id: session["room_to_join"].to_i,
-                                        id: receiving_player_id[0].to_i).first
-      else
-        flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
-        invalid_input = true
-      end
+      giving_player = Player.where(room_id: session["room_id"].to_i,
+                                   name: session[session["room_id"].to_i]["name"]).first
 
       cards_to_give_ids = params[:cards_selected].keys
       cards_to_give = []
@@ -249,7 +247,7 @@ class CardsController < ApplicationController
     end
 
     # Send the user back to their room view
-    redirect_to room_path(:id => session[:room_to_join])
+    redirect_to room_path(:id => session[:room_token])
   end
 
   def draw_cards
