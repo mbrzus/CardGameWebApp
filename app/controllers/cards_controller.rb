@@ -56,7 +56,7 @@ class CardsController < ApplicationController
     Card.where(room_id: session[:room_id]).destroy_all
 
     flash[:notice] = "All cards deleted from room #{session[:room_id].to_s}."
-    redirect_to room_path(:id => session[:room_id])
+    redirect_to room_path(:id => session[:room_token])
   end
 
   # This method will be used strictly for drawing cards from the dealer and will have
@@ -139,7 +139,7 @@ class CardsController < ApplicationController
 
     end
     # Send the user back to their room view
-    redirect_to room_path(:id => session[:room_id])
+    redirect_to room_path(:id => session[:room_token])
 
   end
 

@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
     end
     flash[:notice] = "New card deck created in room #{session[:room_id].to_s}"
 
-    redirect_to room_path(:id => session[:room_id])
+    redirect_to room_path(:id => session[:room_token])
 
   end
 
