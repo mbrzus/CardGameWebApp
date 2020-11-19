@@ -7,8 +7,8 @@
     <div class="box-explanation-text"> Choose a room name for the room you are about to create, then toggle if the room is public. Public rooms will be displayed at the main page with the name you chose. </div>
     <%= form_tag rooms_path, :method => :post %>
       <div class="create-account-form-item">
-        <%= label :room, :room_name, 'Enter Room Name', class: 'create-account-label' %>
-        <%= text_field :room, "room_name", class: 'form-control', :id => 'room_name_input' %>
+        <%= label :room, :name, 'Enter Room Name', class: 'create-account-label' %>
+        <%= text_field :room, "name", class: 'form-control', :id => 'room_name_input' %>
       </div>
       <div class="create-account-form-item">
         <%= label :room, :public, 'Public Room?', class: 'create-account-label' %>

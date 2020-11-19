@@ -5,8 +5,6 @@ That way they can be connected to their hand. They can also opt to create a play
 for this game.
 
 <br>
-<%= 'Room ID: ' +  @room_id.to_s %>
-<br>
 <%= "Room code: #{session[:room_token]}" %>
 <br>
 <% player_name = @player["name"].to_s %>
@@ -22,11 +20,18 @@ for this game.
         <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
         <% if player[:name] == 'dealer' %>
           <%= "Number of cards in Deck: #{@deck.size.to_s}" %>
-          <div class="card">
-            <div>
-              <%= image_tag("red_back.png", size: "64x89") %>
+          <% if @deck.size > 0 %>
+            <div class="deck">
+              <%= image_tag("back_cards-07.png", size: "192x89") %>
             </div>
-          </div>
+          <% end %>
+          <% cards.each do |card| %>
+            <% if card.visible %>
+              <div class="card">
+                <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+              </div>
+            <% end %>
+          <% end %>
         <% else %>
           <% cards.each do |card| %>
             <div class="card">
