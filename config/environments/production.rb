@@ -29,7 +29,7 @@ Rails.application.configure do
   # JavaScripts were causing errors when deploying to Heroku. Found a solution at:
   # https://github.com/rails/webpacker/issues/1285
   config.assets.js_compressor = Uglifier.new(harmony: true)
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
