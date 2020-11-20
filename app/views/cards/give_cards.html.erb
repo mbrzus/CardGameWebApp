@@ -11,7 +11,7 @@
     <% @cards_to_give_array.each do |card| %>
       <tr>
         <td>
-          <%= image_tag(card.image_url, size: "78x120") %>
+          <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "78x120") %>
         </td>
         <td>
         <%= check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
