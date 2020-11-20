@@ -14,6 +14,8 @@ class RoomsController < ApplicationController
     else
       # the player has not logged in or doesnt exist, redirect to where they can create
       @room_id = Room.find_by_room_token(session[:room_token]).id
+      # Put the room_id in the session for use in other controllers
+      session[:room_id] = @room_id
       dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
       @deck = Card.where(player: dealer, room_id: @room_id)
       @player = session[@room_id]
@@ -35,8 +37,30 @@ class RoomsController < ApplicationController
     # room has no info so just create an empty object
     new_room = Room.create_room!(room_params)
     @room_id = new_room.id
+    # Put the room_id in the session for use in other controllers
+    session[:room_id] = @room_id
     session[:room_token] = new_room.room_token
     redirect_to room_path(id: session[:room_token])
+  end
+
+  # This method is used to create a new deck of 52 standard playing cards
+  # In the future we can modify Card.suits/values to make a custom deck
+  def create_new_deck
+    dealer = Player.where(room_id: session[:room_id], name: "dealer").first
+
+    Card.suits.each do |curr_suit|
+      Card.values.each do |curr_value|
+        # Dynamically create the :image_url based off of the known card value and first character from the suit naming
+        # convention that was used for the images
+        curr_card = {:room_id => session[:room_id], :value => curr_value, :suit => curr_suit,
+                     :player_id => dealer.id, :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
+        Card.create!(curr_card)
+      end
+    end
+    flash[:notice] = "New card deck created in room #{session[:room_id].to_s}"
+
+    redirect_to room_path(:id => session[:room_token])
+
   end
 
   # the main page links to here. This controller just gets the room_id

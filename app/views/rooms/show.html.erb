@@ -52,13 +52,23 @@ for this game.
   </div>
 <% end %>
 <div class="operation-box">
-  <%= button_to 'Draw Cards From Dealer', cards_draw_cards_from_dealer_path, :method => :draw_cards_from_dealer %>
-  <%= button_to 'Give Cards', cards_give_cards_transaction_path, :method => :give_cards_transaction %>
+  <%= form_tag cards_draw_cards_path :room_id => @room_id do %>
+    <% button_to 'Draw cards from Dealer', :class => 'btn btn-secondary' %>
+  <% end %>
+
+  <%= form_tag cards_give_cards_path :room_id => @room_id do %>
+    <%= button_to 'Give cards', :class => 'btn btn-secondary' %>
+  <% end %>
+
+  <br><br>
+  <%= button_to 'Create New Deck for Dealer', rooms_create_new_deck_path, :method => :create_new_deck %>
+
+  <%= button_to 'Delete All Cards in Room', cards_delete_decks_in_room_path , :method => :delete_decks_in_room %>
+
+  <br><br>
   <%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
+
   <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
 </div>
 
 
-<%= render "cards/drawcards" %>
-
-<%= render "cards/givecards" %>

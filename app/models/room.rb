@@ -13,8 +13,11 @@ class Room < ActiveRecord::Base
     self.room_token = SecureRandom.alphanumeric(5)
   end
 
+  # When a room is created, it comes with a dealer with 52 cards assigned to him and a sink
   def initialize_room
     dealer = Player.create!({ name: 'dealer', room: self })
+
+    # This is essentially the RoomController#create_new_deck() method without a redirect at the end
     Player.create!({ name: 'sink', room: self })
     Card.suits.each do |curr_suit|
       Card.values.each do |curr_value|
@@ -22,6 +25,7 @@ class Room < ActiveRecord::Base
         Card.create!(curr_card)
       end
     end
+
   end
 
   # gets information about the public rooms and returns them to the caller

@@ -2,9 +2,6 @@ class CardsController < ApplicationController
 
   before_filter :set_current_user
 
-  SUITS = %w[diamonds clubs spades hearts]
-  VALUES = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
-
   # Define what params should follow the Card Model
   def card_params
     params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
@@ -51,47 +48,16 @@ class CardsController < ApplicationController
     redirect_to cards_path
   end
 
-
-  ################################################################################
-  #  THIS IS COMMENTED BECAUSE WE ALREADY HAVE IMPLEMENTATION IN ROOM COTROLLER  #
-  ################################################################################
-  #
-  # # This method can be used to create a new deck of 52 standard playing cards
-  # # For now, it just defaults to creating a new room and assigning all cards to the new room
-  # # We can change this after the first iteration
-  # def create_new_deck
-  #
-  #   SUITS.each do |curr_suit|
-  #     VALUES.each do |curr_value|
-  #       # Dynamically create the :image_url based off of the known card value and first character from the suit naming
-  #       # convention that was used for the images
-  #
-  #       #TODO: Remove the hardcoding of dealer = player_id 1 and new cards are all created in room 1
-  #
-  #       curr_card = {:room_id => 1, :value => curr_value, :suit => curr_suit,
-  #                    :player_id => "1", :image_url => "#{curr_value}#{curr_suit[0].upcase}.png"}
-  #       Card.create!(curr_card)
-  #     end
-  #   end
-  #   flash[:notice] = "New card deck created in room 1"
-  #
-  #   redirect_to cards_path
-  #
-  # end
-
   # This method can be used to delete any card that has a certain deck number
   def delete_decks_in_room
-    # Hard coding this now but once someone creates the views they can integrate with this function
-    room_num_to_delete = 1
 
     # Resource used to craft this query
     # https://blog.bigbinary.com/2019/03/13/rails-6-adds-activerecord-relation-delete_by-and-activerecord-relation-destroy_by.html
-    Card.where(room_id: room_num_to_delete.to_s).destroy_all
+    Card.where(room_id: session[:room_id]).destroy_all
 
-    flash[:notice] = "All decks deleted from room #{room_num_to_delete}."
-    redirect_to cards_path
+    flash[:notice] = "All cards deleted from room #{session[:room_id].to_s}."
+    redirect_to room_path(:id => session[:room_token])
   end
-
 
   # This method will be used strictly for drawing cards from the dealer and will have
   # an associated GUI where the user can say how many cards they want to draw and
@@ -109,65 +75,71 @@ class CardsController < ApplicationController
   # |                |      Jack           |
   # |________________|_____________________|
   #
-  # Expected params:
-  # :room_id_of_transaction - the id of the room that the transaction is occurring in
-  # :recipient_names - an array of the name of players who are being dealt to
-  #
   def draw_cards_from_dealer
-    dealer = Player.find_by(room_id: 1, name: "dealer")
+    invalid_input = false
 
-    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
-    # Read in the users input
-    #@quantity_to_draw = params[:quantity_to_draw]
+    dealer = Player.find_by(room_id: session["room_id"].to_i, name: "dealer")
 
-    # recipients = []
-    # (0..params[:recipient_names].length - 1).each{ |curr_recipient_index|
-    #   temp = Player.find_by(room_id: params[:room_id_of_transaction],
-    #                         name: params[:recipient_names][curr_recipient_index])
-    #
-    #   # If a Player with that id exists, add it to the array of cards being transacted
-    #   unless temp.nil?
-    #     recipients << temp
-    #   end
-    # }
+    # Read input quantity from view
+    quantity_to_draw = params[:quantity][:quantity].to_i
 
-    recipients = [Player.find_by(room_id: 1, name: "Steve"), Player.find_by(room_id: 1, name: "Ted")]
-    quantity_to_draw = 5
+    # Check for invalid input
+    if quantity_to_draw.is_a?(Integer) == false || quantity_to_draw <= 0
+      flash[:warning] = "ERROR: Invalid input. Must input a positive, numeric value to deal."
+      invalid_input = true
+    end
 
-    # Get the dealer's cards
-    dealers_cards = Card.where(room_id: 1, player_id: dealer.id)
 
-    # Shuffle them before you distribute them to other players
-    # Resource used: https://apidock.com/ruby/Array/shuffle%21
-    dealers_cards_array = dealers_cards.to_a
-    dealers_cards_array.shuffle!
+    if params[:players_selected].eql?(nil)
+      flash[:warning] = "ERROR: Invalid input. Must choose atleast 1 player to deal to."
+      invalid_input = true
+    end
 
-    # Ensure the dealer has enough cards to deal the requested quantity
-    if dealers_cards.length >= ( quantity_to_draw * recipients.length)
+    if invalid_input == false
 
-      (0..quantity_to_draw - 1).each { |curr_dealer_card|
-        (0..recipients.length - 1).each { |curr_recipient|
-          # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
-          dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
-          dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
-        }
-      }
+      # Read input player IDs array from view
+      selected_players_ids = params[:players_selected].keys
+      recipients = []
 
-      recipient_names_string = ""
-
-      recipients.each do |curr_recipient|
-        recipient_names_string.concat(curr_recipient.name, ", " )
+      # Fetch the Player models corresponding to the passed in IDs
+      selected_players_ids.each do |curr_id|
+        recipients << Player.where(room_id: session["room_id"].to_i, id: curr_id).first
       end
 
-      flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
+      # Get the dealer's cards
+      dealers_cards = Card.where(room_id: session["room_id"].to_i, player_id: dealer.id)
 
-      # Send the user back to their room view
-      redirect_to room_path(:id => session[:room_token])
+      # Shuffle them before you distribute them to other players
+      # Resource used: https://apidock.com/ruby/Array/shuffle%21
+      dealers_cards_array = dealers_cards.to_a
+      dealers_cards_array.shuffle!
 
-    else
-      flash[:warning] = "Dealer can not deal the requested number of cards"
-      redirect_to room_path(:id => session[:room_token])
+      # Ensure the dealer has enough cards to deal the requested quantity
+      if dealers_cards.length >= ( quantity_to_draw * recipients.length)
+
+        (0..quantity_to_draw - 1).each { |curr_dealer_card|
+          (0..recipients.length - 1).each { |curr_recipient|
+            # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
+            dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
+            dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
+          }
+        }
+
+        recipient_names_string = ""
+
+        recipients.each do |curr_recipient|
+          recipient_names_string.concat(curr_recipient.name, ", " )
+        end
+
+        flash[:notice] = "Successfully dealt #{quantity_to_draw.to_s} cards to #{recipient_names_string}"
+
+      else
+        flash[:warning] = "Dealer can not deal the requested number of cards"
+      end
+
     end
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
 
   end
 
@@ -195,41 +167,81 @@ class CardsController < ApplicationController
   # :ids_of_cards_to_give - an array of ids for cards that the giving player has chosen to give
   #
   def give_cards_transaction
-    # TODO: Un-hardcode this after Ram has the view that feels this method implemented
-    # Read in the users input
-    # giving_player = Player.find_by(room_id: params[:room_id], name: params[:giving_players_name])
-    # receiving_player = Player.find_by(room_id: params[:room_id], name: params[:receiving_player_name])
-    # cards_to_give = []
-    # (0..params[:ids_of_cards_to_give].length - 1).each{ |curr_card_to_give_index|
-    #
-    #   temp = Card.find_by(id: params[:ids_of_cards_to_give][curr_card_to_give_index])
-    #
-    #   # If a card with that id exists, add it to the array of cards being transacted
-    #   unless temp.nil?
-    #     cards_to_give << temp
-    #   end
-    # }
+    invalid_input = false
 
-    giving_player = Player.find_by(room_id: 1, name: "Steve")
-    receiving_player = Player.find_by(room_id: 1, name: "Ted")
+    # Read in the recipient and ensure input is as expected
+    if params[:players_selected].eql?(nil)
+      flash[:warning] = "Transaction Failed. You must select a recipient."
+      invalid_input = true
+    end
+    # Read in the ids of the selected cards from the view. Ensure they selected at least 1 card
+    if params[:cards_selected].eql?(nil)
+      flash[:warning] = "Transaction Failed. You selected 0 cards to transfer."
+      invalid_input = true
+    end
 
-    #TODO: Un-hard code these test values once the view passes you the card id's you need
-    cards_to_give = Card.where(room_id: giving_player.room_id, player_id: giving_player.id)
-    cards_to_give_array = cards_to_give.to_a
-    cards_to_give_array = [cards_to_give_array[0], cards_to_give_array[1]]
+    # Get the receiving player from information passed into the view
+    receiving_player_id = params[:players_selected].keys
+    receiving_player = nil
+    # Ensure the user only selected a SINGLE recipient
+    if receiving_player_id.length == 1
+      receiving_player = Player.where(room_id: session["room_id"].to_i,
+                                      id: receiving_player_id[0].to_i).first
+    else
+      flash[:warning] = "Transaction Failed. You selected more than 1 recipient."
+      invalid_input = true
+    end
 
-    (0..cards_to_give_array.length - 1).each{ |i|
-      # Reassign the card from the giver to the recipient
-      cards_to_give_array[i].change_owner(receiving_player.id)
-    }
+    if invalid_input == false
 
-    flash[:notice] = "Successfully gave #{cards_to_give_array.length} cards to #{receiving_player.name.to_s}"
+      # Get the giving player from information stored in the session
+      giving_player = Player.where(room_id: session["room_id"].to_i,
+                                   name: session[session["room_id"].to_i]["name"]).first
+
+      cards_to_give_ids = params[:cards_selected].keys
+      cards_to_give = []
+
+      # Get the Card models associated with the passed in IDs
+      cards_to_give_ids.each do |curr_card_id|
+        cards_to_give << Card.where(room_id: giving_player.room_id, player_id: giving_player.id,
+                                    id: curr_card_id.to_i).first
+      end
+
+      (0..cards_to_give.length - 1).each{ |i|
+        # Reassign the card from the giver to the recipient
+        cards_to_give[i].change_owner(receiving_player.id)
+      }
+
+      # Output success message to user
+      if cards_to_give.length == 1
+        flash[:notice] = "Successfully gave #{cards_to_give.length} card to #{receiving_player.name.to_s}"
+      else
+        flash[:notice] = "Successfully gave #{cards_to_give.length} cards to #{receiving_player.name.to_s}"
+      end
+
+    end
 
     # Send the user back to their room view
     redirect_to room_path(:id => session[:room_token])
   end
 
+  def draw_cards
+    @players = Player.where(room_id: params[:room_id])
+  end
+
+  def give_cards
+    room_id = params[:room_id].to_i
+    giving_player = session[room_id.to_s]
+    cards_to_give = Card.where(room_id: giving_player["room_id"], player_id: giving_player["id"])
+    @cards_to_give_array = cards_to_give.to_a
+
+    @players = Player.where(room_id: room_id)
+  end
 end
+
+
+
+
 
 
 
