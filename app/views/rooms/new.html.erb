@@ -1,8 +1,28 @@
+<h2 class="create-room-header">Create a Room</h2>
 
-<%= form_tag rooms_path, :method => :post %>
-  <%= "Enter Room Name:" %>
-  <%= text_field :room, "name", :id => 'room_name_input' %>
-  <br>
-  <%= "Public Room?" %>
-  <%= check_box :room, "public", :id => 'public_name_input' %>
-  <%= submit_tag 'Create the Room', :id => 'create_room_submit', :class => 'btn btn-primary' %>
+<!-- this side holds the create rood options -->
+<div class="main-page-split-container" style="height: 440px;">
+  <div class="create-room-form-box">
+    <div class="main-page-box-title"> Create Room </div>
+    <div class="box-explanation-text"> Choose a room name for the room you are about to create, then toggle if the room is public. Public rooms will be displayed at the main page with the name you chose. </div>
+    <%= form_tag rooms_path, :method => :post %>
+      <div class="create-account-form-item">
+        <%= label :room, :name, 'Enter Room Name', class: 'create-account-label' %>
+        <%= text_field :room, "name", class: 'form-control', :id => 'room_name_input' %>
+      </div>
+      <div class="create-account-form-item">
+        <%= label :room, :public, 'Public Room?', class: 'create-account-label' %>
+        <%= check_box :room, "public", :id => 'public_name_input' %>
+      </div>
+      <div class="create-account-form-item">
+        <%= submit_tag 'Create the Room', :id => 'create_room_submit', :class => 'btn btn-primary' %>
+      </div>
+  </div>
+</div>
+
+<div class="main-page-split-container">
+  <div class="choose-playing-cards-box">
+    <div class="main-page-box-title"> Choose Playing Cards </div>
+    <div class="box-explanation-text"> Feature coming soon! </div>
+  </div>
+</div>
