@@ -78,13 +78,23 @@ describe RoomsController do
       post :join_room, room: { room_token: token }
       expect(response).to redirect_to("/rooms/#{token}")
     end
-    it 'should redirect the user to the index page' do
+    it 'should redirect the user to the index page if the room does not exist' do
       post :join_room, room: { room_token: 'dsafsadgljsadf' }
       expect(response).to redirect_to('/rooms')
     end
     it 'should create a flash message to notify the user if the room does not exist' do
       post :join_room, room: { room_token: 'dsafsadgljsadf' }
       expect(flash[:notice]).to eq('No room exists with code: dsafsadgljsadf!')
+    end
+    it 'should redirect to the index page when a user tries to enter a room if no room_token is set in the session' do
+      session[:room_token] = nil
+      post :show, id: Room.find(1).room_token
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'should create a flash message to notify the user to enter a room code to join a room' do
+      session[:room_token] = nil
+      post :show, id: Room.find(1).room_token
+      expect(flash[:notice]).to eq('Please join a room by entering a room code below')
     end
   end
 
@@ -158,6 +168,22 @@ describe RoomsController do
       expect(public_room).to have_key(:room_name)
       expect(public_room).to have_key(:room_token)
       expect(public_room).to have_key(:player_names_list)
+    end
+  end
+
+  describe 'adding cards to a room' do
+    before :each do
+      @room = Room.create_room!(name: 'name', public: 1)
+      session[:room_token] = @room.room_token
+      session[:room_id] = @room.id
+    end
+    it 'should redirect the user to the room they created the cards for' do
+      post :create_new_deck
+      expect(response).to redirect_to("/rooms/#{@room.room_token}")
+    end
+    it 'should create a flash message that the deck was added' do
+      post :create_new_deck
+      expect(flash[:notice]).to eq("New card deck created in room #{@room.id}")
     end
   end
 end
