@@ -33,7 +33,7 @@
       <% @cards.each do |card| %>
         <!-- The selected data field is used to determine if this card should be used
              Set the id to the information about the card -->
-        <div class="card_selection_card" id=<%= "#{card[:value]}#{card[:suit][0,1].upcase}" %> data-selected="true" onclick="toggle_selection(this)">
+        <div class="card_selection_card" id=<%= "#{card[:value]}-#{card[:suit][0,1].upcase}" %> data-selected="true" onclick="toggle_selection(this)">
           <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", class: "card_selection_image" ) %>
         </div>
       <% end %>
