@@ -37,6 +37,8 @@ class RoomsController < ApplicationController
   def create
     # room has no info so just create an empty object
     new_room = Room.create_room!(room_params)
+    # initialize the new room with the cards the user selected for this room
+    new_room.initialize_room(params["cards_to_use"])
     @room_id = new_room.id
     # Put the room_id in the session for use in other controllers
     session[:room_id] = @room_id
