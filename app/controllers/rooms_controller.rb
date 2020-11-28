@@ -30,7 +30,8 @@ class RoomsController < ApplicationController
   end
 
   def new
-
+    # get a list of cards for the user to select from
+    @cards = Card.get_deck_of_cards
   end
 
   def create
