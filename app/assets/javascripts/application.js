@@ -67,7 +67,7 @@ function submit_create_room_form() {
     }
 
     // remove the trailing comma
-    selected_cards.replace(/,$/, "");
+    selected_cards.replace(/,$/g, "");
     // set the hidden input in the form to the selected cards
     document.getElementById("cards_to_use").value = selected_cards;
     // submit the form
