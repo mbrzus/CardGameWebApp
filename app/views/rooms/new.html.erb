@@ -14,6 +14,11 @@
         <%= label :room, :public, 'Public Room?', class: 'create-account-label' %>
         <%= check_box :room, "public", :id => 'public_name_input' %>
       </div>
+      <!-- To send to the user what cards have been selected for game, we can use a hidden string
+           At submit time, a javascript function can compile all the cards to be used into this string
+           The format can be -> value-suit,value-suit,value-suit,...
+      -->
+      <input type="hidden" id="cards_to_use" name="cards_to_use" value="">
       <div class="create-account-form-item">
         <%= submit_tag 'Create the Room', :id => 'create_room_submit', :class => 'btn btn-primary' %>
       </div>
