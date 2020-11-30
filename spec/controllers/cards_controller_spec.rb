@@ -34,4 +34,36 @@ describe CardsController do
     end
 
   end
+
+  describe 'Transactions and Operations' do
+    before :each do
+      @account = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
+      session[:session_token] = @account.session_token
+
+      # Create a room -- comes with dealer, sink, and 52 cards assigned to dealer
+      post :create, room: { room_name: 'Test Name', public: 1 }
+      id = assigns(:room_id)
+      room = Room.find(id)
+
+      # TODO: JACOB RESUME HERE
+      # TODO: Assign params[] to equal REAL params values you copy and paste from a ByeBug run here
+
+    end
+
+    it 'should be able to draw X cards from the dealer to multiple players' do
+      # TODO: Test draw_cards_from_dealer() by just manually calling it since you already faked params
+
+    end
+
+    it 'should be able to give cards from this player to another' do
+    # TODO: Test give_cards_transaction()
+    end
+
+    it 'should be able to "flip" X number of cards on any entity in the room' do
+    # TODO: Test make_cards_visible()
+    end
+  end
+
+
+
 end
