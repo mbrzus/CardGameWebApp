@@ -8,19 +8,16 @@
     <%= form_tag rooms_path, :method => :post, :id => "create_room_form" %>
       <div class="create-account-form-item">
         <%= label :room, :name, 'Enter Room Name', class: 'create-account-label' %>
-        <%= text_field :room, "name", class: 'form-control', :id => 'room_name_input' %>
+        <%= text_field :room, :name, class: 'form-control', :id => 'room_name_input' %>
       </div>
       <div class="create-account-form-item">
         <%= label :room, :name, 'Choose Max Number of Players', class: 'create-account-label' %>
-        <select name="player_limit" class="form-control" id="room_player_limit_input">
-          <% (1..20).each { |player_count| %>
-            <option value="<%=  player_count  %>"> <%=  player_count  %> </option>
-          <% } %>
-        </select>
+        <% player_count_options = (1..20).map { |number| [number, number] } %>
+        <%= select_tag("room[player_limit]", options_for_select(player_count_options, 1), { :class => "form-control", :id => "room_player_limit_input"} ) %>
       </div>
       <div class="create-account-form-item">
         <%= label :room, :public, 'Public Room?', class: 'create-account-label' %>
-        <%= check_box :room, "public", :id => 'public_name_input' %>
+        <%= check_box :room, :public, :id => 'public_name_input' %>
       </div>
       <!-- To send to the user what cards have been selected for game, we can use a hidden string
            At submit time, a javascript function can compile all the cards to be used into this string
