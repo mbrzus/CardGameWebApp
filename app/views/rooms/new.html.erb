@@ -11,6 +11,14 @@
         <%= text_field :room, "name", class: 'form-control', :id => 'room_name_input' %>
       </div>
       <div class="create-account-form-item">
+        <%= label :room, :name, 'Choose Max Number of Players', class: 'create-account-label' %>
+        <select name="player_limit" class="form-control" id="room_player_limit_input">
+          <% (1..20).each { |player_count| %>
+            <option value="<%=  player_count  %>"> <%=  player_count  %> </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="create-account-form-item">
         <%= label :room, :public, 'Public Room?', class: 'create-account-label' %>
         <%= check_box :room, "public", :id => 'public_name_input' %>
       </div>
