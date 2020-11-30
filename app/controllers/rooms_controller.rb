@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   before_filter :set_current_user
 
   def room_params
-    params.require(:room).permit(:name, :public)
+    params.require(:room).permit(:name, :public, :player_limit)
   end
 
   def show
