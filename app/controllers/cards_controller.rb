@@ -288,7 +288,7 @@ class CardsController < ApplicationController
         end
       end
 
-      # TODO: Ensure the number of cards to flip is between 0 and the number of cards the flipee has
+      # Ensure the number of cards to flip is between 0 and the number of cards the flipee has
       if quantity_to_make_visible <= 0 || quantity_to_make_visible > num_invisible_cards
         flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
         invalid_input = true
