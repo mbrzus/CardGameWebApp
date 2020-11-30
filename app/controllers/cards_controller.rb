@@ -239,25 +239,32 @@ class CardsController < ApplicationController
   end
 
   # This function expects the following input from the "cards/make_cards_visible" path
-  # params[:player_to_make_cards_visible] - the player/sink/source who is having a number of their cards made visible
+  # params[:player_id_to_make_cards_visible] - the player/sink/source who is having a number of their cards made visible
   # params[:number_of_cards_to_make_visible] - the number of cards that should be made visible to everyone in the room
   def make_cards_visible
+    debugger
     invalid_input = false
 
     # Verify the user has input the expected params
-    if params[:player_to_make_cards_visible].eql?(nil)
+    if params[:player_id_to_make_cards_visible].eql?(nil)
       flash[:warning] = "Card flip Failed. You must select player/sink/source to flip cards for."
       invalid_input = true
     end
 
-
-    # TODO: Get the number of cards that the flipee has
     # Note: Flipee is the term that is used to describe the player / sink / source whos cards are being made visible
-    flipee_num_cards = 5
+    flipee_cards = Card.where(room_id: session["room_id"].to_i, id: params[:player_id_to_make_cards_visible].to_i)
+
+    # Figure out how many invisible cards the flipee has to begin with
+    num_invisible_cards = 0
+    flipee_cards.each do |curr_card|
+      if curr_card.visible == false
+        num_invisible_cards += 1
+      end
+    end
 
     # TODO: Ensure the number of cards to flip is between 0 and the number of cards the flipee has
-    if params[:number_of_cards_to_make_visible].eql?(nil) || params[:number_of_cards_to_make_visible] <= 0 ||
-        params[:number_of_cards_to_make_visible] > flipee_num_cards
+    if params[:number_of_cards_to_make_visible].eql?(nil) || params[:number_of_cards_to_make_visible].to_i <= 0 ||
+       params[:number_of_cards_to_make_visible].to_i > num_invisible_cards
 
       flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
       invalid_input = true
@@ -266,19 +273,26 @@ class CardsController < ApplicationController
     # If all input to the function is as expected, proceed with performing the flips
     if invalid_input == false
 
-      # TODO: Get all the cards that the flipee has
+      flipee = Player.where(room_id: session["room_id"].to_i, id: params[:player_id_to_make_cards_visible].to_i).first
+      curr_card_to_flip = nil
 
+      (0..params[:number_of_cards_to_make_visible].to_i - 1).each {
+        # Pop cards off the end of their hand until you find one that's not already visible
+        loop do
+          curr_card_to_flip = flipee_cards.pop
+          break if curr_card_to_flip.visible == false
+        end
 
-      # TODO: call make_visible() on the last <params[:number_of_cards_to_make_visible]> cards in their hand
+        # Make the card visible to everyone else in the room
+        curr_card_to_flip.make_visible
+      }
 
-
-      # TODO: Make a flash notice to the user stating what they have requested has been done
-
+      # Make a flash notice to the user stating what they have requested has been done
+      flash[:notice] = "Successfully flipped #{params[:number_of_cards_to_make_visible].to_i} of #{flipee.name}'s cards."
     end
 
-
-    # TODO: Send the user back to their room view
-
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
   end
 
 end
