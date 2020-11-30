@@ -1,0 +1,19 @@
+<h3> Flip Cards to be Visible for any Entity </h3>
+
+<%= form_tag cards_make_cards_visible_path :class => 'form' do %>
+  <%= label :number_of_cards_to_make_visible, 'Number of Cards to Flip', :class => 'col-form-label' %>
+  <%= text_field :quantity_to_make_visible, 'quantity_to_make_visible', :class => 'form-control' %>
+
+  <br>
+  <h3> Select Entity to Flip Cards For</h3>
+  <% @players.each do |player| %>
+    <%= player.name %>
+    <%= check_box_tag "player_id_to_make_cards_visible[#{player.id}]", 1, false, :id => "checkbox_#{player.id}" %>
+  <% end %>
+
+  <br><br>
+  <%= button_to 'Flip Cards', :class => 'btn btn-secondary' %>
+
+<% end %>
+
+

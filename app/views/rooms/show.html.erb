@@ -53,11 +53,15 @@ for this game.
 <% end %>
 <div class="operation-box">
   <%= form_tag cards_draw_cards_path :room_id => @room_id do %>
-    <% button_to 'Draw cards from Dealer', :class => 'btn btn-secondary' %>
+    <% button_to 'Draw Cards from Dealer', :class => 'btn btn-secondary' %>
   <% end %>
 
   <%= form_tag cards_give_cards_path :room_id => @room_id do %>
-    <%= button_to 'Give cards', :class => 'btn btn-secondary' %>
+    <%= button_to 'Give Cards', :class => 'btn btn-secondary' %>
+  <% end %>
+
+  <%= form_tag cards_flip_cards_path :room_id => @room_id do %>
+    <%= button_to 'Flip Cards Over', :class => 'btn btn-secondary' %>
   <% end %>
 
   <br><br>
