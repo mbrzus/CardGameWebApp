@@ -21,4 +21,19 @@ class Card < ActiveRecord::Base
     # Resource: https://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-save
     self.save!
   end
+
+  # returns a list of all the cards in the deck
+  def self.get_deck_of_cards
+    list_of_cards = []
+
+    Card.values.each do |curr_value|
+        Card.suits.each do |curr_suit|
+        curr_card = { value: curr_value, suit: curr_suit, visible: true }
+        # dont save the card to the database,
+        list_of_cards << Card.create(curr_card)
+      end
+    end
+
+    return list_of_cards
+  end
 end
