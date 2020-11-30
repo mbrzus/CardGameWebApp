@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'cards/delete_decks_in_room'
   post 'cards/draw_cards_from_dealer'
   post 'cards/give_cards_transaction'
+  post 'cards/make_cards_visible'
   post 'cards/give_cards'
   post 'cards/draw_cards'
 
