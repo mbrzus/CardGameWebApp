@@ -21,9 +21,7 @@
   </div>
 </div>
 
-<h1>Hello, Rails!</h1>
-<button id="greet-user-button">Hello!</button>
-<%= javascript_tag 'alert("sad")'%>
+
 
 <div class="main-page-split-container">
   <div class="public-rooms-box">
@@ -47,3 +45,7 @@
     <% end %>
   </div>
 </div>
+
+<%= javascript_tag 'setTimeout(function() {
+  window.location.reload();
+}, 10000)'%>
