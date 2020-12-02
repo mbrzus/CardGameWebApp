@@ -28,6 +28,12 @@ for this game.
             </div>
           </div>
         <% else %>
+
+<!--          The reloading part has to go here but the variable needs to be changed-->
+          <%= javascript_tag 'setTimeout(function() {
+            window.location.reload();
+          }, 10000)'%>
+
           <% cards.each do |card| %>
             <div class="card">
               <% if player[:name] == player_name or card.visible %>
