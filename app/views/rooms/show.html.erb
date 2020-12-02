@@ -75,6 +75,10 @@ for this game.
     <%= button_to 'Flip Others\' Cards Visible', :class => 'btn btn-secondary' %>
   <% end %>
 
+  <%= form_tag cards_toggle_my_cards_path :room_id => @room_id do %>
+    <%= button_to 'Toggle My Cards\' Visibility', :class => 'btn btn-secondary' %>
+  <% end %>
+
   <br><br>
   <%= button_to 'Create New Deck for Dealer', rooms_create_new_deck_path, :method => :create_new_deck %>
 

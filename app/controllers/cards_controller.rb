@@ -327,6 +327,45 @@ class CardsController < ApplicationController
     redirect_to room_path(:id => session[:room_token])
   end
 
+  # This method is hit when the "cards_flip_my_cards_path" is invoked. It passes the information below to the
+  # views/cards/flip_my_cards view, which then collects information from the user and calls make_my_cards_visible() passing
+  # its params to that function
+  def toggle_my_cards
+    # Get this players name and cards
+    room_id = params[:room_id].to_i
+    room_id_hash = session[session["room_id"]]
+    this_players_name = room_id_hash["name"]
+
+    @my_cards = Card.where(room_id: room_id, player_id: this_players_name)
+  end
+
+  # This function expects the following input from the "cards/flip_cards" path
+  # params[:cards_to_make_visible] - the cards from THIS player that should be made visible to everyone in the room
+  def toggle_my_card_visibility
+    invalid_input = false
+
+    if params[:cards_to_toggle].eql?(nil)
+      flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
+      invalid_input = true
+    end
+
+    # If all input to the function is as expected, proceed with performing the flips
+    if invalid_input == false
+      params[:cards_to_toggle].each do |curr_card_to_flip|
+        # Make the card visible to everyone else in the room
+        curr_card_to_flip.visible = !curr_card_to_flip.visible
+      end
+
+      # Make a flash notice to the user stating what they have requested has been done
+      flash[:notice] = "Successfully flipped #{params[:cards_to_toggle].size} of your cards."
+
+    end
+
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
+  end
+
+
 end
 
 

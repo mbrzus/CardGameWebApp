@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   post 'cards/flip_cards'
   post 'cards/make_cards_visible'
 
+  post 'cards/toggle_my_cards'
+  post 'cards/toggle_my_card_visibility'
+
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
