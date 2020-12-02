@@ -103,6 +103,8 @@ class RoomsController < ApplicationController
     @dealer_id = @dealer.id
     @room_cards.each do |card|
       card.change_owner(@dealer_id)
+      card.visible = false
+      card.save!
     end
     flash[:notice] = 'Game reset successfully!'
     redirect_to room_path(:id => room_token)
