@@ -19,3 +19,7 @@ function join_room(room_id) {
     document.getElementById('room_id_input').value = room_id;
     document.getElementById('join_room_button').click();
 }
+
+function refresh_room_page(room_id){
+    $.ajax('/rooms/'+ room_id.to_s)
+}
