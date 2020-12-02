@@ -35,7 +35,18 @@ for this game.
         <% else %>
           <% cards.each do |card| %>
             <div class="card">
-              <% if player[:name] == player_name or card.visible %>
+              <%# If the card belongs to this player or is visible, display the card.
+              If the card belongs to this player AND is visible to everyone, make it 20% larger
+              so the player knows everyone else can see it too%>
+              <% if player[:name] == player_name and card.visible == true %>
+                  <div>
+                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "77x107") %>
+                  </div>
+                <% elsif player[:name] == player_name and card.visible == false%>
+                    <div>
+                      <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+                    </div>
+              <% elsif card.visible == true%>
                 <div>
                   <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
                 </div>
