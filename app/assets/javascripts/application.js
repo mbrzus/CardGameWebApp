@@ -20,6 +20,11 @@ function join_room(room_id) {
     document.getElementById('join_room_button').click();
 }
 
+// refreshes the room page that potentially any player is in
 function refresh_room_page(room_id){
-    $.ajax('/rooms/'+ room_id.to_s)
+    // $.ajax('/rooms/'+ room_id.to_s).always(function () {
+    //     setTimeout(refresh_room_page, 30000, room_id)
+    // })
+    alert("ds");
 }
+
