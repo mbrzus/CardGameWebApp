@@ -76,7 +76,6 @@ class CardsController < ApplicationController
   # |________________|_____________________|
   #
   def draw_cards_from_dealer
-    debugger
     invalid_input = false
 
     dealer = Player.find_by(room_id: session["room_id"].to_i, name: "dealer")

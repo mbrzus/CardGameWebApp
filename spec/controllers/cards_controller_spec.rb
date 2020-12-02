@@ -35,35 +35,77 @@ describe CardsController do
 
   end
 
+=begin
   describe 'Transactions and Operations' do
     before :each do
-      @account = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
+      @account = Account.create!(username: 'valid2', email: 'valid@gmail.com', password: 'valid123!!')
       session[:session_token] = @account.session_token
 
+    end
+
+    it 'should be able to draw X cards from the dealer to multiple players' do
       # Create a room -- comes with dealer, sink, and 52 cards assigned to dealer
       post :create, room: { room_name: 'Test Name', public: 1 }
       id = assigns(:room_id)
       room = Room.find(id)
 
-      # TODO: JACOB RESUME HERE
-      # TODO: Assign params[] to equal REAL params values you copy and paste from a ByeBug run here
+      @dealer = Player.where(name: 'dealer', room: room)
+      @sink = Player.where(name: 'sink', room: room)
 
-    end
 
-    it 'should be able to draw X cards from the dealer to multiple players' do
-      # TODO: Test draw_cards_from_dealer() by just manually calling it since you already faked params
+      # Drawing 3 cards from the dealer to the sink
+      params = {"utf8"=>"✓", "authenticity_token"=>
+          "PHUzdiVCW2cLjcktGhpgwBUy+5dmkFrWjZR0DacG/P/acB7nJaKXk3cg/zBSPxYRPl66QCywEGmk7HhUsh7b8Q==",
+                "quantity"=>{"quantity"=>"3"}, "players_selected"=>{"2"=>"1"}, "class"=>"form",
+                "controller"=>"cards", "action"=>"draw_cards_from_dealer"}
+
+      # Create a test instance of the CardsController
+      myCardsController = new CardsController
+
+      # Call the function you're exercising in this test -- it will use the params you mocked up
+      myCardsController.draw_cards_from_dealer
+
+      puts("****************************** Dealer Length: " + @dealer.length)
+      puts("****************************** Sink Length: " + @sink.length)
+
+      expect(@dealer.length).to be(1)
+      expect(@sink.length).to be(1)
+
+      # Get the cards associated with the sink and the dealer after you've dealt
+      dealer_cards = Card.where(room: room, player_id: @dealer.id)
+      sink_cards = Card.where(room: room, player_id: @sink.id)
+
+      puts("****************************** dealer_cards.length: " + dealer_cards.length)
+      puts("****************************** sink_cards: " + sink_cards.length)
+
+      # Test the lengths to ensure the correct number of cards were dealt
+      expect(dealer_cards.length).to be(49)
+      expect(sink_cards.length).to be(3)
 
     end
 
     it 'should be able to give cards from this player to another' do
-    # TODO: Test give_cards_transaction()
+    # Giving 2 cards from the sink to the dealer
+    params = {"utf8"=>"✓", "authenticity_token"=>
+        "8rZqR+XZQ28+qpwQTvC9e4ETZO4Z5PceaBtdUxrwk5oUs0fW5TmPm0IHqg0G1cuqqn8lOVPEvaFBY1EKD+i0lA==",
+              "cards_selected"=>{"12"=>"1", "14"=>"1"}, "players_selected"=>{"1"=>"1"}, "class"=>"form",
+              "controller"=>"cards", "action"=>"give_cards_transaction"}
+
     end
 
     it 'should be able to "flip" X number of cards on any entity in the room' do
-    # TODO: Test make_cards_visible()
-    end
-  end
+    # Flipping over 2 of the dealer's cards
+    params = {"utf8"=>"✓", "authenticity_token"=>
+        "Tbyn0RPVTcf/wMPZwBhh6t1InDpA4hXFiqfS0cJ8jkiruYpAEzWBM4Nt9cSIPRc79iTd7QrCX3qj396I12SpRg==",
+              "quantity_to_make_visible"=>{"quantity_to_make_visible"=>"2"},
+              "player_id_to_make_cards_visible"=>{"1"=>"1"}, "class"=>"form", "controller"=>"cards",
+              "action"=>"make_cards_visible"}
 
+
+    end
+
+  end
+=end
 
 
 end
