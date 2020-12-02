@@ -1,0 +1,25 @@
+.player-login-header {
+    position: relative;
+    width: 300px;
+    height: 40px;
+    top: -2px;
+    left: calc(50% - 150px);
+    background-color: Grey;
+    text-align: center;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.player-login-form-box {
+    position: relative;
+    margin-left: 15%;
+    top: 20px;
+    width: 70%;
+    padding-bottom: 40px;
+    background-color: white;
+    color: DarkSlateGrey;
+
+    border: 2px black solid;
+    border-radius: 20px;
+}

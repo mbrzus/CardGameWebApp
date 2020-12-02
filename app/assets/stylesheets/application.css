@@ -1,3 +1,7 @@
+/*
+ *= require_tree
+ *= require_self
+ */
 html, body {
   margin: 0;
   padding: 0;
@@ -90,6 +94,12 @@ form label {
 .card {
     height: 89px;
     width: 64px;
+    margin: 0px 20px 5px 5px;
+}
+
+.deck {
+    height: 89px;
+    width: 192px;
     margin: 0px 20px 5px 5px;
 }
 

@@ -1,0 +1,94 @@
+.create-room-header {
+    position: relative;
+    width: 300px;
+    height: 40px;
+    top: -2px;
+    left: calc(50% - 150px);
+    background-color: Grey;
+    text-align: center;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.create-room-form-box {
+    position: relative;
+    margin: auto;
+    top: 50px;
+    width: 90%;
+    height: 400px;
+    background-color: white;
+    color: DarkSlateGrey;
+
+    border: 2px black solid;
+    border-radius: 20px;
+}
+
+.create-account-form-item {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.create-room-form-box {
+    position: relative;
+    margin-left: 25px;
+    top: 20px;
+    width: calc(100% - 45px);
+    height: 400px;
+    background-color: white;
+    color: DarkSlateGrey;
+
+    border: 2px black solid;
+    border-radius: 20px;
+}
+
+.choose-playing-cards-box {
+    position: relative;
+    top: 20px;
+    margin-left: 15px;
+    width: calc(100% - 45px);
+    height: 400px;
+    background-color: white;
+    color: DarkSlateGrey;
+
+    border: 2px black solid;
+    border-radius: 20px;
+    overflow-y: hidden;
+}
+
+@media (max-width: 800px) {
+    .create-room-form-box {
+        margin: auto;
+    }
+    .choose-playing-cards-box {
+        margin: auto;
+    }
+}
+
+.playing-cards-box {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+/* These cards appear on the create room screen
+   They allow will have a border that is yellow when selected
+   and invisible otherwise. Yellow border indicates the card will be in the game
+   I want to display 4 per row
+*/
+.card_selection_card {
+    /* 4 per row, each with 20% width and 2 pixel borders */
+    width: calc(20% - 4px);
+    /* each of the 4 cards takes up 20%, so divide the last 20% evenly */
+    margin-left: calc(20% / 5);
+    border: 2px yellow solid;
+
+    margin-top: 20px;
+    height: auto;
+    float: left;
+}
+
+.card_selection_image {
+    max-width: 100%;
+    max-height: 100%;
+}

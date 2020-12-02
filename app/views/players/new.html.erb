@@ -1,5 +1,15 @@
+<h2 class="player-login-header">Player Selection</h2>
 
-<%= form_tag players_path, :method => :post %>
-  <%= 'Enter player name:' %>
-  <%= text_field :player_name, "name", :id => 'player_name_input' %>
-  <%= submit_tag 'Create or Login as Player', :id => 'create_player_button', :class => 'btn btn-primary' %>
+<!-- this side holds the create rood options -->
+  <div class="player-login-form-box">
+    <div class="main-page-box-title"> Create or Login as a Player  </div>
+    <div class="box-explanation-text"> Choose a name to be seen as in game. If you have joined this session previously, use the same name. </div>
+    <%= form_tag players_path, :method => :post %>
+      <div class="create-account-form-item">
+        <%= label :room, :public, 'Player name', class: 'create-account-label' %>
+        <%= text_field :player_name, "name", :id => 'player_name_input', class: 'form-control' %>
+      </div>
+      <div class="create-account-form-item">
+        <%= submit_tag 'Create or Login as Player', :id => 'create_player_button', :class => 'btn btn-primary' %>
+      </div>
+  </div>
