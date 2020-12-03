@@ -336,8 +336,6 @@ class CardsController < ApplicationController
     room_id_hash = session[session["room_id"]]
     this_players_id = room_id_hash["id"]
 
-    debugger
-
     @my_cards = Card.where(room_id: room_id, player_id: this_players_id)
   end
 
@@ -346,22 +344,19 @@ class CardsController < ApplicationController
   def toggle_my_card_visibility
     invalid_input = false
 
+    debugger
     if params[:cards_to_toggle].eql?(nil)
       flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
       invalid_input = true
     end
-
-    debugger
-
-    card_ids = params[:cards_to_toggle].keys
-
     # If all input to the function is as expected, proceed with performing the flips
     if invalid_input == false
+
+      card_ids = params[:cards_to_toggle].keys
+
       card_ids.each do |curr_card_id|
         # Make the card visible to everyone else in the room
         curr_card = Card.where(id: curr_card_id).first
-
-        debugger
 
         curr_card.visible = !curr_card.visible
         curr_card.save!
