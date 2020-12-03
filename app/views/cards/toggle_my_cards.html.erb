@@ -11,7 +11,15 @@
     <% @my_cards.each do |card| %>
       <tr>
         <td>
-          <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "78x120") %>
+          <% if card.visible == true %>
+            <div class="my_card_visible_to_all">
+              <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+            </div>
+          <% else %>
+            <div>
+              <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+            </div>
+          <% end %>
         </td>
         <td>
         <%= check_box_tag "cards_to_toggle[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
