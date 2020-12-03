@@ -36,6 +36,16 @@ describe PlayersController do
       post :create, { :player_name => { "name" => "Daniel" } }
       expect(response).to redirect_to(room_path(session[:room_token]))
     end
+    it 'if the max occupancy has been reached and the player login doesnt exist, it should redirect to rooms' do
+      # there are too many players within the room already
+      room = Room.find(3)
+      fake_results = { :name => "Daniel",
+                       :room => room }
+      expect(Player).to receive(:create_or_load).with(fake_results)
+      post :create, { :player_name => { "name" => "Daniel" } }
+
+      expect(response).to redirect_to('/rooms')
+    end
 
 
 
