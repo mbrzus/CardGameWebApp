@@ -2,7 +2,7 @@ This is the view that players will play cards.
 First we will need to check the session of any browser joining
 and if they arent logged in, redirect them to a login page (just give your user id)
 That way they can be connected to their hand. They can also opt to create a player
-for this game.
+for this game.Yellow border indicates card is visible to everyone in the room.
 
 <br>
 <%= "Room code: #{session[:room_token]}" %>
@@ -39,8 +39,8 @@ for this game.
               If the card belongs to this player AND is visible to everyone, make it 20% larger
               so the player knows everyone else can see it too%>
               <% if player[:name] == player_name and card.visible == true %>
-                  <div>
-                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "77x107") %>
+                  <div class="my_card_visible_to_all">
+                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
                   </div>
                 <% elsif player[:name] == player_name and card.visible == false%>
                     <div>
