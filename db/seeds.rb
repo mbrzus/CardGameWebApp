@@ -18,7 +18,12 @@ end
 
 # Create a dealer for every room you create, starting with ids 1,2,3
 players = [{:id => 7, :name => "Steve", :room_id => 1},
-           {:id => 8, :name => "Ted", :room_id => 1}]
+           {:id => 8, :name => "Ted", :room_id => 1},
+           {:id => 9, :name => "Ted", :room_id => 3},
+           {:id => 10, :name => "Ned", :room_id => 3},
+           {:id => 11, :name => "Fred", :room_id => 3},
+           {:id => 12, :name => "Ded", :room_id => 3},
+           {:id => 13, :name => "Red", :room_id => 3},]
 
 players.each do |curr_player|
   Player.create!(curr_player)
