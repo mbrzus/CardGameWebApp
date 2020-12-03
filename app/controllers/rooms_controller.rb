@@ -8,11 +8,12 @@ class RoomsController < ApplicationController
 
   def check_room_exists
     token = session[:room_token]
+    debugger
     room = Room.find_by(room_token: token)
     if room.nil?
-      flash[:notice] = 'This room has ended. Thank you for playing!'
-      redirect_to rooms_path and return
+      return false
     end
+    return true
   end
 
   def show
@@ -108,8 +109,13 @@ class RoomsController < ApplicationController
   end
 
   def reset
-    check_room_exists
-    
+    debugger
+    state = check_room_exists
+    if !state
+      flash[:notice] = 'This room has ended. Thank you for playing!'
+      redirect_to rooms_path and return
+    end
+    debugger
     room_token = params[:id]
     @room = Room.find_by(room_token: room_token)
     @room_cards = Card.where(room: @room)
