@@ -108,6 +108,8 @@ class RoomsController < ApplicationController
   end
 
   def reset
+    check_room_exists
+    
     room_token = params[:id]
     @room = Room.find_by(room_token: room_token)
     @room_cards = Card.where(room: @room)
