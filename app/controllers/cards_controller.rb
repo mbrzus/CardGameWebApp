@@ -334,9 +334,11 @@ class CardsController < ApplicationController
     # Get this players name and cards
     room_id = params[:room_id].to_i
     room_id_hash = session[session["room_id"]]
-    this_players_name = room_id_hash["name"]
+    this_players_id = room_id_hash["id"]
 
-    @my_cards = Card.where(room_id: room_id, player_id: this_players_name)
+    debugger
+
+    @my_cards = Card.where(room_id: room_id, player_id: this_players_id)
   end
 
   # This function expects the following input from the "cards/flip_cards" path
@@ -349,11 +351,20 @@ class CardsController < ApplicationController
       invalid_input = true
     end
 
+    debugger
+
+    card_ids = params[:cards_to_toggle].keys
+
     # If all input to the function is as expected, proceed with performing the flips
     if invalid_input == false
-      params[:cards_to_toggle].each do |curr_card_to_flip|
+      card_ids.each do |curr_card_id|
         # Make the card visible to everyone else in the room
-        curr_card_to_flip.visible = !curr_card_to_flip.visible
+        curr_card = Card.where(id: curr_card_id).first
+
+        debugger
+
+        curr_card.visible = !curr_card.visible
+        curr_card.save!
       end
 
       # Make a flash notice to the user stating what they have requested has been done
