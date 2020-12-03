@@ -6,6 +6,15 @@ class RoomsController < ApplicationController
     params.require(:room).permit(:name, :public)
   end
 
+  def check_room_exists
+    token = session[:room_token]
+    room = Room.find_by(room_token: token)
+    if room.nil?
+      flash[:notice] = 'This room has ended. Thank you for playing!'
+      redirect_to rooms_path and return
+    end
+  end
+
   def show
     # If the user doesn't have room_token in their session set, they didn't click the button
     if session[:room_token].nil?
