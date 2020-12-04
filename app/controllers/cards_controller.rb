@@ -77,7 +77,6 @@ class CardsController < ApplicationController
   #
   def draw_cards_from_dealer
     invalid_input = false
-    session[:update_page] = false
     dealer = Player.find_by(room_id: session["room_id"].to_i, name: "dealer")
 
     # Read input quantity from view
@@ -122,7 +121,6 @@ class CardsController < ApplicationController
             # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
             dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
             dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
-            session[:update_page] = true
           }
         }
 
@@ -168,7 +166,7 @@ class CardsController < ApplicationController
   # :ids_of_cards_to_give - an array of ids for cards that the giving player has chosen to give
   #
   def give_cards_transaction
-    session[:update_page] = false
+
     invalid_input = false
 
     # Read in the recipient and ensure input is as expected
@@ -212,7 +210,7 @@ class CardsController < ApplicationController
       (0..cards_to_give.length - 1).each{ |i|
         # Reassign the card from the giver to the recipient
         cards_to_give[i].change_owner(receiving_player.id)
-        session[:update_cards] = true
+
       }
 
 
