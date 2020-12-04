@@ -33,5 +33,31 @@ describe CardsController do
       expect_any_instance_of(resulting_flash_message.eql?("Deck number #{deck_num_to_delete} was destroyed.")).to be_truthy
     end
 
+    describe 'After game was ended. Other players should be redirect to room path upon any action' do
+      before :each do
+        session[:room_token] = Room.create_room!(name: 'name', public: 1).room_token
+      end
+      it 'user should get redirected when trying to delete decks' do
+        # there is no information for Rooms besides auto-generated id
+        token = session[:room_token]
+        post :destroy, { id: token }
+        post :delete_decks_in_room, { id: token }
+        expect(response).to redirect_to('/rooms')
+      end
+      it 'user should get redirected when trying to draw cards' do
+        # there is no information for Rooms besides auto-generated id
+        token = session[:room_token]
+        post :destroy, { id: token }
+        post :draw_cards_from_dealer, { id: token }
+        expect(response).to redirect_to('/rooms')
+      end
+      it 'user should get redirected when trying to give cards' do
+        # there is no information for Rooms besides auto-generated id
+        token = session[:room_token]
+        post :destroy, { id: token }
+        post :give_cards_transaction, { id: token }
+        expect(response).to redirect_to('/rooms')
+      end
+    end
   end
 end
