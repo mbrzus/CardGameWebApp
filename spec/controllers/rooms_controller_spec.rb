@@ -26,12 +26,12 @@ describe RoomsController do
     it 'should create a new room in the database' do
       # there is no information for Rooms besides auto-generated id
       room_count = Room.count
-      post :create, room: { room_name: 'Test Name', public: 1 }
+      post :create, room: { room_name: 'Test Name', public: 1 }, :cards_to_use => "A-C,A-S,10-D,10-H"
       expect(Room.count).to be > room_count
     end
     it 'should create a dealer player associated with this room in the database' do
       # there is no information for Rooms besides auto-generated id
-      post :create, room: { room_name: 'Test Name', public: 1 }
+      post :create, room: { room_name: 'Test Name', public: 1 }, :cards_to_use => "A-C,A-S,10-D,10-H"
       id = assigns(:room_id)
       room = Room.find(id)
       dealer = Player.where(name: 'dealer', room: room)
@@ -39,7 +39,7 @@ describe RoomsController do
     end
     it 'should create a sink player associated with this room in the database' do
       # there is no information for Rooms besides auto-generated id
-      post :create, room: { name: 'Test Name', public: 1 }
+      post :create, room: { name: 'Test Name', public: 1 }, :cards_to_use => "A-C,A-S,10-D,10-H"
       id = assigns(:room_id)
       room = Room.find(id)
       dealer = Player.where(name: 'sink', room: room)
@@ -47,7 +47,7 @@ describe RoomsController do
     end
     it 'should redirect to the show specific room controller' do
       # get the room_id returned by the room creation
-      post :create, room: { room_name: 'Test Name', public: 1 }
+      post :create, room: { room_name: 'Test Name', public: 1 }, :cards_to_use => "A-C,A-S,10-D,10-H"
       room_id = assigns(:room_id)
       room = Room.find(room_id)
       token = room.room_token

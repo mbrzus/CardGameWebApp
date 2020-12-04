@@ -22,6 +22,21 @@ class Card < ActiveRecord::Base
     self.save!
   end
 
+  # returns a list of all the cards in the deck
+  def self.get_deck_of_cards
+    list_of_cards = []
+
+    Card.values.each do |curr_value|
+        Card.suits.each do |curr_suit|
+        curr_card = { value: curr_value, suit: curr_suit, visible: true }
+        # dont save the card to the database,
+        list_of_cards << Card.create(curr_card)
+      end
+    end
+
+    return list_of_cards
+  end
+
   # Helper function that is called by methods in CardController that are used for certain games requiring visibility
   # This function expects that the calling card currently has self.visible = false, but this is not required.
   def make_visible
@@ -29,4 +44,5 @@ class Card < ActiveRecord::Base
     # Save the changes to the card to the database without validation
     self.save!
   end
+
 end
