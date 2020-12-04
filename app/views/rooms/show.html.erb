@@ -5,10 +5,11 @@ That way they can be connected to their hand. They can also opt to create a play
 for this game.
 
 
-<% while session[:update] %>
-  <%= javascript_tag 'window.location.reload();'%>
-  <% session[:update] = false %>
-<% end %>
+<%= javascript_tag 'setTimeout(function() {
+      window.location.reload();
+  }, 10000);
+'%>
+
 
 <br>
 <%= "Room code: #{session[:room_token]}" %>
