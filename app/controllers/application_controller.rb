@@ -11,4 +11,13 @@ class ApplicationController < ActionController::Base
     redirect_to '/login' and return unless @current_user
   end
 
+  def check_room_exists
+    token = session[:room_token]
+    room = Room.find_by(room_token: token)
+    if room.nil?
+      flash[:notice] = 'This room has ended. Thank you for playing!'
+      redirect_to rooms_path
+    end
+  end
+
 end
