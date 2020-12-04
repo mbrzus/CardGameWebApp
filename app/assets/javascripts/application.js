@@ -72,3 +72,8 @@ function submit_create_room_form() {
     // submit the form
     document.getElementById("create_room_form").submit();
 }
+
+
+function refresh_page(set) {
+
+}

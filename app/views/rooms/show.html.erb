@@ -4,6 +4,9 @@ and if they arent logged in, redirect them to a login page (just give your user 
 That way they can be connected to their hand. They can also opt to create a player
 for this game.
 
+<%= javascript_tag 'setInterval(function() {
+            window.location.reload();
+        }, 5000);'%>
 <br>
 <%= "Room code: #{session[:room_token]}" %>
 <br>
@@ -33,12 +36,6 @@ for this game.
             <% end %>
           <% end %>
         <% else %>
-
-<!--          The reloading part has to go here but the variable needs to be changed-->
-          <%= javascript_tag 'setTimeout(function() {
-            window.location.reload();
-          }, 10000)'%>
-
           <% cards.each do |card| %>
             <div class="card">
               <% if player[:name] == player_name or card.visible %>
