@@ -1,19 +1,10 @@
 class RoomsController < ApplicationController
 
   before_filter :set_current_user
+  before_filter :check_room_exists, only: [:reset, :destroy]
 
   def room_params
     params.require(:room).permit(:name, :public)
-  end
-
-  def check_room_exists
-    token = session[:room_token]
-    debugger
-    room = Room.find_by(room_token: token)
-    if room.nil?
-      return false
-    end
-    return true
   end
 
   def show
@@ -60,7 +51,6 @@ class RoomsController < ApplicationController
   # In the future we can modify Card.suits/values to make a custom deck
   def create_new_deck
     dealer = Player.where(room_id: session[:room_id], name: "dealer").first
-
     Card.suits.each do |curr_suit|
       Card.values.each do |curr_value|
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
@@ -109,13 +99,6 @@ class RoomsController < ApplicationController
   end
 
   def reset
-    debugger
-    state = check_room_exists
-    if !state
-      flash[:notice] = 'This room has ended. Thank you for playing!'
-      redirect_to rooms_path and return
-    end
-    debugger
     room_token = params[:id]
     @room = Room.find_by(room_token: room_token)
     @room_cards = Card.where(room: @room)
