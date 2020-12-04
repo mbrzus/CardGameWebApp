@@ -4,9 +4,10 @@ and if they arent logged in, redirect them to a login page (just give your user 
 That way they can be connected to their hand. They can also opt to create a player
 for this game.
 
-<%= javascript_tag 'setInterval(function() {
-            window.location.reload();
-        }, 5000);'%>
+<% if session[:update_page] %>
+  <%= javascript_tag 'window.location.reload();'%>
+<%end %>
+
 <br>
 <%= "Room code: #{session[:room_token]}" %>
 <br>
@@ -28,6 +29,7 @@ for this game.
               <%= image_tag("back_cards-07.png", size: "192x89") %>
             </div>
           <% end %>
+
           <% cards.each do |card| %>
             <% if card.visible %>
               <div class="card">

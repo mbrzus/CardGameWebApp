@@ -1,5 +1,13 @@
 <h2 class="accounts-header">Login</h2>
 
+<%= session[:update]%>
+<% if session[:update] %>
+  <%= javascript_tag 'setTimeout(function() {
+  window.location.reload();
+}, 1000)
+'%>
+<% end %>
+
 <%= form_tag login_create_path, :class => 'form' do %>
   <div class="accounts-form-item">
     <%= label :account, :username, 'username', class: 'col-form-control', id: 'login_username_label' %>

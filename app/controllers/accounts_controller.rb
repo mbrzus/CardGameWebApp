@@ -7,6 +7,8 @@ class AccountsController < ApplicationController
   end
 
   def new
+    session[:update] = false
+
     redirect_to rooms_path if @current_user
   end
 
@@ -16,6 +18,7 @@ class AccountsController < ApplicationController
     redirect_to signup_path and return unless account.valid?
 
     Account.create_account!(account_params)
+    session[:update] = true
     redirect_to login_path
   end
 
