@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
 
   before_filter :set_current_user
-  before_filter :check_room_exists, only: [:reset, :destroy]
+  before_filter :check_room_exists, only: [:reset, :destroy, :create_new_deck]
 
   def room_params
     params.require(:room).permit(:name, :public)
