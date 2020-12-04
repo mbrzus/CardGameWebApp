@@ -4,9 +4,11 @@ and if they arent logged in, redirect them to a login page (just give your user 
 That way they can be connected to their hand. They can also opt to create a player
 for this game.
 
-<% if session[:update_page] %>
+
+<% while session[:update] %>
   <%= javascript_tag 'window.location.reload();'%>
-<%end %>
+  <% session[:update] = false %>
+<% end %>
 
 <br>
 <%= "Room code: #{session[:room_token]}" %>
