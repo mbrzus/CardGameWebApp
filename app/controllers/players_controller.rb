@@ -20,7 +20,8 @@ class PlayersController < ApplicationController
     # if the login failed (the player doesn't exist)
     if player == nil
       # create the player if there is space for them
-      if room.player_limit > room.player.length
+      # subtract 2 from the length for the dealer and sink
+      if room.player_limit > room.player.length - 2
         # create the player and store their information
         session[@room_id] = Player.create!(player_hash)
       else
