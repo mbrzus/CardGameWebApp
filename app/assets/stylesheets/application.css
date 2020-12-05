@@ -110,3 +110,8 @@ form label {
     top: 6px;
     border-radius: 14px;
 }
+
+#header-title a {
+    text-decoration: none;
+    color: inherit;
+}
