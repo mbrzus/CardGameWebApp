@@ -25,11 +25,11 @@ describe PlayersController do
   end
   describe 'CRUD Operations when room_token is set in session' do
     # Need to downgrade to Ruby 2.4.4 to run this test
-    it 'should call create_or_load' do
+    it 'should call login' do
       room = Room.find(1)
       fake_results = { :name => "Daniel",
                        :room => room }
-      expect(Player).to receive(:create_or_load).with(fake_results)
+      expect(Player).to receive(:login).with(fake_results)
       post :create, { :player_name => { "name" => "Daniel" } }
     end
     it 'should call redirect to the game page' do
@@ -41,10 +41,8 @@ describe PlayersController do
       room = Room.find(3)
       fake_results = { :name => "Daniel",
                        :room => room }
-      expect(Player).to receive(:create_or_load).with(fake_results)
-      post :create, { :player_name => { "name" => "Daniel" } }
-
       expect(response).to redirect_to('/rooms')
+      post :create, { :player_name => { "name" => "Daniel" } }
     end
 
 
