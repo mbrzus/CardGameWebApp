@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   post 'cards/give_cards'
   post 'cards/give_cards_transaction'
 
+  post 'cards/take_cards'
+  post 'cards/take_cards_transaction'
+
   post 'cards/flip_cards'
   post 'cards/make_cards_visible'
 
