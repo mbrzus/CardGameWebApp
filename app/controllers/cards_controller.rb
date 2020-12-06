@@ -241,9 +241,141 @@ class CardsController < ApplicationController
 
     @players = Player.where(room_id: room_id)
   end
+
+  # This method is hit when the "cards_flip_cards_path" is invoked. It passes the information below to the
+  # views/cards/flip_cards view, which then collects information from the user and calls make_cards_visible() passing
+  # its params to that function
+  def flip_cards
+    room_id = params[:room_id].to_i
+    @players = Player.where(room_id: room_id)
+  end
+
+  # This function expects the following input from the "cards/flip_cards" path
+  # params[:player_id_to_make_cards_visible] - the players/sinks/sources who are having a number of their cards made visible
+  # params[:quantity_to_make_visible] - the number of cards that should be made visible to everyone in the room
+  def make_cards_visible
+    invalid_input = false
+
+    # Verify the user has input the expected params
+    if params[:player_id_to_make_cards_visible].eql?(nil)
+      flash[:warning] = "Card flip Failed. You must select player/sink/source to flip cards for."
+      invalid_input = true
+    end
+
+
+    num_players_in_room = Player.where(room_id: session["room_id"].to_i).size
+
+    if !invalid_input
+      if params[:player_id_to_make_cards_visible].keys.length <= 0 ||
+          params[:player_id_to_make_cards_visible].keys.length > num_players_in_room
+      flash[:warning] = "Card flip Failed. You selected an invalid number of players"
+      invalid_input = true
+      end
+    end
+
+    if params[:quantity_to_make_visible].eql?(nil)
+      flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
+      invalid_input = true
+    end
+
+    # If all input to the function is as expected, proceed with performing the flips
+    if invalid_input == false
+
+      (0..num_players_in_room).each{ |i|
+        # Read input from the view
+        selected_player_id = params[:player_id_to_make_cards_visible].keys[i].to_i
+        quantity_to_make_visible = params[:quantity_to_make_visible][:quantity_to_make_visible].to_i
+
+        # Note: Flipee is the term that is used to describe the player / sink / source whos cards are being made visible
+        flipee_cards = Card.where(room_id: session["room_id"].to_i, player_id: selected_player_id)
+        flipee_cards_array = flipee_cards.to_a
+
+        # Figure out how many invisible cards the flipee has to begin with
+        num_invisible_cards = 0
+        flipee_cards.each do |curr_card|
+          if curr_card.visible == false
+            num_invisible_cards += 1
+          end
+        end
+
+        # Ensure the number of cards to flip is between 0 and the number of cards the flipee has
+        if quantity_to_make_visible <= 0 || quantity_to_make_visible > num_invisible_cards
+          flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
+          invalid_input = true
+        end
+
+        if invalid_input == false
+          flipee = Player.where(room_id: session["room_id"].to_i, id: selected_player_id).first
+          curr_card_to_flip = nil
+
+          (0..quantity_to_make_visible - 1).each {
+            # Pop cards off the end of their hand until you find one that's not already visible
+            loop do
+              curr_card_to_flip = flipee_cards_array.pop
+              break if curr_card_to_flip.visible == false
+            end
+
+            # Make the card visible to everyone else in the room
+            curr_card_to_flip.make_visible
+          }
+
+          # Make a flash notice to the user stating what they have requested has been done
+          flash[:notice] = "Successfully flipped #{quantity_to_make_visible} of #{flipee.name}'s cards."
+        end
+
+      }
+
+    end
+
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
+  end
+
+  # This method is hit when the "cards_flip_my_cards_path" is invoked. It passes the information below to the
+  # views/cards/flip_my_cards view, which then collects information from the user and calls make_my_cards_visible() passing
+  # its params to that function
+  def toggle_my_cards
+    # Get this players name and cards
+    room_id = params[:room_id].to_i
+    room_id_hash = session[session["room_id"]]
+    this_players_id = room_id_hash["id"]
+
+    @my_cards = Card.where(room_id: room_id, player_id: this_players_id)
+  end
+
+  # This function expects the following input from the "cards/flip_cards" path
+  # params[:cards_to_make_visible] - the cards from THIS player that should be made visible to everyone in the room
+  def toggle_my_card_visibility
+    invalid_input = false
+
+    if params[:cards_to_toggle].eql?(nil)
+      flash[:warning] = "Card Flip Failed. Invalid number of cards selected to flip."
+      invalid_input = true
+    end
+    # If all input to the function is as expected, proceed with performing the flips
+    if invalid_input == false
+
+      card_ids = params[:cards_to_toggle].keys
+
+      card_ids.each do |curr_card_id|
+        # Make the card visible to everyone else in the room
+        curr_card = Card.where(id: curr_card_id).first
+
+        curr_card.visible = !curr_card.visible
+        curr_card.save!
+      end
+
+      # Make a flash notice to the user stating what they have requested has been done
+      flash[:notice] = "Successfully flipped #{params[:cards_to_toggle].size} of your cards."
+
+    end
+
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
+  end
+
+
 end
-
-
 
 
 

@@ -11,10 +11,18 @@ Rails.application.routes.draw do
 
   resources :cards
   post 'cards/delete_decks_in_room'
-  post 'cards/draw_cards_from_dealer'
-  post 'cards/give_cards_transaction'
-  post 'cards/give_cards'
+
   post 'cards/draw_cards'
+  post 'cards/draw_cards_from_dealer'
+
+  post 'cards/give_cards'
+  post 'cards/give_cards_transaction'
+
+  post 'cards/flip_cards'
+  post 'cards/make_cards_visible'
+
+  post 'cards/toggle_my_cards'
+  post 'cards/toggle_my_card_visibility'
 
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms

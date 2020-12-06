@@ -53,7 +53,18 @@ for this game.
           <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
             <% cards.each do |card| %>
               <div class="card">
-                <% if player[:name] == player_name or card.visible %>
+                <%# If the card belongs to this player or is visible, display the card.
+              If the card belongs to this player AND is visible to everyone, make it 20% larger
+              so the player knows everyone else can see it too%>
+                <% if player[:name] == player_name and card.visible == true %>
+                  <div class="my_card_visible_to_all">
+                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+                  </div>
+                <% elsif player[:name] == player_name and card.visible == false%>
+                  <div>
+                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+                  </div>
+                <% elsif card.visible == true%>
                   <div>
                     <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
                   </div>
@@ -77,6 +88,14 @@ for this game.
 
   <%= form_tag cards_give_cards_path :room_id => @room_id do %>
     <%= button_to 'Give cards', :class => 'btn btn-secondary' %>
+  <% end %>
+
+  <%= form_tag cards_flip_cards_path :room_id => @room_id do %>
+    <%= button_to 'Flip Others\' Cards Visible', :class => 'btn btn-secondary' %>
+  <% end %>
+
+  <%= form_tag cards_toggle_my_cards_path :room_id => @room_id do %>
+    <%= button_to 'Toggle My Cards\' Visibility', :class => 'btn btn-secondary' %>
   <% end %>
 
   <br><br>

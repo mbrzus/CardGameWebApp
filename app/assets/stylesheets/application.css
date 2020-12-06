@@ -119,6 +119,17 @@ form label {
     margin: 0px 20px 5px 5px;
 }
 
+/*Yellow around the card in your hand indicates that everyone in the room can see it */
+.my_card_visible_to_all{
+    background-color: yellow;
+    border: 2px solid yellow;
+    height: auto;
+    float: left;
+    margin-right: -4px;
+    margin-left: -3px;
+    margin-top: -3px;
+}
+
 /* css specifically for the logout button */
 .logout-button {
     position: absolute;
