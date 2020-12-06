@@ -74,8 +74,24 @@ form label {
 }
 
 .player-box {
+    background-color: #006400;
     border: thin solid;
     margin-top: 10px;
+    color: white
+}
+
+.dealer-box {
+    background-color: #006400;
+    border: thin solid black;
+    margin: 10px;
+    color: white;
+}
+
+.board-box {
+    background-color: white;
+    color: black;
+    margin-top: 10px;
+    padding-bottom: 10px
 }
 
 .player {
@@ -109,4 +125,9 @@ form label {
     left: 6px;
     top: 6px;
     border-radius: 14px;
+}
+
+#header-title a {
+    text-decoration: none;
+    color: inherit;
 }

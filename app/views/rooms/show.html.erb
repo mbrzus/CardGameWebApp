@@ -10,55 +10,66 @@ for this game.
   }, 10000);
 '%>
 
-
 <br>
 <%= "Room code: #{session[:room_token]}" %>
 <br>
 <% player_name = @player["name"].to_s %>
 <%= "You are: " + player_name %>
 <% players = Player.where(room_id: @room_id) %>
-<% players.each do |player| %>
-  <div class="player-box">
-    <div class="player">
-      <%= player[:name] %>
-      <div class="hand">
-        <%# val = rand(1..10) %>
-        <%# suit = ["Clubs", "Spades", "Hearts", "Diamonds"][rand(0..3)] %>
-        <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
-        <% if player[:name] == 'dealer' %>
-          <%= "Number of cards in Deck: #{@deck.size.to_s}" %>
-          <% if @deck.size > 0 %>
-            <div class="deck">
-              <%= image_tag("back_cards-07.png", size: "192x89") %>
-            </div>
-          <% end %>
-
-          <% cards.each do |card| %>
-            <% if card.visible %>
-              <div class="card">
-                <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+<div class="board-box">
+  <%= 'Game Board' %>
+  <% players.each do |player| %>
+    <% if player[:name] == 'dealer' or player[:name] == 'sink' %>
+      <div class="dealer-box">
+        <div class="player">
+          <%= player[:name] %>
+          <div class="hand">
+            <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
+            <%= "Number of cards: #{cards.size.to_s}" %>
+            <% if cards.size > 0 %>
+              <div class="deck">
+                <%= image_tag("back_cards-07.png", size: "192x89") %>
               </div>
             <% end %>
-          <% end %>
-        <% else %>
-          <% cards.each do |card| %>
-            <div class="card">
-              <% if player[:name] == player_name or card.visible %>
-                <div>
+            <% cards.each do |card| %>
+              <% if card.visible %>
+                <div class="card">
                   <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
                 </div>
-              <% else %>
-                <div>
-                  <%= image_tag("red_back.png", size: "64x89") %>
-                </div>
               <% end %>
-            </div>
-          <% end %>
-        <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% players.each do |player| %>
+  <% if player[:name] != 'dealer' and player[:name] != 'sink' %>
+    <div class="player-box">
+      <div class="player">
+        <%= player[:name] %>
+        <div class="hand">
+          <% cards = Card.where(player_id: player[:id], room_id: @room_id) %>
+            <% cards.each do |card| %>
+              <div class="card">
+                <% if player[:name] == player_name or card.visible %>
+                  <div>
+                    <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+                  </div>
+                <% else %>
+                  <div>
+                    <%= image_tag("red_back.png", size: "64x89") %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
+<br>
 <div class="operation-box">
   <%= form_tag cards_draw_cards_path :room_id => @room_id do %>
     <% button_to 'Draw cards from Dealer', :class => 'btn btn-secondary' %>
