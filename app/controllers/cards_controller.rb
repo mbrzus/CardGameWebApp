@@ -381,6 +381,8 @@ class CardsController < ApplicationController
   def take_cards_choose_player
     room_id = params[:room_id].to_i
     @players = Player.where(room_id: room_id)
+
+    # The user will implicitly be sent to the views/cards/take_cards_choose_player view from here
   end
 
   # This method is hit when the "cards_take_cards_choose_cards_path" is invoked. This method passes the cards associated
@@ -394,22 +396,37 @@ class CardsController < ApplicationController
       invalid_input = true
     end
 
-    if params[:player_to_take_from].size > 1
-      flash[:warning] = "Card Transaction Failed. You may only take cards from 1 player at a time."
-      invalid_input = true
-    end
-
     if invalid_input == false
 
-      room_id = params[:room_id].to_i
-      player_to_take_from = params[:player_to_take_from]
+      if params[:player_to_take_from].size > 1
+        flash[:warning] = "Card Transaction Failed. You may only take cards from 1 player at a time."
+        invalid_input = true
+      end
 
-      @players_cards = Card.where(room_id: room_id, player_id: player_to_take_from)
+      if invalid_input == false
 
-      # The user will implicitly be sent to the views/cards/take_cards_choose_cards view from here
+        room_id = params[:room_id].to_i
+        # Get the receiving player from information passed into the view
+        taking_from_player_id = params[:player_to_take_from].keys
+        taking_from_player = nil
 
-    # If the user input invalid information on who take from, send them back to their room view
+        # Ensure the user only selected a SINGLE recipient
+        if taking_from_player_id.length == 1
+          taking_from_player = Player.where(room_id: session["room_id"].to_i,
+                                          id: taking_from_player_id[0].to_i).first
+
+        @players_cards = Card.where(room_id: room_id, player_id: taking_from_player.id)
+
+        # The user will implicitly be sent to the views/cards/take_cards_choose_cards view from here
+        end
+
+      else
+        # If the user input invalid information on who take from, send them back to their room view
+        redirect_to room_path(:id => session[:room_token])
+      end
+
     else
+      # If the user input invalid information on who take from, send them back to their room view
       redirect_to room_path(:id => session[:room_token])
     end
 
@@ -433,14 +450,6 @@ class CardsController < ApplicationController
                                  name: session[session["room_id"].to_i]["name"]).first
 
       card_ids_to_take = params[:cards_selected].keys
-      cards_to_give = []
-
-      # Get the Card models associated with the passed in IDs
-      card_ids_to_take.each do |curr_card_id|
-        cards_to_give << Card.where(room_id: this_player.room_id, player_id: this_player.id,
-                                    id: curr_card_id.to_i).first
-      end
-
 
       card_ids_to_take.each do |curr_card_id|
         curr_card = Card.where(id: curr_card_id).first
@@ -448,7 +457,7 @@ class CardsController < ApplicationController
         curr_card.change_owner(this_player.id)
       end
 
-      end
+    end
     # Send the user back to their room view
     redirect_to room_path(:id => session[:room_token])
   end

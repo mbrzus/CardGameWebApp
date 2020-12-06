@@ -16,7 +16,7 @@
           <%= curr_player.name %>
         </td>
         <td>
-        <%= check_box_tag "player_selected[#{curr_player.id}]", 1, false, :id => "checkbox_#{curr_player.id}" %>
+        <%= check_box_tag "player_to_take_from[#{curr_player.id}]", 1, false, :id => "checkbox_#{curr_player.id}" %>
         </td>
           <% end%>
       </tr>
