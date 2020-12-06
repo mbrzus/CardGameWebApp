@@ -375,6 +375,35 @@ class CardsController < ApplicationController
   end
 
 
+  # This method is hit when the "cards_take_cards_choose_player_path" is invoked. It passes the information below to the
+  # views/cards/take_cards_choose_player view, which then collects information from the user and sends them to the
+  # views/cards/take_cards_choose_cards view
+  def take_cards_choose_player
+    room_id = params[:room_id].to_i
+    @players = Player.where(room_id: room_id)
+  end
+
+  # This method is hit when the "cards_take_cards_choose_cards_path" is invoked. This method passes the cards associated
+  # with the player they chose to take from and then passes this information to the views/cards/take_cards_choose_cards
+  # view where the user will select which of the players cards they want to take for themselves.
+  def take_cards_choose_cards
+    # TODO Check for input validity
+
+    room_id = params[:room_id].to_i
+    player_to_take_from = params[:player_to_take_from]
+
+    @players_cards = Card.where(room_id: room_id, player_id: player_to_take_from)
+  end
+
+
+  # This method is hit after the user selects which cards they want to take from an entity in the
+  # views/cards/take_cards_choose_cards view. It performs the actual transferring of the card from the previous owner
+  # to the player who has chosen to take cards.
+  def take_cards_transaction
+
+  end
+
+
 end
 
 

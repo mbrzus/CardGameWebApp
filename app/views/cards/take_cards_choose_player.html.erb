@@ -1,0 +1,25 @@
+<h3> Take Cards from another Player / Sink</h3>
+
+<%= form_tag cards_take_cards_transaction_path :class => 'form' do %>
+  <table><thead>
+  <tr>
+    <th>Select a single Player / Sink to Take Cards from</th>
+  </tr>
+  </thead>
+    <tbody>
+    <% @players.each do |curr_player| %>
+      <tr>
+        <td>
+          <%= curr_player.name %>
+        </td>
+        <td>
+        <%= check_box_tag "player_selected[#{curr_player.id}]", 1, false, :id => "checkbox_#{curr_player.id}" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody></table>
+
+
+  <%= button_to 'Take cards from the selected player', :class => 'btn btn-secondary' %>
+<% end %>
+

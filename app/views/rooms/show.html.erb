@@ -90,7 +90,7 @@ for this game.
     <%= button_to 'Give cards', :class => 'btn btn-secondary' %>
   <% end %>
 
-  <%= form_tag cards_take_cards_path :room_id => @room_id do %>
+  <%= form_tag cards_take_cards_choose_player_path :room_id => @room_id do %>
     <%= button_to 'Take cards', :class => 'btn btn-secondary' %>
   <% end %>
 
