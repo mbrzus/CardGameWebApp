@@ -1,0 +1,36 @@
+<h3> Take Cards from #{player name here} </h3>
+
+<%= form_tag cards_take_cards_transaction_path :class => 'form' do %>
+  <table><thead>
+  <tr>
+    <th>Card</th>
+    <th>Select card</th>
+  </tr>
+  </thead>
+    <tbody>
+    <% @cards_to_take_array.each do |card| %>
+      <tr>
+        <td>
+          <% if card.visible == true%>
+          <div>
+            <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "78x120") %>
+          </div>
+            <%# TODO: Add a condition to make sure this is NOT the dealer before displaying card backs  %>
+          <% else %>
+            <div>
+              <%= image_tag("red_back.png", size: "78x120") %>
+            </div>
+          <% end %>
+        </td>
+        <td>
+        <%= check_box_tag "cards_selected[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody></table>
+
+  <br>
+
+  <%= button_to 'Take Cards', :class => 'btn btn-secondary' %>
+<% end %>
+

@@ -387,12 +387,32 @@ class CardsController < ApplicationController
   # with the player they chose to take from and then passes this information to the views/cards/take_cards_choose_cards
   # view where the user will select which of the players cards they want to take for themselves.
   def take_cards_choose_cards
-    # TODO Check for input validity
+    invalid_input = false
 
-    room_id = params[:room_id].to_i
-    player_to_take_from = params[:player_to_take_from]
+    if params[:player_to_take_from].eql?(nil)
+      flash[:warning] = "Card Transaction Failed. No player selected to take cards from."
+      invalid_input = true
+    end
 
-    @players_cards = Card.where(room_id: room_id, player_id: player_to_take_from)
+    if params[:player_to_take_from].size > 1
+      flash[:warning] = "Card Transaction Failed. You may only take cards from 1 player at a time."
+      invalid_input = true
+    end
+
+    if invalid_input == false
+
+      room_id = params[:room_id].to_i
+      player_to_take_from = params[:player_to_take_from]
+
+      @players_cards = Card.where(room_id: room_id, player_id: player_to_take_from)
+
+      # The user will implicitly be sent to the views/cards/take_cards_choose_cards view from here
+
+    # If the user input invalid information on who take from, send them back to their room view
+    else
+      redirect_to room_path(:id => session[:room_token])
+    end
+
   end
 
 
@@ -400,9 +420,38 @@ class CardsController < ApplicationController
   # views/cards/take_cards_choose_cards view. It performs the actual transferring of the card from the previous owner
   # to the player who has chosen to take cards.
   def take_cards_transaction
+    invalid_input = false
 
+    if params[:cards_selected].eql?(nil)
+      flash[:warning] = "Card Transaction Failed. Invalid number of cards selected to take."
+      invalid_input = true
+    end
+    # If all input to the function is as expected, proceed with performing the transactions
+    if invalid_input == false
+      # Get this player from information stored in the session
+      this_player = Player.where(room_id: session["room_id"].to_i,
+                                 name: session[session["room_id"].to_i]["name"]).first
+
+      card_ids_to_take = params[:cards_selected].keys
+      cards_to_give = []
+
+      # Get the Card models associated with the passed in IDs
+      card_ids_to_take.each do |curr_card_id|
+        cards_to_give << Card.where(room_id: this_player.room_id, player_id: this_player.id,
+                                    id: curr_card_id.to_i).first
+      end
+
+
+      card_ids_to_take.each do |curr_card_id|
+        curr_card = Card.where(id: curr_card_id).first
+        # Transfer ownership of the card to this player
+        curr_card.change_owner(this_player.id)
+      end
+
+      end
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
   end
-
 
 end
 
