@@ -405,20 +405,24 @@ class CardsController < ApplicationController
 
       if invalid_input == false
 
-        room_id = params[:room_id].to_i
-        # Get the receiving player from information passed into the view
-        taking_from_player_id = params[:player_to_take_from].keys
-        taking_from_player = nil
-
         # Ensure the user only selected a SINGLE recipient
-        if taking_from_player_id.length == 1
-          taking_from_player = Player.where(room_id: session["room_id"].to_i,
-                                          id: taking_from_player_id[0].to_i).first
+        taking_from_player_id = params[:player_to_take_from].keys[0].to_i
 
-        @players_cards = Card.where(room_id: room_id, player_id: taking_from_player.id)
+
+        @taking_from_player = Player.where(room_id: session["room_id"].to_i,
+                                        id: taking_from_player_id).first
+
+        debugger
+
+        @cards_to_take_array = Card.where(room_id: session["room_id"].to_i, player_id: @taking_from_player.id)
+
+        if @cards_to_take_array.size == 0
+          flash[:warning] = "Card Transaction Failed. This player has no cards to take."
+          # If the user input invalid information on who take from, send them back to their room view
+          redirect_to room_path(:id => session[:room_token])
+        end
 
         # The user will implicitly be sent to the views/cards/take_cards_choose_cards view from here
-        end
 
       else
         # If the user input invalid information on who take from, send them back to their room view

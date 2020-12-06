@@ -130,6 +130,11 @@ form label {
     margin-top: -3px;
 }
 
+/* TODO Figure out why this is applying to all text on this screen */
+.take_cards_choose_cards_header{
+    font-size: 14pt;
+}
+
 /* css specifically for the logout button */
 .logout-button {
     position: absolute;
