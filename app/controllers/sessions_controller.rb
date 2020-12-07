@@ -20,7 +20,8 @@ class SessionsController < ApplicationController
     username = account.oauth_username
     if username.include? "twitter"
       username = username.sub /@twitter/, ''
-    
+    elsif username.include? "google_oauth"
+      username = username.sub /@google_oauth2/, ''
     end
     flash[:notice] = "Welcome #{username}"
     redirect_to rooms_path
