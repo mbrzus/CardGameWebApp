@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
 
-  before_filter :set_current_user
+  before_filter :set_current_user, :take_cards_choose_player
 
   # Define what params should follow the Card Model
   def card_params
@@ -411,8 +411,6 @@ class CardsController < ApplicationController
 
         @taking_from_player = Player.where(room_id: session["room_id"].to_i,
                                         id: taking_from_player_id).first
-
-        debugger
 
         @cards_to_take_array = Card.where(room_id: session["room_id"].to_i, player_id: @taking_from_player.id)
 
