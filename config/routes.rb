@@ -11,21 +11,31 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback' => 'sessions#create_omniauth'
 
   resources :cards
+  post 'cards/delete_decks_in_room'
+
+  post 'cards/draw_cards'
+  post 'cards/draw_cards_from_dealer'
+
+  post 'cards/give_cards'
+  post 'cards/give_cards_transaction'
+
+  post 'cards/flip_cards'
+  post 'cards/make_cards_visible'
+
+  post 'cards/toggle_my_cards'
+  post 'cards/toggle_my_card_visibility'
+
   # adds in the paths associated with rooms, which are the game sessions
   resources :rooms
   post 'rooms/join_room'
-
+  post 'rooms/create_new_deck'
   post 'rooms/:id/reset', :controller => 'rooms', :action => 'reset'
 
-  post 'cards/create_new_deck'
-  post 'cards/delete_decks_in_room'
-  # root :to => redirect('/rooms')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   resources :players
   post 'players/create'
-  #root :to => redirect('/players')
 
  # You can have the root of your site routed with "root"
   # root 'welcome#index'

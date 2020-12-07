@@ -21,18 +21,25 @@ end
 describe PlayersController do
   before :each do
     session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
+
   end
   describe 'CRUD Operations' do
+
+    session[:room_token] = Room.find(1).room_token
+  end
+  describe 'CRUD Operations when room_token is set in session' do
+
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call create_or_load' do
+      room = Room.find(1)
       fake_results = { :name => "Daniel",
-                       :room => Room.find(1) }
+                       :room => room }
       expect(Player).to receive(:create_or_load).with(fake_results)
-      post :create, { :player_name => { "name" => "Daniel" } }, { :room_to_join => "1" }
+      post :create, { :player_name => { "name" => "Daniel" } }
     end
     it 'should call redirect to the game page' do
-      post :create, { :player_name => { "name" => "Daniel" } }, { :room_to_join => "1" }
-      expect(response).to redirect_to(room_path(:id => 1))
+      post :create, { :player_name => { "name" => "Daniel" } }
+      expect(response).to redirect_to(room_path(session[:room_token]))
     end
 
 

@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20201116051250) do
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.string  "room_token"
     t.string  "name"
     t.boolean "public"
   end

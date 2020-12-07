@@ -4,18 +4,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"></link>
     <title>Card inventory!</title>
     <%= stylesheet_link_tag 'application', 'media' => 'all' %>
+    <%= stylesheet_link_tag 'main_page', 'media' => 'all'%>
+    <%= stylesheet_link_tag 'accounts', 'media' => 'all'%>
+    <%= stylesheet_link_tag 'create_room', 'media' => 'all'%>
+    <%= stylesheet_link_tag 'player_login', 'media' => 'all'%>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'accounts' %>
     <%= csrf_meta_tags %>
     <body>
-      <div class="container">
-        <div class="navbar navbar-expand-lg bg-primary text-white">
-          <h1 class="title">Virtual Card Table!</h1>
+      <div class="page_container">
+        <div class="header-container">
+          <div class="header">
+            <%=
+              if @current_user
+                button_to 'Logout', logout_path, method: :delete, class: 'btn btn-primary logout-button',  id: 'logout'
+              end
+            %>
+            <div id="header-title">
+              <%= link_to "Card Management System", rooms_path %>
+            </div>
+          </div>
         </div>
-        <%=
-          if @current_user
-            button_to 'Logout', logout_path, method: :delete, class: 'btn btn-primary',  id: 'logout'
-          end
-        %>
         <div id="main">
           <% if flash[:notice] %>
             <div class="alert alert-danger">
