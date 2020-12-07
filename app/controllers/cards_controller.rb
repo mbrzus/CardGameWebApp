@@ -455,13 +455,20 @@ class CardsController < ApplicationController
 
       card_ids_to_take = params[:cards_selected].keys
 
+      # Get the previous owners name for the sake of outputting it again
+      first_card = Card.where(id: card_ids_to_take[0]).first
+      previous_owner = Player.where(id: first_card.player_id).first
+
       card_ids_to_take.each do |curr_card_id|
         curr_card = Card.where(id: curr_card_id).first
         # Transfer ownership of the card to this player
         curr_card.change_owner(this_player.id)
       end
 
+      flash[:notice] = "Successfully took #{card_ids_to_take.size} cards from #{previous_owner.name}"
+
     end
+
     # Send the user back to their room view
     redirect_to room_path(:id => session[:room_token])
   end
