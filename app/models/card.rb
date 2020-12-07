@@ -27,10 +27,8 @@ class Card < ActiveRecord::Base
     list_of_cards = []
 
     Card.values.each do |curr_value|
-        Card.suits.each do |curr_suit|
-        curr_card = { value: curr_value, suit: curr_suit, visible: true }
-        # dont save the card to the database,
-        list_of_cards << Card.create(curr_card)
+      Card.suits.each do |curr_suit|
+        list_of_cards << { value: curr_value, suit: curr_suit }
       end
     end
 
