@@ -22,13 +22,14 @@ Feature: Give and draw cards from dealers and other players
 
   Scenario: Draw 5 cards from the dealer player
     Given I am on Room 2
-    When I press draw_cards
-    And I am on the draw_cards page
+    When I click on "draw_cards"
+    Then I am on the draw_cards page
+    When 
     Then I should be able to select players to give 5 cards from the dealer
 
     Scenario: Give cards to players
       Given I am on Room 2
-      When I press give_cards
+      When I click on "give_cards"
       And I am on the give_cards page
       Then I should be able to select "Ram" and give cards to the player
 

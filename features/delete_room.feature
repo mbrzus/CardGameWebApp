@@ -23,11 +23,11 @@ Feature: Delete an existing room
   Scenario: End an existing game from the room
 
     Given I am on Room 1
-    When I have pressed end_game
+    When I click on "end_game"
     Then I should be on the main page with the notice "Game ended successfully. Thank you for playing!."
 
 
   Scenario: Reset an existing game from the room
     Given I am on Room 1
-    When I have pressed reset_game
+    When I click on "reset_game"
     Then I still should be on room 1 with the notice "Game reset successfully!"
