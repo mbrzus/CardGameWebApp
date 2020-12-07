@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
 
   before_filter :set_current_user
+  before_filter :check_room_exists, only: [:reset, :destroy, :create_new_deck]
 
   def room_params
     params.require(:room).permit(:name, :public)
@@ -30,12 +31,15 @@ class RoomsController < ApplicationController
   end
 
   def new
-
+    # get a list of cards for the user to select from
+    @cards = Card.get_deck_of_cards
   end
 
   def create
     # room has no info so just create an empty object
     new_room = Room.create_room!(room_params)
+    # initialize the new room with the cards the user selected for this room
+    new_room.initialize_room(params["cards_to_use"])
     @room_id = new_room.id
     # Put the room_id in the session for use in other controllers
     session[:room_id] = @room_id
@@ -47,7 +51,6 @@ class RoomsController < ApplicationController
   # In the future we can modify Card.suits/values to make a custom deck
   def create_new_deck
     dealer = Player.where(room_id: session[:room_id], name: "dealer").first
-
     Card.suits.each do |curr_suit|
       Card.values.each do |curr_value|
         # Dynamically create the :image_url based off of the known card value and first character from the suit naming
@@ -103,6 +106,8 @@ class RoomsController < ApplicationController
     @dealer_id = @dealer.id
     @room_cards.each do |card|
       card.change_owner(@dealer_id)
+      card.visible = false
+      card.save!
     end
     flash[:notice] = 'Game reset successfully!'
     redirect_to room_path(:id => room_token)
