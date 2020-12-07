@@ -416,6 +416,25 @@ class CardsController < ApplicationController
 
         @cards_to_take_array = Card.where(room_id: session["room_id"].to_i, player_id: @taking_from_player.id)
 
+        if @taking_from_player.name == "dealer"
+
+          dealers_visible_cards_count = 0
+
+          @cards_to_take_array.each do |curr_dealer_card|
+            if curr_dealer_card.visible == true
+              dealers_visible_cards_count += 1
+            end
+          end
+
+          if dealers_visible_cards_count == 0
+            flash[:warning] = "Dealer has no visible cards to take. To take invisible cards from dealer, use draw button."
+            # If the user input invalid information on who take from, send them back to their room view
+            redirect_to room_path(:id => session[:room_token])
+          end
+
+
+        end
+
         if @cards_to_take_array.size == 0
           flash[:warning] = "Card Transaction Failed. This player has no cards to take."
           # If the user input invalid information on who take from, send them back to their room view
