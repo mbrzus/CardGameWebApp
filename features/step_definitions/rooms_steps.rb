@@ -41,7 +41,6 @@ end
 
 Given /^I am on Room (.*?)$/ do |room|
   visit room_path(:id => room.to_s)
-  print page.body
 end
 
 Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|

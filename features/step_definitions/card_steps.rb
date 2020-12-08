@@ -100,3 +100,12 @@ Then /^I should see "(.*)" before "(.*)"$/ do |movie1, movie2|
   regexp = /#{movie1}.*#{movie2}/m  # similarly to chapter 7.8 in the book
   expect(page.body).to match(regexp)
 end
+
+Then /^I should be on the draw cards page$/ do |room_id|
+  expect(current_path).to match('/cards/'+room_id.to_s)
+end
+
+When /^The dealer gives (.*?) cards from the (.*?) page to players (.*?)$/ do |num_cards, page, players|
+  players.each { |x| check "checkbox_"+x.to_s }
+  fill_in "quantity_dealer", :with => num_cards.to_s
+end
