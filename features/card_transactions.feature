@@ -29,7 +29,7 @@ Feature: Give and draw cards from dealers and other players
     Then I should be on the draw cards page
 
     When The dealer gives 5 cards from the draw_cards page to players 1,2,3
-    And I have pressed "draw_cards"
+    And I click on "draw_cards_inside"
     Then I should be back at Room 1
 
     Scenario: Give cards to players
@@ -38,5 +38,6 @@ Feature: Give and draw cards from dealers and other players
       Then I should be on the give cards page
 
       When Player 4 gives cards to player 5
+      And I click on "give_cards_inside"
       Then Player 5 must have the cards that player 4 had
 
