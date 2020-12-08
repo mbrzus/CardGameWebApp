@@ -1,0 +1,35 @@
+<h3> Toggle Card Visibility</h3>
+
+<%= form_tag cards_toggle_my_card_visibility_path :class => 'form' do %>
+  <table><thead>
+  <tr>
+    <th>Card</th>
+    <th>Select card</th>
+  </tr>
+  </thead>
+    <tbody>
+    <% @my_cards.each do |card| %>
+      <tr>
+        <td>
+          <% if card.visible == true %>
+            <div class="my_card_visible_to_all">
+              <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+            </div>
+          <% else %>
+            <div>
+              <%= image_tag("#{card[:value]}#{card[:suit][0,1].upcase}.png", size: "64x89") %>
+            </div>
+          <% end %>
+        </td>
+        <td>
+        <%= check_box_tag "cards_to_toggle[#{card.id}]", 1, false, :id => "checkbox_#{card.id}" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody></table>
+
+  <br>
+
+  <%= button_to 'Toggle Selected Cards\' Visibility', :class => 'btn btn-secondary' %>
+<% end %>
+

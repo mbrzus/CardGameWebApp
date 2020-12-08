@@ -20,7 +20,6 @@ function join_room(room_id) {
     document.getElementById('join_room_button').click();
 }
 
-
 // this function takes as an argument a card html object form the create room screen
 // If this card is currently selected, we should unselect it and change its border color to show the user
 // If it is currently unselected, we should do the opposite
@@ -73,3 +72,4 @@ function submit_create_room_form() {
     // submit the form
     document.getElementById("create_room_form").submit();
 }
+
