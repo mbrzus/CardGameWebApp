@@ -64,3 +64,7 @@ Given /^The following players have been added to the database$/ do |players_tabl
     Player.create!(player)
   end
 end
+
+Then /^I should be back at Room (.*?)$/ do |room_num|
+  expect(current_path).to match(room_path(:id => room_num.to_i))
+end

@@ -102,10 +102,18 @@ Then /^I should see "(.*)" before "(.*)"$/ do |movie1, movie2|
 end
 
 Then /^I should be on the draw cards page$/ do |room_id|
-  expect(current_path).to match('/cards/'+room_id.to_s)
+  expect(current_path).to match('/cards/draw_cards')
 end
 
 When /^The dealer gives (.*?) cards from the (.*?) page to players (.*?)$/ do |num_cards, page, players|
   players.each { |x| check "checkbox_"+x.to_s }
   fill_in "quantity_dealer", :with => num_cards.to_s
+end
+
+Then /^I should be on the give cards page$/ do |room_id|
+  expect(current_path).to match('/cards/give_cards')
+end
+
+When /^Player (.*?) gives cards to player (.*?)$/ do
+
 end

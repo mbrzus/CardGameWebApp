@@ -33,8 +33,10 @@ Feature: Give and draw cards from dealers and other players
     Then I should be back at Room 1
 
     Scenario: Give cards to players
-      Given I am on Room 2
+      Given I am on Room 1
       When I click on "give_cards"
-      And I am on the give_cards page
-      Then I should be able to select "Ram" and give cards to the player
+      Then I should be on the give cards page
+
+      When Player 4 gives cards to player 5
+      Then Player 5 must have the cards that player 4 had
 
