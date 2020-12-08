@@ -106,7 +106,7 @@ Then /^I should be on the draw cards page$/ do |room_id|
 end
 
 When /^The dealer gives (.*?) cards from the (.*?) page to players (.*?)$/ do |num_cards, page, players|
-  players.each { |x| check "checkbox_"+x.to_s }
+  players.each { |x| find(:css, "#players_selected[#{x}]").set(true) }
   fill_in "quantity_dealer", :with => num_cards.to_s
 end
 
@@ -114,6 +114,9 @@ Then /^I should be on the give cards page$/ do |room_id|
   expect(current_path).to match('/cards/give_cards')
 end
 
-When /^Player (.*?) gives cards to player (.*?)$/ do
-
+When /^Player (.*?) gives cards to player (.*?)$/ do |giver, receiver|
+  giver_cards = Card.where(player_id: giver.to_i)
+  giver_cards.each { |x| find(:css, "#cards_selected[#{x.id}]").set(true) }
+  find(:css, "#players_selected[#{receiver.to_i}]").set(true)
+  
 end
