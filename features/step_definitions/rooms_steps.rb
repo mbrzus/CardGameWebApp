@@ -41,8 +41,8 @@ end
 
 Given /^I am on a Room and I have logged in$/ do
   visit '/login'
-  fill_in "login_username", :with => "shriram"
-  fill_in "login_password", :with => "shriram"
+  fill_in "login_username", :with => "Shriram"
+  fill_in "login_password", :with => "Shriram"
   find_by_id('login_submit').click
   find_by_id('new_room_button').click
   fill_in "room_name_input", :with => "sample"
