@@ -102,7 +102,8 @@ Then /^I should see "(.*)" before "(.*)"$/ do |movie1, movie2|
 end
 
 Then /^I should be on the draw cards page$/ do |room_id|
-  expect(current_path).to match('/cards/draw_cards')
+  # Room_id query expected
+  expect(current_path).to match('/.*\/cards\/draw_cards/')
 end
 
 When /^The dealer gives (.*?) cards from the draw cards page to player (.*?)$/ do |num_cards, player|
@@ -112,7 +113,8 @@ When /^The dealer gives (.*?) cards from the draw cards page to player (.*?)$/ d
 end
 
 Then /^I should be on the give cards page$/ do |room_id|
-  expect(current_path).to match('/cards/give_cards')
+  # Room_id query expected
+  expect(current_path).to match('/.*\/cards\/give_cards/')
 end
 
 When /^Player (.*?) gives cards to player (.*?)$/ do |giver, receiver|
