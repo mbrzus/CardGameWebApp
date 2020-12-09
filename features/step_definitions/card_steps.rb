@@ -116,9 +116,10 @@ Then /^I should be on the give cards page$/ do |room_id|
 end
 
 When /^Player (.*?) gives cards to player (.*?)$/ do |giver, receiver|
-  giver_cards = Card.where(name: giver)
+  giver = Player.where(player: giver)
+  giver_cards = Card.where(player_id: giver[0].id)
   giver_cards.each { |x| find(:css, "checkbox_#{x.id}").set(true) }
-
+  receiver = Player.where(name: receiver)
   find(:css, "checkbox_#{receiver[0].id}").set(true)
 end
 

@@ -37,7 +37,7 @@ Feature: Give and draw cards from dealers and other players
       When I click on "give_cards"
       Then I should be on the give cards page
 
-      When Player "sachin" gives cards to player "sink"
+      When Player "Shriram" gives cards to player "sink"
       And I click on "give_cards_inside"
-      Then Player 5 must have the cards that player 4 had
+      Then Player "sink" must have the cards that player "Shriram" had
 
