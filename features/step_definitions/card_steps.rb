@@ -118,7 +118,6 @@ When /^Player (.*?) gives cards to player (.*?)$/ do |giver, receiver|
   giver_cards = Card.where(player_id: giver.to_i)
   giver_cards.each { |x| find(:css, "#cards_selected[#{x.id}]").set(true) }
   find(:css, "#players_selected[#{receiver.to_i}]").set(true)
-  expect(Card.where(player_id: receiver.to_i)).to eq(giver_cards)
 end
 
 Then /^Player (.*?) must have the cards that player (.*?) had$/ do |receiver, giver|

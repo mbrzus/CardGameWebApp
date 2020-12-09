@@ -39,8 +39,16 @@ Then /^I should be directed to the create_player page$/ do
   expect(current_path).to match(/\/players\/new/)
 end
 
-Given /^I am on Room (.*?)$/ do |room|
-  visit room_path(:id => room.to_s)
+Given /^I am on a Room and I have logged in$/ do
+  visit '/login'
+  fill_in "login_username", :with => "shriram"
+  fill_in "login_password", :with => "shriram"
+  find_by_id('login_submit').click
+  find_by_id('new_room_button').click
+  fill_in "room_name_input", :with => "sample"
+  find_by_id('create_room_submit').click
+  fill_in "player_name_input", :with => "shriram"
+  find_by_id('create_player_button').click
 end
 
 Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|
@@ -48,8 +56,7 @@ Then /^I should be on the main page with the notice "(.*?)"$/ do |notice|
   expect(page).to have_content(notice)
 end
 
-Then /^I still should be on room (.*?) with the notice "(.*?)"$/ do |room, notice|
-  expect(current_path).to match(room_path(:id => room.to_i))
+Then /^I still should be on the same room with the notice "(.*?)"$/ do |notice|
   expect(page).to have_content(notice)
 end
 
