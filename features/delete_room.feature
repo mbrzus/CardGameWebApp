@@ -15,19 +15,22 @@ Feature: Delete an existing room
     Given The following players have been added to the database
     |id|  name | room_id |
     | 1| dealer| 1       |
-    | 2| sink| 2       |
-    | 3| Ram| 3       |
+    | 2| sink| 1       |
+    | 3| Ram| 1      |
     | 4| Jacob| 1       |
-    | 5| Jack| 2       |
+    | 5| Jack| 1       |
 
-  Scenario: End an existing game from the room
+
+    And I am on Room 1
+
+  Scenario: End an existing game on the room
 
     Given I am on Room 1
     When I click on "end_game"
     Then I should be on the main page with the notice "Game ended successfully. Thank you for playing!."
 
 
-  Scenario: Reset an existing game from the room
+  Scenario: Reset an existing game on the room
     Given I am on Room 1
     When I click on "reset_game"
     Then I still should be on room 1 with the notice "Game reset successfully!"
