@@ -3,11 +3,7 @@ require 'rails_helper'
 
 describe CardsController do
   before :each do
-<<<<<<< HEAD
-    session[:session_token] = Account.create!(username: 'testuser', email: 'testuser@gmail.com', password: 'valid123!!').session_token
-=======
     session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
->>>>>>> main
   end
   describe 'CRUD Operations' do
     it 'should call be able to search for cards' do

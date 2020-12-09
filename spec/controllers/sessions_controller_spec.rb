@@ -54,7 +54,7 @@ describe SessionsController do
     end
     it 'should create a flash message if a successful login' do
       post :create_omniauth, provider: :twitter
-      expect(flash[:notice]).to eq('Welcome mockuser@twitter')
+      expect(flash[:notice]).to eq('Welcome mockuser')
     end
   end
   describe 'Creating a session through google' do
@@ -67,7 +67,7 @@ describe SessionsController do
     end
     it 'should create a flash message if a successful login' do
       post :create_omniauth, provider: :google_oauth2
-      expect(flash[:notice]).to eq('Welcome mockuser@gmail.com@google_oauth2')
+      expect(flash[:notice]).to eq('Welcome mockuser@gmail.com')
     end
   end
   describe 'destroying session (logging out)' do
