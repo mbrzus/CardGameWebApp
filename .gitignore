@@ -44,6 +44,7 @@ db/*.sqlite3
 /cache
 /capybara*
 /capybara-*.html
+/coverage/
 /gems
 /specifications
 rerun.txt

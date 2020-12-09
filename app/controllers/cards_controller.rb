@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
 
-  before_filter :set_current_user, :take_cards_choose_player
+  before_filter :set_current_user, :take_cards_choose_player, :check_room_exists
 
   # Define what params should follow the Card Model
   def card_params

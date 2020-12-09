@@ -160,4 +160,31 @@ describe RoomsController do
       expect(public_room).to have_key(:player_names_list)
     end
   end
+
+  describe 'After game was ended. Other players should be redirect to room path upon any action' do
+    before :each do
+      session[:room_token] = Room.create_room!(name: 'name', public: 1).room_token
+    end
+    it 'user should get redirected when trying to reset' do
+      # there is no information for Rooms besides auto-generated id
+      token = session[:room_token]
+      post :destroy, { id: token }
+      post :reset, { id: token }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'user should get redirected when trying to end room' do
+      # there is no information for Rooms besides auto-generated id
+      token = session[:room_token]
+      post :destroy, { id: token }
+      post :destroy, { id: token }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'user should get redirected when trying to create a new deck' do
+      # there is no information for Rooms besides auto-generated id
+      token = session[:room_token]
+      post :destroy, { id: token }
+      post :create_new_deck, { id: token }
+      expect(response).to redirect_to('/rooms')
+    end
+  end
 end
