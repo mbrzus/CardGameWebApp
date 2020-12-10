@@ -6,13 +6,13 @@ Feature: Allow a user to login using their username and password
 
   Scenario: Sign up for an account to play the game
     When I am on the "login" page
-    And I click on "sign_up_button"
+    And I click on "signup"
     Then I should be on the sign_up page
 
     When I input "Shriram" into "signup_username"
     And I input "shriram@gmail.com" into "signup_email"
     And I input "password" into "signup_password"
-    And I click on "create_new_account"
+    And I click on "signup_submit"
     Then A new account with the username "Shriram" should be created
 
 
@@ -21,4 +21,4 @@ Feature: Allow a user to login using their username and password
     And I input "Shriram" into "login_username"
     And I input "password" into "login_password"
     And I click on "login_submit"
-    Then user "Shriram" should be authenticated
+    Then User "Shriram" should be authenticated
