@@ -1,7 +1,6 @@
 class CardsController < ApplicationController
 
-  before_filter :set_current_user
-  before_filter :check_room_exists
+  before_filter :set_current_user, :take_cards_choose_player, :check_room_exists
 
   # Define what params should follow the Card Model
   # def card_params
@@ -376,6 +375,121 @@ class CardsController < ApplicationController
     redirect_to room_path(:id => session[:room_token])
   end
 
+
+  # This method is hit when the "cards_take_cards_choose_player_path" is invoked. It passes the information below to the
+  # views/cards/take_cards_choose_player view, which then collects information from the user and sends them to the
+  # views/cards/take_cards_choose_cards view
+  def take_cards_choose_player
+    room_id = params[:room_id].to_i
+    @players = Player.where(room_id: room_id)
+
+    # The user will implicitly be sent to the views/cards/take_cards_choose_player view from here
+  end
+
+  # This method is hit when the "cards_take_cards_choose_cards_path" is invoked. This method passes the cards associated
+  # with the player they chose to take from and then passes this information to the views/cards/take_cards_choose_cards
+  # view where the user will select which of the players cards they want to take for themselves.
+  def take_cards_choose_cards
+    invalid_input = false
+
+    if params[:player_to_take_from].eql?(nil)
+      flash[:warning] = "Card Transaction Failed. No player selected to take cards from."
+      invalid_input = true
+    end
+
+    if invalid_input == false
+
+      if params[:player_to_take_from].size > 1
+        flash[:warning] = "Card Transaction Failed. You may only take cards from 1 player at a time."
+        invalid_input = true
+      end
+
+      if invalid_input == false
+
+        # Ensure the user only selected a SINGLE recipient
+        taking_from_player_id = params[:player_to_take_from].keys[0].to_i
+
+
+        @taking_from_player = Player.where(room_id: session["room_id"].to_i,
+                                        id: taking_from_player_id).first
+
+        @cards_to_take_array = Card.where(room_id: session["room_id"].to_i, player_id: @taking_from_player.id)
+
+        if @taking_from_player.name == "dealer"
+
+          dealers_visible_cards_count = 0
+
+          @cards_to_take_array.each do |curr_dealer_card|
+            if curr_dealer_card.visible == true
+              dealers_visible_cards_count += 1
+            end
+          end
+
+          if dealers_visible_cards_count == 0
+            flash[:warning] = "Dealer has no visible cards to take. To take invisible cards from dealer, use draw button."
+            # If the user input invalid information on who take from, send them back to their room view
+            redirect_to room_path(:id => session[:room_token])
+          end
+
+
+        end
+
+        if @cards_to_take_array.size == 0
+          flash[:warning] = "Card Transaction Failed. This player has no cards to take."
+          # If the user input invalid information on who take from, send them back to their room view
+          redirect_to room_path(:id => session[:room_token])
+        end
+
+        # The user will implicitly be sent to the views/cards/take_cards_choose_cards view from here
+
+      else
+        # If the user input invalid information on who take from, send them back to their room view
+        redirect_to room_path(:id => session[:room_token])
+      end
+
+    else
+      # If the user input invalid information on who take from, send them back to their room view
+      redirect_to room_path(:id => session[:room_token])
+    end
+
+  end
+
+
+  # This method is hit after the user selects which cards they want to take from an entity in the
+  # views/cards/take_cards_choose_cards view. It performs the actual transferring of the card from the previous owner
+  # to the player who has chosen to take cards.
+  def take_cards_transaction
+    invalid_input = false
+
+    if params[:cards_selected].eql?(nil)
+      flash[:warning] = "Card Transaction Failed. Invalid number of cards selected to take."
+      invalid_input = true
+    end
+    # If all input to the function is as expected, proceed with performing the transactions
+    if invalid_input == false
+      # Get this player from information stored in the session
+      this_player = Player.where(room_id: session["room_id"].to_i,
+                                 name: session[session["room_id"].to_i]["name"]).first
+
+      card_ids_to_take = params[:cards_selected].keys
+
+      # Get the previous owners name for the sake of outputting it again
+      first_card = Card.where(id: card_ids_to_take[0]).first
+      previous_owner = Player.where(id: first_card.player_id).first
+
+      card_ids_to_take.each do |curr_card_id|
+        curr_card = Card.where(id: curr_card_id).first
+        # Transfer ownership of the card to this player
+        curr_card.change_owner(this_player.id)
+      end
+
+      flash[:notice] = "Successfully took #{card_ids_to_take.size} cards from #{previous_owner.name}"
+
+    end
+
+    # Send the user back to their room view
+    redirect_to room_path(:id => session[:room_token])
+  end
 
 end
 
