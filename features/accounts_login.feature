@@ -9,10 +9,10 @@ Feature: Allow a user to login using their username and password
     And I click on "sign_up_button"
     Then I should be on the sign_up page
 
-    When I input "Shriram" into <string>
-    And I sign up with the email "shriram@gmail.com"
-    And I put in the password "password"
-    And I have pressed "create_new_account"
+    When I input "Shriram" into "signup_username"
+    And I input "shriram@gmail.com" into "signup_email"
+    And I input "password" into "signup_password"
+    And I click on "create_new_account"
     Then A new account with the username "Shriram" should be created
 
 
