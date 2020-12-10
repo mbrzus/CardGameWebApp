@@ -31,6 +31,7 @@ describe PlayersController do
 
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call login' do
+      debugger
       room = Room.find(1)
       fake_results = { :name => "Daniel",
                        :room => room }
@@ -38,7 +39,7 @@ describe PlayersController do
       post :create, { :player_name => { "name" => "Daniel" } }, { :room_token => Room.find(1).room_token }
     end
     it 'should call redirect to the game page' do
-      post :create, { :player_name => { "name" => "Daniel" } }
+      post :create, { :player_name => { "name" => "Daniel" } }, { :room_token => Room.find(1).room_token }
       expect(response).to redirect_to(room_path(session[:room_token]))
     end
     it 'if the max occupancy has been reached and the player login doesnt exist, it should redirect to rooms', :room_3 do
