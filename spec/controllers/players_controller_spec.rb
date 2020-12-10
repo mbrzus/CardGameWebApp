@@ -20,7 +20,6 @@ end
 
 describe PlayersController do
   before :each do
-    session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
     @account = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
     session[:session_token] = @account.session_token
   end
