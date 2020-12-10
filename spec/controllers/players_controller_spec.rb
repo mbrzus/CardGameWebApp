@@ -21,12 +21,13 @@ end
 describe PlayersController do
   before :each do
     session[:session_token] = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!').session_token
-
+    @account = Account.create!(username: 'valid', email: 'valid@gmail.com', password: 'valid123!!')
+    session[:session_token] = @account.session_token
   end
-  describe 'CRUD Operations' do
-
-    session[:room_token] = Room.find(1).room_token
-  end
+  # describe 'CRUD Operations' do
+  #
+  #   session[:room_token] = Room.find(1).room_token
+  # end
   describe 'CRUD Operations when room_token is set in session' do
 
     # Need to downgrade to Ruby 2.4.4 to run this test
