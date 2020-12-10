@@ -5,11 +5,20 @@ Feature: Allow a user to login using their username and password
   To play the game
 
   Scenario: Sign up for an account to play the game
-    When I am a new user
-    And I have pressed "sign_up_button"
-    Then I should be on the sign up page
+    When I am on the "login" page
+    And I click on "sign_up_button"
+    Then I should be on the sign_up page
 
-    When I sign up with the username "Shriram"
+    When I input "Shriram" into <string>
     And I sign up with the email "shriram@gmail.com"
     And I put in the password "password"
     And I have pressed "create_new_account"
+    Then A new account with the username "Shriram" should be created
+
+
+  Scenario: Login with an existing account
+    When I am on the "login" page
+    And I input "Shriram" into "login_username"
+    And I input "password" into "login_password"
+    And I click on "login_submit"
+    Then user "Shriram" should be authenticated
