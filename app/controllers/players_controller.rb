@@ -13,8 +13,25 @@ class PlayersController < ApplicationController
     @room_id = room.id
     player_hash = { name: player_params['name'],
                     room: room }
-    # create the player and store their information
-    session[@room_id] = Player.create_or_load(player_hash)
+
+    # attempt to login as the specified player
+    player = Player.login(player_hash)
+
+    # if the login failed (the player doesn't exist)
+    if player == nil
+      # create the player if there is space for them
+      # subtract 2 from the length for the dealer and sink
+      if room.player_limit > room.player.length - 2
+        # create the player and store their information
+        session[@room_id] = Player.create!(player_hash)
+      else
+        # redirect back to the main page with an error message
+        flash[:warning] = "There is no space in the room"
+        redirect_to rooms_path()
+        return
+      end
+    end
+
     # go the rooms view
     redirect_to room_path(id: session[:room_token])
   end
