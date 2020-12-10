@@ -31,16 +31,21 @@ describe PlayersController do
   describe 'CRUD Operations when room_token is set in session' do
 
     # Need to downgrade to Ruby 2.4.4 to run this test
-    it 'should call create_or_load' do
+    it 'should call login' do
       room = Room.find(1)
       fake_results = { :name => "Daniel",
                        :room => room }
-      expect(Player).to receive(:create_or_load).with(fake_results)
-      post :create, { :player_name => { "name" => "Daniel" } }
+      expect(Player).to receive(:login).with(fake_results)
+      post :create, { :player_name => { "name" => "Daniel" } }, { :room_token => Room.find(1).room_token }
     end
     it 'should call redirect to the game page' do
       post :create, { :player_name => { "name" => "Daniel" } }
       expect(response).to redirect_to(room_path(session[:room_token]))
+    end
+    it 'if the max occupancy has been reached and the player login doesnt exist, it should redirect to rooms', :room_3 do
+      # there are too many players within the room already
+      post :create, { :player_name => { "name" => "Daniel" } }, { :room_token => Room.find(3).room_token }
+      expect(response).to redirect_to('/rooms')
     end
 
 
