@@ -131,16 +131,24 @@ describe RoomsController do
   end
 
   describe 'Reset a room' do
+    before :each do
+      # Ensure the test database includes an initial room with two players other than the dealer and sink
+      @room = Room.create_room!(name: 'test', player_limit: 5, public: 1)
+      @room.initialize_room("A-D,A-C,A-S,A-H,2-D,2-C,2-S,2-H,3-D,3-C,3-S,3-H,4-D,4-C,4-S,4-H,5-D,5-C,5-S,5-H,
+6-D,6-C,6-S,6-H,7-D,7-C,7-S,7-H,8-D,8-C,8-S,8-H,9-D,9-C,9-S,9-H,10-D,10-C,10-S,10-H,J-D,J-C,J-S,J-H,Q-D,Q-C,Q-S,Q-H,K-D,
+K-C,K-S,K-H,")
+      session[:room_token] = @room.room_token
+    end
     it 'should redirect the user to the same page' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :reset, { :id => token }, { :room_to_join => '1' }
-      expect(response).to redirect_to("/rooms/#{token}")
+
+      post :reset, { id: @room.room_token }
+      expect(response).to redirect_to("/rooms/#{@room.room_token}")
     end
     it "should give all the cards in the room to the room's dealer" do
       # there is no information for Rooms besides auto-generated id
       room = Room.find(1)
+      puts room.to_s
       player = Player.where(room: room, name: 'Ted')[0]
       Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
       post :reset, { :id => room.room_token }, { :room_to_join => '1' }
@@ -173,7 +181,11 @@ describe RoomsController do
 
   describe 'adding cards to a room' do
     before :each do
-      @room = Room.create_room!(name: 'name', public: 1)
+      # Ensure the test database includes an initial room with two players other than the dealer and sink
+      @room = Room.create_room!(name: 'test', player_limit: 5, public: 1)
+      @room.initialize_room("A-D,A-C,A-S,A-H,2-D,2-C,2-S,2-H,3-D,3-C,3-S,3-H,4-D,4-C,4-S,4-H,5-D,5-C,5-S,5-H,
+6-D,6-C,6-S,6-H,7-D,7-C,7-S,7-H,8-D,8-C,8-S,8-H,9-D,9-C,9-S,9-H,10-D,10-C,10-S,10-H,J-D,J-C,J-S,J-H,Q-D,Q-C,Q-S,Q-H,K-D,
+K-C,K-S,K-H,")
       session[:room_token] = @room.room_token
       session[:room_id] = @room.id
     end
