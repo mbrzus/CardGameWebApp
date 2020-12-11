@@ -3,7 +3,7 @@
 
 <%= form_tag cards_draw_cards_from_dealer_path :class => 'form' do %>
   <%= label :quantity, 'Input quantity to deal', :class => 'col-form-label' %>
-  <%= text_field :quantity, 'quantity', :class => 'form-control' %>
+  <%= text_field :quantity, 'quantity', :class => 'form-control' , :id => "quantity_dealer"%>
 
 
   <br>
@@ -13,7 +13,7 @@
   <% end %>
 
   <br><br>
-  <%= button_to 'Deal cards to players', :class => 'btn btn-secondary' %>
+  <%= button_to 'Deal cards to players', :class => 'btn btn-secondary', :id => "draw_cards_inside"%>
 
 <% end %>
 

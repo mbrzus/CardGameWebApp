@@ -3,50 +3,50 @@ class CardsController < ApplicationController
   before_filter :set_current_user, :take_cards_choose_player, :check_room_exists
 
   # Define what params should follow the Card Model
-  def card_params
-    params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
-  end
+  # def card_params
+  #   params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
+  # end
 
-  def show
-    id = params[:id] # retrieve card ID from URI route
-    @card = Card.find(id) # look up card by unique ID
-  end
-
-  def index
-    @cards = Card.all
-  end
+  # def show
+  #   id = params[:id] # retrieve card ID from URI route
+  #   @card = Card.find(id) # look up card by unique ID
+  # end
+  #
+  # def index
+  #   @cards = Card.all
+  # end
 
   def new
     # default: render 'new' template
   end
 
-  def create
-    @card = Card.create!(card_params)
-    flash[:notice] = "#{@card.value} of #{@card.suit} was successfully created."
+  # def create
+  #   @card = Card.create!(card_params)
+  #   flash[:notice] = "#{@card.value} of #{@card.suit} was successfully created."
+  #
+  #   # Put an appropriate redirect path here
+  #   #redirect_to movies_path
+  # end
 
-    # Put an appropriate redirect path here
-    #redirect_to movies_path
-  end
+  # def edit
+  #   @card = Card.find params[:id]
+  # end
 
-  def edit
-    @card = Card.find params[:id]
-  end
+  # def update
+  #   @card = Card.find params[:id]
+  #   @card.update_attributes!(card_params)
+  #   flash[:notice] = "#{@card.value} of #{@card.suit} was successfully updated."
+  #   # Put an appropriate redirect path here
+  #   redirect_to card_path(@card)
+  #
+  # end
 
-  def update
-    @card = Card.find params[:id]
-    @card.update_attributes!(card_params)
-    flash[:notice] = "#{@card.value} of #{@card.suit} was successfully updated."
-    # Put an appropriate redirect path here
-    redirect_to card_path(@card)
-
-  end
-
-  def destroy
-    @card = Card.find(params[:id])
-    @card.destroy
-    flash[:notice] = "Room #{@card.room_id}'s #{@card.value} of #{@card.suit} was deleted."
-    redirect_to cards_path
-  end
+  # def destroy
+  #   @card = Card.find(params[:id])
+  #   @card.destroy
+  #   flash[:notice] = "Room #{@card.room_id}'s #{@card.value} of #{@card.suit} was deleted."
+  #   redirect_to cards_path
+  # end
 
   # This method can be used to delete any card that has a certain deck number
   def delete_decks_in_room
@@ -181,6 +181,7 @@ class CardsController < ApplicationController
       flash[:warning] = "Transaction Failed. You selected 0 cards to transfer."
       invalid_input = true
     end
+    redirect_to room_path(:id => session[:room_token]) and return if invalid_input
 
     # Get the receiving player from information passed into the view
     receiving_player_id = params[:players_selected].keys
@@ -234,8 +235,8 @@ class CardsController < ApplicationController
   end
 
   def give_cards
-    room_id = params[:room_id].to_i
-    giving_player = session[room_id.to_s]
+    room_id = params[:room_id]
+    giving_player = session[room_id]
     cards_to_give = Card.where(room_id: giving_player["room_id"], player_id: giving_player["id"])
     @cards_to_give_array = cards_to_give.to_a
 

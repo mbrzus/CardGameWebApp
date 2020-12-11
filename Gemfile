@@ -51,10 +51,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'capybara'
+  # Use factory bot to instantiate instances of the classes we're testing.
+  gem 'factory_bot_rails'
+  gem 'guard-rspec'
   gem 'launchy'
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
-  gem 'guard-rspec'
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.3.6'
@@ -64,10 +66,10 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-expectations'
   gem 'cucumber-rails'#, :require=>false
-  gem 'simplecov', :require => false
   gem 'database_cleaner'
+  gem 'rspec-expectations'
+  gem 'simplecov', :require => false
 end
 
 group :production do
