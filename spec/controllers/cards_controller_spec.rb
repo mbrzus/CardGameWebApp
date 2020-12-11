@@ -152,6 +152,26 @@ K-C,K-S,K-H,")
       expect(flash[:notice]).to eq("All cards deleted from room #{@room.id}.")
     end
   end
+  describe 'After game was ended. Other players should be redirect to room path upon any action' do
+    before :each do
+      session[:room_token] = nil
+    end
+    it 'user should get redirected when trying to delete decks' do
+      # there is no information for Rooms besides auto-generated id
+      post :delete_decks_in_room, { id: session[:room_token] }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'user should get redirected when trying to draw cards' do
+      # there is no information for Rooms besides auto-generated id
+      post :draw_cards_from_dealer, { id: session[:room_token] }
+      expect(response).to redirect_to('/rooms')
+    end
+    it 'user should get redirected when trying to give cards' do
+      # there is no information for Rooms besides auto-generated id
+      post :give_cards_transaction, { id: session[:room_token] }
+      expect(response).to redirect_to('/rooms')
+    end
+  end
 end
 
 
