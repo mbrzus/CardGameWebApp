@@ -39,6 +39,11 @@ Then /^I should be directed to the create_player page$/ do
   expect(current_path).to match(/\/players\/new/)
 end
 
+Given /I am on Room (.)$/ do |room_id|
+  #visit "/room/" + Room.find(room_id.to_i).room_token
+  visit "/rooms/" + room_id
+end
+
 Given /^I am on a Room and I have logged in$/ do
   visit '/login'
   fill_in "login_username", :with => "Shriram"
