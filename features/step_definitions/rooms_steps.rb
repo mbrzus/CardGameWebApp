@@ -29,7 +29,7 @@ Then /^A room should be created in the database$/ do
   expect(Room.count).to be > @number_of_rooms
 end
 
-When /^I input "(.+)" into (.+)/ do |input_value, element_id|
+When /^I input "(.+)" into "(.+)"/ do |input_value, element_id|
   fill_in element_id, :with => input_value
 end
 
