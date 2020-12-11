@@ -134,11 +134,9 @@ describe RoomsController do
       room = Room.where(room_token: session[:room_token])[0]
       player = Player.where(room: room, name: 'Red')[0]
       Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
-      debugger
       post :reset, { :id => room.room_token }
       cards = Card.where(room: room)
       dealer = Player.where(room: room, name: 'dealer')[0]
-      debugger
       helper = TRUE
       cards.each do |card|
         owned_id = card.player_id
@@ -146,7 +144,6 @@ describe RoomsController do
           helper = FALSE
         end
       end
-      debugger
       expect(helper).to be(TRUE)
     end
   end

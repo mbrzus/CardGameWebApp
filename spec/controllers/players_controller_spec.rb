@@ -31,7 +31,6 @@ describe PlayersController do
 
     # Need to downgrade to Ruby 2.4.4 to run this test
     it 'should call login' do
-      debugger
       room = Room.find(1)
       fake_results = { :name => "Daniel",
                        :room => room }

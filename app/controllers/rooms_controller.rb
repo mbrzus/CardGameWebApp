@@ -103,7 +103,6 @@ class RoomsController < ApplicationController
     @room = Room.find_by(room_token: room_token)
     @room_cards = Card.where(room: @room)
     @dealer = Player.where(room: @room, name: 'dealer')[0]
-    debugger
     @dealer_id = @dealer.id
     @room_cards.each do |card|
       card.change_owner(@dealer_id)
