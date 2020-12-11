@@ -18,8 +18,8 @@ Feature: Allow a user to login using their username and password
     And I click on "signup_submit"
     Then A new account with the username "Shriram" should be created
 
-
   Scenario: Login with an existing account
+    Given The account with username "Shriram" exists
     When I am on the login page
     And I input "Shriram" into "login_username"
     And I input "password" into "login_password"
