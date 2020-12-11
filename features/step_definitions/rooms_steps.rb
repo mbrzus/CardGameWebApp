@@ -47,14 +47,15 @@ Given /I am on Room (.)$/ do |room_id|
 end
 
 Given /^I am on a Room and I have logged in$/ do
+  Account.create!({username: "Shriram", email: "shriram@gmail.com", password: "password" })
   visit '/login'
   fill_in "login_username", :with => "Shriram"
-  fill_in "login_password", :with => "Shriram"
+  fill_in "login_password", :with => "password"
   find_by_id('login_submit').click
   find_by_id('new_room_button').click
   fill_in "room_name_input", :with => "sample"
   find_by_id('create_room_submit').click
-  fill_in "player_name_input", :with => "shriram"
+  fill_in "player_name_input", :with => "Shriram"
   find_by_id('create_player_button').click
 end
 
