@@ -222,6 +222,37 @@ K-C,K-S,K-H,")
       end
     end
   end
+  describe 'rendering the toggle cards view' do
+    before :each do
+      post :toggle_my_cards, { room_id: @room.id }
+    end
+    it 'should render the flip cards template' do
+      expect(response).to render_template('toggle_my_cards')
+    end
+    it 'should render a view that includes each card a player has' do
+      Card.where(room_id: @room.id, player_id: session[@room.id].id).each do |card|
+        expect(response.body).to include("#{card[:value]}#{card[:suit][0, 1].upcase}.png")
+      end
+    end
+  end
+  describe 'toggle cards visibility action' do
+    context 'and has valid input' do
+      before :each do
+        post :draw_cards_from_dealer, quantity: { quantity: 10 }, players_selected: { "#{session[@room.id].id}": 1 }
+        my_cards = Card.where(room_id: @room.id, player_id: session[@room.id].id)
+        @selected_cards = {}
+        4.times { |i| @selected_cards[my_cards[i].id] = 1 }
+        @num_visible = Card.where(room_id: @room.id, player_id: session[@room.id].id, visible: true).length
+        post :toggle_my_card_visibility, { cards_to_toggle: @selected_cards }
+      end
+      it 'should allow users to flip the correct number of cards' do
+        expect(Card.where(room_id: @room.id, player_id: session[@room.id].id, visible: true).length).to eq(@num_visible + 4)
+      end
+      it 'should display a flash message saying the number of cards flipped and the opponents name' do
+        expect(flash[:notice]).to eq('Successfully flipped 4 of your cards.')
+      end
+    end
+  end
 end
 
 
