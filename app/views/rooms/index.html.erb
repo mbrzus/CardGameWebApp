@@ -4,8 +4,8 @@
   <div class="create-or-join-room-box">
     <div class="main-page-box-title"> Create a Room </div>
     <div class="box-explanation-text"> Click this button if you would like to create a new room. Rooms are where you and your friends/family can play cards together! </div>
-    <%= form_tag(new_room_path, { :method => :get, :id => "new_room_button", :class => 'centered default-button' }) do %>
-      <%= submit_tag 'Create New Room', :id => 'new_room_button', :class => 'btn btn-primary form-component' %>
+    <%= form_tag(new_room_path, { :method => :get, :class => 'centered default-button' }) do %>
+      <%= submit_tag 'Create New Room', :id => "new_room_button", :class => 'btn btn-primary form-component' %>
     <% end %>
   </div>
   <div class="create-or-join-room-box">
