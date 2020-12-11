@@ -74,14 +74,15 @@ Then /^I should be on the give cards page$/ do |room_id|
   expect(current_path).to match(/.*\/cards\/give_cards/)
 end
 
-When /^Player (.*?) gives cards to player (.*?)$/ do |giver, receiver|
-  giver = Player.where(player: giver)
+When /^Player "(.*?)" gives cards to player "(.*?)"$/ do |giver_name, receiver_name|
+  giver = Player.where(name: giver_name)
   giver_cards = Card.where(player_id: giver[0].id)
-  giver_cards.each { |x| find(:css, "checkbox_#{x.id}").set(true) }
-  receiver = Player.where(name: receiver)
-  find(:css, "checkbox_#{receiver[0].id}").set(true)
+  giver_cards.each { |x| find(:cid, "checkbox_#{x.id}").set(true) }
+  receiver = Player.where(name: receiver_name)
+  find(:id, "checkbox_#{receiver[0].id}").set(true)
+  find_by_id("give_cards_inside").click
 end
 
-Then /^Player (.*?) must have the cards that player (.*?) had$/ do |receiver, giver|
-  expect(Card.where(player_id: giver.to_i)).to must_be_empty
+Then /^Player "(.*?)" must have the cards that player "(.*?)" had$/ do |receiver, giver|
+  expect(Card.where(player_id: Player.where(name: giver)).length).to be 0
 end

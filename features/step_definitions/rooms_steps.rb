@@ -42,7 +42,7 @@ end
 Given /I am on Room (.)$/ do |room_id|
   fill_in "room_id_input", :with => Room.find(room_id.to_i).room_token
   click_on 'join_room_button'
-  fill_in "player_name_input", :with => "shriram"
+  fill_in "player_name_input", :with => "Shriram"
   find_by_id('create_player_button').click
 end
 
