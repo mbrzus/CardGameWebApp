@@ -15,7 +15,7 @@ Feature: Give and draw cards from dealers and other players
     |  id|    name| room_id|
     | 215|  dealer|       5|
     | 216|    sink|       5|
-    | 217| Shriram|       5|
+    | 217| shriram|       5|
     | 218|   Jacob|       5|
     | 219|    Jack|       5|
 
@@ -30,6 +30,5 @@ Feature: Give and draw cards from dealers and other players
     Scenario: Give cards to players
       When I click on "give_cards"
       And Player "shriram" gives cards to player "sink"
-      And I click on "give_cards_inside"
       Then Player "sink" must have the cards that player "shriram" had
 
