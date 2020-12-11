@@ -15,7 +15,11 @@ Then /^A new account with the username (.*?) should be created$/ do |username|
   expect(username).to be_truthy
 end
 
-Then /^User (.*?) should be authenticated$/ do |username|
+Given /The account with username "Shriram" exists/ do
+  Account.create!({username: "Shriram", email: "shriram@gmail.com", password: "password" })
+end
+
+Then /^User "(.*?)" should be authenticated$/ do |username|
   expect(page).to have_content("Welcome "+ username+"!")
 end
 
