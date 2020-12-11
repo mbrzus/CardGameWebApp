@@ -3,7 +3,7 @@ When /^I am on the (.*?) page$/ do |page|
 end
 
 Then /^I should be on the sign_up page$/ do
-  expect(current_path).to match('/accounts/new')
+  expect(current_path).to match(/.*\/accounts\/new/)
 end
 
 Then /^A new account with the username (.*?) should be created$/ do |username|
@@ -12,5 +12,5 @@ Then /^A new account with the username (.*?) should be created$/ do |username|
 end
 
 Then /^User (.*?) should be authenticated$/ do |username|
-  expect(page).to have_content("Welcome "+ username+"!")
+  expect(flash[:notice]).to have_content("Welcome "+ username+"!")
 end
