@@ -92,7 +92,7 @@ K-C,K-S,K-H,")
       post :draw_cards_from_dealer, quantity: { quantity: 55 }, players_selected: @selected_players
       expect(flash[:warning]).to eq('Dealer can not deal the requested number of cards')
     end
-    it "should flash a warning when no players are selected" do
+    it 'should flash a warning when no players are selected' do
       post :draw_cards_from_dealer, quantity: { quantity: 5 }
       expect(flash[:warning]).to eq('ERROR: Invalid input. Must choose atleast 1 player to deal to.')
     end
@@ -185,7 +185,6 @@ K-C,K-S,K-H,")
       end
     end
   end
-  # {"utf8"=>"✓", "authenticity_token"=>"uyYoD4Az6qPZ7JwFZzwp93S12O7Y+aD423ZxQwyTClFXQjFftKQLQsnkLx34r17yQs5+0cKXlXyvlVT/qUjHXQ==", "quantity_to_make_visible"=>{"quantity_to_make_visible"=>"3"}, "player_id_to_make_cards_visible"=>{"3"=>"1"}, "class"=>"form", "controller"=>"cards", "action"=>"make_cards_visible"}
   describe 'make cards visible action' do
     context 'and has valid input' do
       before :each do
@@ -198,6 +197,28 @@ K-C,K-S,K-H,")
       end
       it 'should display a flash message saying the number of cards flipped and the opponents name' do
         expect(flash[:notice]).to eq("Successfully flipped 3 of #{@player1.name}'s cards.")
+      end
+    end
+    context 'and has invalid input' do
+      it 'should display a flash warning notifying the user they did not select a player/sink/source' do
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 } }
+        expect(flash[:warning]).to eq('Card flip Failed. You must select player/sink/source to flip cards for.')
+      end
+      it 'should display a flash warning notifying the user of an invalid number of players' do
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: { } }
+        expect(flash[:warning]).to eq('Card flip Failed. You selected an invalid number of players')
+      end
+      it 'should display a flash warning notifying the user of an invalid number of cards to flip' do
+        post :make_cards_visible, { quantity_to_make_visible: { 'quantity_to_make_visible' => '' }, player_id_to_make_cards_visible: { "#{@player1.id}": 1 } }
+        expect(flash[:warning]).to eq('Card Flip Failed. Invalid number of cards selected to flip.')
+      end
+      it 'should display a flash warning notifying the user of an invalid number of cards to flip' do
+        post :make_cards_visible, { quantity_to_make_visible: { 'quantity_to_make_visible' => '' }, player_id_to_make_cards_visible: { "#{@player1.id}": 1 } }
+        expect(flash[:warning]).to eq('Card Flip Failed. Invalid number of cards selected to flip.')
+      end
+      it 'should display a flash warning notifying the user of an invalid number of cards to flip for no input' do
+        post :make_cards_visible, { player_id_to_make_cards_visible: { "#{@player1.id}": 1 } }
+        expect(flash[:warning]).to eq('Card Flip Failed. Invalid number of cards selected to flip.')
       end
     end
   end
