@@ -80,5 +80,5 @@ Given /^The following players have been added to the database$/ do |players_tabl
 end
 
 Then /^I should be back at Room (.*?)$/ do |room_num|
-  expect(current_path).to match(room_path(:id => room_num.to_i))
+  expect(current_path).to match(room_path(:id => Room.find(room_num.to_i).room_token))
 end
