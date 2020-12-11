@@ -40,8 +40,10 @@ Then /^I should be directed to the create_player page$/ do
 end
 
 Given /I am on Room (.)$/ do |room_id|
-  #visit "/room/" + Room.find(room_id.to_i).room_token
-  visit "/rooms/" + room_id
+  fill_in "room_id_input", :with => Room.find(room_id.to_i).room_token
+  click_on 'join_room_button'
+  fill_in "player_name_input", :with => "shriram"
+  find_by_id('create_player_button').click
 end
 
 Given /^I am on a Room and I have logged in$/ do
