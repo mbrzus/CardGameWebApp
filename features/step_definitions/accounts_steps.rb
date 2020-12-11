@@ -24,5 +24,5 @@ Then /^User "(.*?)" should be authenticated$/ do |username|
 end
 
 Then /^I should expect an invalid email error$/ do
-  expect(page).to have_content("Username has already been taken, Email must be a valid address")
+  expect(page).to have_content("Email must be a valid address")
 end
