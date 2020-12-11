@@ -131,7 +131,7 @@ describe RoomsController do
     end
     it "should give all the cards in the room to the room's dealer" do
       # there is no information for Rooms besides auto-generated id
-      room = Room.where(room_token: session[:room_token])#[0]
+      room = Room.where(room_token: session[:room_token])[0]
       player = Player.where(room: room, name: 'Red')[0]
       Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
       debugger
