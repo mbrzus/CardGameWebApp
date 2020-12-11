@@ -185,6 +185,22 @@ K-C,K-S,K-H,")
       end
     end
   end
+  # {"utf8"=>"✓", "authenticity_token"=>"uyYoD4Az6qPZ7JwFZzwp93S12O7Y+aD423ZxQwyTClFXQjFftKQLQsnkLx34r17yQs5+0cKXlXyvlVT/qUjHXQ==", "quantity_to_make_visible"=>{"quantity_to_make_visible"=>"3"}, "player_id_to_make_cards_visible"=>{"3"=>"1"}, "class"=>"form", "controller"=>"cards", "action"=>"make_cards_visible"}
+  describe 'make cards visible action' do
+    context 'and has valid input' do
+      before :each do
+        @num_visible = Card.where(room_id: @room.id, player_id: @player1.id, visible: true).length
+        post :draw_cards_from_dealer, quantity: { quantity: 5 }, players_selected: { "#{@player1.id}": 1 }
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: { "#{@player1.id}": 1 } }
+      end
+      it 'should allow users to flip the correct number of cards' do
+        expect(Card.where(room_id: @room.id, player_id: @player1.id, visible: true).length).to eq(@num_visible + 3)
+      end
+      it 'should display a flash message saying the number of cards flipped and the opponents name' do
+        expect(flash[:notice]).to eq("Successfully flipped 3 of #{@player1.name}'s cards.")
+      end
+    end
+  end
 end
 
 
