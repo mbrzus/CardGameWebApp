@@ -332,6 +332,12 @@ K-C,K-S,K-H,")
         expect(flash[:notice]).to eq("Successfully took #{@selected_cards.length} cards from #{@player1.name}")
       end
     end
+    context 'and has invalid input' do
+      it 'should display a flash warning notifying the user they selected an invalid number of cards' do
+        post :take_cards_transaction
+        expect(flash[:warning]).to eq('Card Transaction Failed. Invalid number of cards selected to take.')
+      end
+    end
   end
 end
 
