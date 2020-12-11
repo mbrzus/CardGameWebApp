@@ -172,6 +172,19 @@ K-C,K-S,K-H,")
       expect(response).to redirect_to('/rooms')
     end
   end
+  describe 'rendering the flip cards view' do
+    before :each do
+      post :flip_cards, { room_id: @room.id }
+    end
+    it 'should render the flip cards template' do
+      expect(response).to render_template('flip_cards')
+    end
+    it 'should render a view that includes the name of each player (including dealer/sink) when dealing cards' do
+      @players.each do |player|
+        expect(response.body).to include(player.name)
+      end
+    end
+  end
 end
 
 
