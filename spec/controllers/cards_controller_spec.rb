@@ -314,6 +314,25 @@ K-C,K-S,K-H,")
       end
     end
   end
+  describe 'take cards transaction' do
+    context 'and has valid input' do
+      before :each do
+        post :draw_cards_from_dealer, quantity: { quantity: 10 }, players_selected: { "#{@player1.id}": 1 }
+        post :draw_cards_from_dealer, quantity: { quantity: 4 }, players_selected: { "#{session[@room.id].id}": 1 }
+        cards_to_take = Card.where(room_id: @room.id, player_id: @player1.id)
+        @selected_cards = {}
+        6.times { |i| @selected_cards[cards_to_take[i].id] = 1 }
+        @current_num_cards = Card.where(room_id: @room.id, player_id: session[@room.id].id).length
+        post :take_cards_transaction, cards_selected: @selected_cards
+      end
+      it 'should allow users to take the correct number of cards' do
+        expect(Card.where(room_id: @room.id, player_id: session[@room.id].id).length).to eq(@current_num_cards + 6)
+      end
+      it 'should display a flash message saying the number of cards flipped and the other players name' do
+        expect(flash[:notice]).to eq("Successfully took #{@selected_cards.length} cards from #{@player1.name}")
+      end
+    end
+  end
 end
 
 
