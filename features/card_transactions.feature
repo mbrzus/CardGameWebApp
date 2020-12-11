@@ -23,20 +23,13 @@ Feature: Give and draw cards from dealers and other players
     And I am on Room 5
 
   Scenario: Draw 5 cards from the dealer player
-    Given I am on a Room and I have logged in
     When I click on "draw_cards"
-    Then I should be on the draw cards page
-
-    When The dealer gives 5 cards from the draw cards page to player "Shriram"
-    And I click on "draw_cards_inside"
-    Then I should be back at Room 1
+    And The dealer gives 5 cards from the draw cards page to player "shriram"
+    Then I should be back at Room 5
 
     Scenario: Give cards to players
-      Given I am on a Room and I have logged in
       When I click on "give_cards"
-      Then I should be on the give cards page
-
-      When Player "Shriram" gives cards to player "sink"
+      And Player "shriram" gives cards to player "sink"
       And I click on "give_cards_inside"
-      Then Player "sink" must have the cards that player "Shriram" had
+      Then Player "sink" must have the cards that player "shriram" had
 
