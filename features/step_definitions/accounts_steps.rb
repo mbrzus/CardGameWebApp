@@ -1,4 +1,4 @@
-When /^I am on the (.*?) page$/ do |page|
+When /^I am on the login page$/ do
     visit('/login')
 end
 
@@ -12,5 +12,9 @@ Then /^A new account with the username (.*?) should be created$/ do |username|
 end
 
 Then /^User (.*?) should be authenticated$/ do |username|
-  expect(flash[:notice]).to have_content("Welcome "+ username+"!")
+  expect(page).to have_content("Welcome "+ username+"!")
+end
+
+Then /^I should expect an invalid email error$/ do
+  expect(page).to have_content("Username has already been taken, Email must be a valid address")
 end
