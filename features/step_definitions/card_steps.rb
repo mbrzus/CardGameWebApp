@@ -62,10 +62,11 @@ Then /^I should be on the draw cards page$/ do |room_id|
   expect(current_path).to match(/.*\/cards\/draw_cards/)
 end
 
-When /^The dealer gives (.*?) cards from the draw cards page to player (.*?)$/ do |num_cards, player|
-  player = Player.where(name: player)
-  find(:css, "checkbox_#{player[0].id}").set(true)
+When /^The dealer gives (.*?) cards from the draw cards page to player "(.*?)"$/ do |num_cards, player|
+  player = Player.where({name: player})
+  find(:id, "checkbox_#{player[0].id}").set(true)
   fill_in "quantity_dealer", :with => num_cards.to_s
+  find_by_id('draw_cards_inside').click
 end
 
 Then /^I should be on the give cards page$/ do |room_id|
