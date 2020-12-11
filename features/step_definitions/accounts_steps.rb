@@ -26,3 +26,11 @@ end
 Then /^I should expect an invalid email error$/ do
   expect(page).to have_content("Email must be a valid address")
 end
+
+Given /I am signed in/ do
+  Account.create!({username: "Shriram", email: "shriram@gmail.com", password: "password" })
+  visit '/login'
+  fill_in "login_username", :with => "Shriram"
+  fill_in "login_password", :with => "password"
+  find_by_id('login_submit').click
+end
