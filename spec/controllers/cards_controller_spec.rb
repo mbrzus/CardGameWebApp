@@ -286,22 +286,13 @@ K-C,K-S,K-H,")
     end
   end
   describe 'rendering the take cards choose cards view' do
-    context 'and has invalid input' do
-      it 'should display a flash warning notifying the user they did not select a player to take cards from' do
-        post :take_cards_choose_cards
-        expect(flash[:warning]).to eq('Card Transaction Failed. No player selected to take cards from.')
-      end
-      it 'should display a flash warning notifying the user they can only select one player at a time' do
-        post :take_cards_choose_cards, { player_to_take_from: { "#{@player1.id}": 1, "#{@player2.id}": 1 } }
-        expect(flash[:warning]).to eq('Card Transaction Failed. You may only take cards from 1 player at a time.')
-      end
-      it 'should display a flash warning notifying the user they did not select any cards to toggle' do
+    context 'and the dealer has visible cards' do
+      it 'should allow users to take the correct number of cards' do
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: { "#{@dealer.id}": 1 } }
+        expect(flash[:notice]).to eq("Successfully flipped 3 of #{@dealer.name}'s cards.")
+        flash[:warning] = nil
         post :take_cards_choose_cards, player_to_take_from: { "#{@dealer.id}": 1 }
-        expect(flash[:warning]).to eq('Dealer has no visible cards to take. To take invisible cards from dealer, use draw button.')
-      end
-      it 'should display a flash warning notifying the user they did not select any cards to toggle' do
-        post :take_cards_choose_cards, player_to_take_from: { "#{@player2.id}": 1 }
-        expect(flash[:warning]).to eq('Card Transaction Failed. This player has no cards to take.')
+        expect(flash[:warning]).to eq(nil)
       end
     end
   end
