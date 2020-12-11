@@ -205,7 +205,7 @@ K-C,K-S,K-H,")
         expect(flash[:warning]).to eq('Card flip Failed. You must select player/sink/source to flip cards for.')
       end
       it 'should display a flash warning notifying the user of an invalid number of players' do
-        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: { } }
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: {} }
         expect(flash[:warning]).to eq('Card flip Failed. You selected an invalid number of players')
       end
       it 'should display a flash warning notifying the user of an invalid number of cards to flip' do
@@ -235,6 +235,7 @@ K-C,K-S,K-H,")
       end
     end
   end
+  #  Parameters: {"cards_to_toggle"=>{"3"=>"1", "7"=>"1"}, "class"=>"form"}
   describe 'toggle cards visibility action' do
     context 'and has valid input' do
       before :each do
@@ -250,6 +251,12 @@ K-C,K-S,K-H,")
       end
       it 'should display a flash message saying the number of cards flipped and the opponents name' do
         expect(flash[:notice]).to eq('Successfully flipped 4 of your cards.')
+      end
+    end
+    context 'and has invalid input' do
+      it 'should display a flash warning notifying the user they did not select any cards to toggle' do
+        post :toggle_my_card_visibility, {}
+        expect(flash[:warning]).to eq('Card Flip Failed. Invalid number of cards selected to flip.')
       end
     end
   end
