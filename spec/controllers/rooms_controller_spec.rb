@@ -148,7 +148,6 @@ K-C,K-S,K-H,")
     it "should give all the cards in the room to the room's dealer" do
       # there is no information for Rooms besides auto-generated id
       room = Room.find(1)
-      puts room.to_s
       player = Player.where(room: room, name: 'Ted')[0]
       Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
       post :reset, { :id => room.room_token }, { :room_to_join => '1' }
