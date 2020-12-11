@@ -121,21 +121,24 @@ describe RoomsController do
   end
 
   describe 'Reset a room' do
+    before :each do
+      session[:room_token] = Room.find(3).room_token
+    end
     it 'should redirect the user to the same page' do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      token = room.room_token
-      post :reset, { :id => token }, { :room_to_join => '1' }
-      expect(response).to redirect_to("/rooms/#{token}")
+      post :reset, { :id => session[:room_token] }
+      expect(response).to redirect_to(room_path(session[:room_token]))
     end
     it "should give all the cards in the room to the room's dealer" do
       # there is no information for Rooms besides auto-generated id
-      room = Room.find(1)
-      player = Player.where(room: room, name: 'Ted')[0]
+      room = Room.where(room_token: session[:room_token])#[0]
+      player = Player.where(room: room, name: 'Red')[0]
       Card.create!({:room => room, :value => 'A', :suit => 'spades', :player => player, :image_url => 'AS.png'})
-      post :reset, { :id => room.room_token }, { :room_to_join => '1' }
+      debugger
+      post :reset, { :id => room.room_token }
       cards = Card.where(room: room)
       dealer = Player.where(room: room, name: 'dealer')[0]
+      debugger
       helper = TRUE
       cards.each do |card|
         owned_id = card.player_id
@@ -143,6 +146,7 @@ describe RoomsController do
           helper = FALSE
         end
       end
+      debugger
       expect(helper).to be(TRUE)
     end
   end
