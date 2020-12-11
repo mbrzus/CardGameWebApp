@@ -54,7 +54,14 @@ describe RoomsController do
       expect(response).to redirect_to(room_path(:id => token))
     end
   end
-
+  describe 'rendering the view when a user selects new room' do
+    before :each do
+      post :new
+    end
+    it 'should render the view select cards' do
+      expect(response).to render_template('new')
+    end
+  end
   describe 'Joining a room' do
     it 'should redirect the user to a page where they can create a new user (if the user has not provided a name)' do
       # there is no information for Rooms besides auto-generated id
