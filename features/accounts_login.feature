@@ -6,10 +6,13 @@ Feature: Allow a user to login using their username and password
 
   Scenario: Sign up for an account to play the game
     When I am on the login page
-    And I click on "signup"
+    And I click on the signup button
     Then I should be on the sign_up page
 
-    When I input "Shriram" into "signup_username"
+  Scenario: Sign Up for an account
+    When I am on the login page
+    And I click on the signup button
+    And I input "Shriram" into "signup_username"
     And I input "shriram@gmail.com" into "signup_email"
     And I input "password" into "signup_password"
     And I click on "signup_submit"
