@@ -205,7 +205,7 @@ K-C,K-S,K-H,")
         expect(flash[:warning]).to eq('Card flip Failed. You must select player/sink/source to flip cards for.')
       end
       it 'should display a flash warning notifying the user of an invalid number of players' do
-        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: {} }
+        post :make_cards_visible, { quantity_to_make_visible: { quantity_to_make_visible: 3 }, player_id_to_make_cards_visible: { } }
         expect(flash[:warning]).to eq('Card flip Failed. You selected an invalid number of players')
       end
       it 'should display a flash warning notifying the user of an invalid number of cards to flip' do
@@ -255,8 +255,21 @@ K-C,K-S,K-H,")
     end
     context 'and has invalid input' do
       it 'should display a flash warning notifying the user they did not select any cards to toggle' do
-        post :toggle_my_card_visibility, {}
+        post :toggle_my_card_visibility, { }
         expect(flash[:warning]).to eq('Card Flip Failed. Invalid number of cards selected to flip.')
+      end
+    end
+  end
+  describe 'rendering the take cards choose player view' do
+    before :each do
+      post :take_cards_choose_player, { room_id: @room.id }
+    end
+    it 'should render the take cards choose players template' do
+      expect(response).to render_template('take_cards_choose_player')
+    end
+    it 'should render a view that includes the name of each player (including dealer/sink) when dealing cards' do
+      @players.each do |player|
+        expect(response.body).to include(player.name)
       end
     end
   end
