@@ -2,6 +2,10 @@ When /^I am on the login page$/ do
     visit('/login')
 end
 
+When /^I click on the signup button/ do
+  click_on 'signup'
+end
+
 Then /^I should be on the sign_up page$/ do
   expect(current_path).to match(/.*\/accounts\/new/)
 end
