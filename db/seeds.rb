@@ -12,7 +12,6 @@ rooms =  [{:id => 1, :name => "First Room", :public => true, :player_limit => 50
           {:id => 3, :name => "The third Room", :public => true, :player_limit => 5 }]
 
 
-
 # add each room to the development database
 rooms.each do |room|
   room = Room.create!(room)
@@ -26,7 +25,7 @@ players = [
            {:id => 9, :name => "Ted", :room_id => 3},
            {:id => 10, :name => "Ned", :room_id => 3},
            {:id => 11, :name => "Fred", :room_id => 3},
-           {:id => 14, :name => "dealer", :room_id => 3},
+           {:id => 14, :name => "Dealer", :room_id => 3},
            {:id => 15, :name => "Sink", :room_id => 3},
            {:id => 12, :name => "Ded", :room_id => 3},
            {:id => 13, :name => "Red", :room_id => 3},]
