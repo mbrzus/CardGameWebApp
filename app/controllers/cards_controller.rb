@@ -213,7 +213,6 @@ class CardsController < ApplicationController
         session[:update_cards] = true
       }
 
-
       # Output success message to user
       if cards_to_give.length == 1
         flash[:notice] = "Successfully gave #{cards_to_give.length} card to #{receiving_player.name.to_s}"
@@ -278,13 +277,13 @@ class CardsController < ApplicationController
 
     # If all input to the function is as expected, proceed with performing the flips
     if invalid_input == false
-
       (0..num_players_in_room).each{ |i|
         # Read input from the view
         selected_player_id = params[:player_id_to_make_cards_visible].keys[i].to_i
         quantity_to_make_visible = params[:quantity_to_make_visible][:quantity_to_make_visible].to_i
 
         # Note: Flipee is the term that is used to describe the player / sink / source whos cards are being made visible
+        flipee = Player.where(room_id: session["room_id"].to_i, id: selected_player_id).first
         flipee_cards = Card.where(room_id: session["room_id"].to_i, player_id: selected_player_id)
         flipee_cards_array = flipee_cards.to_a
 
@@ -303,7 +302,13 @@ class CardsController < ApplicationController
         end
 
         if invalid_input == false
-          flipee = Player.where(room_id: session["room_id"].to_i, id: selected_player_id).first
+
+          # If the dealer's cards are being flipped, it's important to shuffle them before they're flipped
+          # This doesn't matter for other people.
+          if flipee.name == "dealer"
+            flipee_cards_array.shuffle!
+          end
+
           curr_card_to_flip = nil
 
           (0..quantity_to_make_visible - 1).each {
