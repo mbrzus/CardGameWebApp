@@ -89,7 +89,6 @@ class CardsController < ApplicationController
       invalid_input = true
     end
 
-
     if params[:players_selected].eql?(nil)
       flash[:warning] = "ERROR: Invalid input. Must choose atleast 1 player to deal to."
       invalid_input = true
@@ -116,12 +115,10 @@ class CardsController < ApplicationController
 
       # Ensure the dealer has enough cards to deal the requested quantity
       if dealers_cards.length >= ( quantity_to_draw * recipients.length)
-
         (0..quantity_to_draw - 1).each { |curr_dealer_card|
           (0..recipients.length - 1).each { |curr_recipient|
             # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
             dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
-            dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
             session[:update_page] = true
           }
         }
