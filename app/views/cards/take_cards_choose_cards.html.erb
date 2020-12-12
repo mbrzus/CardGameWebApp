@@ -1,6 +1,6 @@
-  <div class="take_cards_choose_cards_header">
-  <%= "Take Cards from #{@taking_from_player.name}" %>
-  <div>
+<div class="take_cards_choose_cards_header">
+<%= "Take Cards from #{@taking_from_player.name}" %>
+</div>
 <%= form_tag cards_take_cards_transaction_path :class => 'form' do %>
   <table><thead>
   <tr>
@@ -41,4 +41,3 @@
   <br>
   <%= button_to 'Take Cards', :class => 'btn btn-secondary' %>
 <% end %>
-

@@ -10,34 +10,27 @@
 <%= "You are: " + player_name %>
 <div class="game">
   <div class="operation-box">
-    <%= button_to 'Draw cards from Dealer', {:action=> "draw_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'draw_cards', :method => :post %>
+    <%= button_to 'Draw cards from Dealer', {:action=> "draw_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'draw_cards', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
-    <%= button_to 'Give cards', {:action=> "give_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'give_cards', :method => :post %>
+    <%= button_to 'Give cards', {:action=> "give_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'give_cards', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
-    <%= form_tag cards_take_cards_choose_player_path :room_id => @room_id do %>
-      <%= button_to 'Take cards', :class => 'btn btn-secondary' %>
-    <% end %>
+    <%= button_to 'Take cards', {:action=> "take_cards_choose_player", :controller=> "cards", :room_id => @room_id}, :id=> 'take_cards', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
     <br><br>
 
-    <%= form_tag cards_flip_cards_path :room_id => @room_id do %>
-      <%= button_to 'Flip Others\' Cards Visible', :class => 'btn btn-secondary' %>
-    <% end %>
+    <%= button_to 'Flip Others\' Cards Visible', {:action=> "flip_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'flip_cards', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
-
-    <%= form_tag cards_toggle_my_cards_path :room_id => @room_id do %>
-      <%= button_to 'Toggle My Cards\' Visibility', :class => 'btn btn-secondary' %>
-    <% end %>
+    <%= button_to 'Toggle My Cards\' Visibility', {:action=> "toggle_my_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'toggle_cards', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
     <br><br>
-    <%= button_to 'Create New Deck for Dealer', rooms_create_new_deck_path, :method => :create_new_deck %>
+    <%= button_to 'Create New Deck for Dealer', rooms_create_new_deck_path, :method => :create_new_deck, :class => 'btn btn-secondary op-btn' %>
 
-    <%= button_to 'Delete All Cards in Room', cards_delete_decks_in_room_path , :method => :delete_decks_in_room %>
+    <%= button_to 'Delete All Cards in Room', cards_delete_decks_in_room_path , :method => :delete_decks_in_room, :class => 'btn btn-secondary op-btn' %>
 
     <br><br>
-    <%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post %>
+    <%= button_to 'Reset Game', {:action=> "reset", :controller=> "rooms"}, :id=> 'reset_game', :method => :post, :class => 'btn btn-secondary op-btn' %>
 
-    <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete %>
+    <%= button_to 'End Game', {:action=> "destroy", :controller=> "rooms"}, :id=> 'end_game', :method => :delete, :class => 'btn btn-secondary op-btn' %>
   </div>
   <div class="board">
     <% players = Player.where(room_id: @room_id) %>

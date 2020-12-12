@@ -8,20 +8,15 @@ class RoomsController < ApplicationController
   end
 
   def show
-    # If the user doesn't have room_token in their session set, they didn't click the button
-    if session[:room_token].nil?
-      flash[:notice] = 'Please join a room by entering a room code below'
-      redirect_to rooms_path
-    else
-      # the player has not logged in or doesnt exist, redirect to where they can create
-      @room_id = Room.find_by_room_token(session[:room_token]).id
-      # Put the room_id in the session for use in other controllers
-      session[:room_id] = @room_id
-      dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
-      @deck = Card.where(player: dealer, room_id: @room_id)
-      @player = session[@room_id]
-      redirect_to new_player_path if session[@room_id].nil?
-    end
+  # If the user doesn't have room_token in their session set, they didn't click the button
+    # the player has not logged in or doesnt exist, redirect to where they can create
+    @room_id = Room.find_by_room_token(session[:room_token]).id
+    # Put the room_id in the session for use in other controllers
+    session[:room_id] = @room_id
+    dealer = Player.where(room_id: @room_id, name: 'dealer')[0]
+    @deck = Card.where(player: dealer, room_id: @room_id)
+    @player = session[@room_id]
+    redirect_to new_player_path if session[@room_id].nil?
   end
 
   def index

@@ -98,11 +98,6 @@ describe RoomsController do
       post :show, id: Room.find(1).room_token
       expect(response).to redirect_to('/rooms')
     end
-    it 'should create a flash message to notify the user to enter a room code to join a room' do
-      session[:room_token] = nil
-      post :show, id: Room.find(1).room_token
-      expect(flash[:notice]).to eq('Please join a room by entering a room code below')
-    end
   end
 
   describe 'Delete a room' do
