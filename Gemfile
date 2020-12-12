@@ -4,10 +4,16 @@ ruby '2.6.6'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+# Use the dotenv gem to load the api keys and secrets as environment variables
+gem 'dotenv-rails'
 # Use Haml as the templating library
 gem 'haml'
 gem 'json', '=1.8.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Use the omniauth gem and twitter gem
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
 gem 'rails', '4.2.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'
