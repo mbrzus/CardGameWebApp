@@ -10,13 +10,10 @@
 <%= "You are: " + player_name %>
 <div class="game">
   <div class="operation-box">
-    <%= form_tag cards_draw_cards_path :room_id => @room_id do %>
-      <% button_to 'Draw cards from Dealer', :class => 'btn btn-secondary op-btn' %>
-    <% end %>
+    <%= button_to 'Draw cards from Dealer', {:action=> "draw_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'draw_cards', :method => :post %>
 
-    <%= form_tag cards_give_cards_path :room_id => @room_id do %>
-      <%= button_to 'Give cards', :class => 'btn btn-secondary op-btn' %>
-    <% end %>
+    <%= button_to 'Give cards', {:action=> "give_cards", :controller=> "cards", :room_id => @room_id}, :id=> 'give_cards', :method => :post %>
+
     <%= form_tag cards_take_cards_choose_player_path :room_id => @room_id do %>
       <%= button_to 'Take cards', :class => 'btn btn-secondary op-btn' %>
     <% end %>
@@ -26,6 +23,7 @@
     <%= form_tag cards_flip_cards_path :room_id => @room_id do %>
       <%= button_to 'Flip Others\' Cards Visible', :class => 'btn btn-secondary op-btn' %>
     <% end %>
+
 
     <%= form_tag cards_toggle_my_cards_path :room_id => @room_id do %>
       <%= button_to 'Toggle My Cards\' Visibility', :class => 'btn btn-secondary op-btn' %>
