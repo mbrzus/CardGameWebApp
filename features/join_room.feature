@@ -13,6 +13,8 @@ Feature: Join an existing room to play cards in
   And I am signed in
 
   Scenario: Join a room from the main page
+    Given I am signed in
+    And I am on the main page
     When I input "AZKR" into "room_id_input"
     And I have pressed join_room_button
     Then I should be directed to the create_player page
