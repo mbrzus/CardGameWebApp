@@ -25,7 +25,7 @@ Feature: Delete an existing room
 
   Scenario: End an existing game on the room
     When I click on "end_game"
-    Then I should be on the main page with the notice "Game ended successfully. Thank you for playing!".
+    Then I should be on the main page with the notice "Game ended successfully. Thank you for playing!"
 
 
   Scenario: Reset an existing game on the room

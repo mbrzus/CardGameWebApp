@@ -4,13 +4,15 @@ Feature: Join an existing room to play cards in
   So that I can play a card game with a small group of people
   I want to be able to join am existing room
 
-  Given the following rooms exist in the database:
-  | id |
-  | 1  |
-  | 2  |
+  Given The following rooms have been added to the database
+  | id| player_limit| room_token|
+  |  5|           10|       AZKR|
+  |  6|           10|       AZKL|
+  |  7|           10|       AZKP|
+
+  And I am signed in
 
   Scenario: Join a room from the main page
-    Given I am on the main page
-    When I input "1" into room_id_input
+    When I input "AZKR" into "room_id_input"
     And I have pressed join_room_button
     Then I should be directed to the create_player page
