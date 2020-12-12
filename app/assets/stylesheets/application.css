@@ -87,6 +87,22 @@ form label {
     color: white;
 }
 
+.game {
+    display: flex;
+    flex-direction: row;
+}
+
+.operation-box {
+    border: thin solid;
+    color: white;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.board {
+    width: 1000vh;
+}
+
 .board-box {
     background-color: white;
     color: black;
