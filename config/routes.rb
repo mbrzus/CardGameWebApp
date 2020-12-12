@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match '/logout', to: 'sessions#destroy', via: :delete
   match '/signup', to: 'accounts#new', via: :get
   match '/signup_create', to: 'accounts#create', via: :post
+  get 'auth/:provider/callback' => 'sessions#create_omniauth'
 
   resources :cards
   post 'cards/delete_decks_in_room'

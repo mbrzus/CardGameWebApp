@@ -3,50 +3,50 @@ class CardsController < ApplicationController
   before_filter :set_current_user, :take_cards_choose_player, :check_room_exists
 
   # Define what params should follow the Card Model
-  def card_params
-    params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
-  end
+  # def card_params
+  #   params.require(:card).permit(:room_id, :suit, :value, :image_url, :player_id)
+  # end
 
-  def show
-    id = params[:id] # retrieve card ID from URI route
-    @card = Card.find(id) # look up card by unique ID
-  end
-
-  def index
-    @cards = Card.all
-  end
+  # def show
+  #   id = params[:id] # retrieve card ID from URI route
+  #   @card = Card.find(id) # look up card by unique ID
+  # end
+  #
+  # def index
+  #   @cards = Card.all
+  # end
 
   def new
     # default: render 'new' template
   end
 
-  def create
-    @card = Card.create!(card_params)
-    flash[:notice] = "#{@card.value} of #{@card.suit} was successfully created."
+  # def create
+  #   @card = Card.create!(card_params)
+  #   flash[:notice] = "#{@card.value} of #{@card.suit} was successfully created."
+  #
+  #   # Put an appropriate redirect path here
+  #   #redirect_to movies_path
+  # end
 
-    # Put an appropriate redirect path here
-    #redirect_to movies_path
-  end
+  # def edit
+  #   @card = Card.find params[:id]
+  # end
 
-  def edit
-    @card = Card.find params[:id]
-  end
+  # def update
+  #   @card = Card.find params[:id]
+  #   @card.update_attributes!(card_params)
+  #   flash[:notice] = "#{@card.value} of #{@card.suit} was successfully updated."
+  #   # Put an appropriate redirect path here
+  #   redirect_to card_path(@card)
+  #
+  # end
 
-  def update
-    @card = Card.find params[:id]
-    @card.update_attributes!(card_params)
-    flash[:notice] = "#{@card.value} of #{@card.suit} was successfully updated."
-    # Put an appropriate redirect path here
-    redirect_to card_path(@card)
-
-  end
-
-  def destroy
-    @card = Card.find(params[:id])
-    @card.destroy
-    flash[:notice] = "Room #{@card.room_id}'s #{@card.value} of #{@card.suit} was deleted."
-    redirect_to cards_path
-  end
+  # def destroy
+  #   @card = Card.find(params[:id])
+  #   @card.destroy
+  #   flash[:notice] = "Room #{@card.room_id}'s #{@card.value} of #{@card.suit} was deleted."
+  #   redirect_to cards_path
+  # end
 
   # This method can be used to delete any card that has a certain deck number
   def delete_decks_in_room
@@ -89,7 +89,6 @@ class CardsController < ApplicationController
       invalid_input = true
     end
 
-
     if params[:players_selected].eql?(nil)
       flash[:warning] = "ERROR: Invalid input. Must choose atleast 1 player to deal to."
       invalid_input = true
@@ -115,13 +114,13 @@ class CardsController < ApplicationController
       dealers_cards_array.shuffle!
 
       # Ensure the dealer has enough cards to deal the requested quantity
-      if dealers_cards.length >= ( quantity_to_draw * recipients.length)
-
-        (0..quantity_to_draw - 1).each { |curr_dealer_card|
+      if dealers_cards.length >= (quantity_to_draw * recipients.length)
+        (0..quantity_to_draw - 1).each {
           (0..recipients.length - 1).each { |curr_recipient|
             # Reassign the card from the dealer to the recipient, being sure to remove it from dealers_cards_array[]
-            dealers_cards_array[curr_dealer_card].change_owner(recipients[curr_recipient].id)
-            dealers_cards_array.delete(dealers_cards_array[curr_dealer_card])
+            # with shift() which removes the 0th element of an array
+            dealers_cards_array[0].change_owner(recipients[curr_recipient].id)
+            dealers_cards_array.shift
             session[:update_page] = true
           }
         }
@@ -181,6 +180,7 @@ class CardsController < ApplicationController
       flash[:warning] = "Transaction Failed. You selected 0 cards to transfer."
       invalid_input = true
     end
+    redirect_to room_path(:id => session[:room_token]) and return if invalid_input
 
     # Get the receiving player from information passed into the view
     receiving_player_id = params[:players_selected].keys
@@ -215,7 +215,6 @@ class CardsController < ApplicationController
         session[:update_cards] = true
       }
 
-
       # Output success message to user
       if cards_to_give.length == 1
         flash[:notice] = "Successfully gave #{cards_to_give.length} card to #{receiving_player.name.to_s}"
@@ -234,8 +233,8 @@ class CardsController < ApplicationController
   end
 
   def give_cards
-    room_id = params[:room_id].to_i
-    giving_player = session[room_id.to_s]
+    room_id = params[:room_id]
+    giving_player = session[room_id]
     cards_to_give = Card.where(room_id: giving_player["room_id"], player_id: giving_player["id"])
     @cards_to_give_array = cards_to_give.to_a
 
@@ -280,13 +279,13 @@ class CardsController < ApplicationController
 
     # If all input to the function is as expected, proceed with performing the flips
     if invalid_input == false
-
       (0..num_players_in_room).each{ |i|
         # Read input from the view
         selected_player_id = params[:player_id_to_make_cards_visible].keys[i].to_i
         quantity_to_make_visible = params[:quantity_to_make_visible][:quantity_to_make_visible].to_i
 
         # Note: Flipee is the term that is used to describe the player / sink / source whos cards are being made visible
+        flipee = Player.where(room_id: session["room_id"].to_i, id: selected_player_id).first
         flipee_cards = Card.where(room_id: session["room_id"].to_i, player_id: selected_player_id)
         flipee_cards_array = flipee_cards.to_a
 
@@ -305,7 +304,13 @@ class CardsController < ApplicationController
         end
 
         if invalid_input == false
-          flipee = Player.where(room_id: session["room_id"].to_i, id: selected_player_id).first
+
+          # If the dealer's cards are being flipped, it's important to shuffle them before they're flipped
+          # This doesn't matter for other people.
+          if flipee.name == "dealer"
+            flipee_cards_array.shuffle!
+          end
+
           curr_card_to_flip = nil
 
           (0..quantity_to_make_visible - 1).each {

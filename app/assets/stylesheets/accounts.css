@@ -4,13 +4,31 @@
     margin: 30px auto;
 }
 
+.link_div {
+    margin-top: 5px;
+    padding: 5px;
+    width: 150px;
+    background-color: White;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.login-btn {
+    width: 150px;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .accounts-header {
     position: relative;
     width: 300px;
     height: 40px;
     top: -2px;
     left: calc(50% - 150px);
-    background-color: Grey;
+    background-color: maroon;
+    color: ghostwhite;
     text-align: center;
     border-left: 2px solid black;
     border-right: 2px solid black;

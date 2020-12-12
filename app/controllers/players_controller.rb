@@ -36,15 +36,9 @@ class PlayersController < ApplicationController
     redirect_to room_path(id: session[:room_token])
   end
 
-  def new
+  def new; end
 
-  end
+  def show; end
 
-  def show
-
-  end
-
-  def index
-
-  end
+  def index; end
 end

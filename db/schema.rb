@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20201130200330) do
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_username"
   end
 
   create_table "cards", force: :cascade do |t|
