@@ -22,6 +22,7 @@ Feature: Create a new room to play cards in
     Given I am signed in
     And I am on the main page
     When I have pressed new_room_button
+    And I input "test" into "room_name_input"
     And  I have pressed create_room_submit
     Then A room should be created in the database
 
@@ -29,5 +30,6 @@ Feature: Create a new room to play cards in
     Given I am signed in
     And I am on the main page
     When I have pressed new_room_button
-    And  I have pressed create_room_submit
+    And I input "test" into "room_name_input"
+    And  I have pressed create_room_submit`
     Then I should be directed to the create_player page
