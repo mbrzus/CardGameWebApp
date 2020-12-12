@@ -78,6 +78,15 @@ form label {
   color: maroon;
 }
 
+.btn {
+    width: 200px;
+    background-color: darkslategray;
+    border-color: black;
+}
+.btn:hover {
+    color: darkgoldenrod;
+}
+
 .player-box {
     background-color: #006400;
     border: thin solid;
