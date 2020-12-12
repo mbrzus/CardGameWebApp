@@ -104,6 +104,22 @@ form label {
     margin-top: 10px;
 }
 
+.op-btn {
+    width: 200px;
+    background-color: darkslategray;
+    border-color: black;
+}
+
+.op-div {
+    width: 200px;
+    background-color: darkslategray;
+    border-color: black;
+}
+
+.op-btn:hover {
+    color: darkgoldenrod;
+}
+
 .board {
     width: 1000vh;
 }
