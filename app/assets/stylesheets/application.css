@@ -185,9 +185,15 @@ form label {
     left: 6px;
     top: 6px;
     border-radius: 14px;
+    background-color: maroon;
 }
 
 #header-title a {
     text-decoration: none;
     color: inherit;
+}
+
+.player-select {
+    display: flex;
+    flex-direction: column;
 }

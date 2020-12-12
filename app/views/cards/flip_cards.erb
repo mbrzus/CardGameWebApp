@@ -7,12 +7,16 @@
 
   <br>
   <h3> Select Entity to Flip Cards For</h3>
+  <div class="player-select">
   <% @players.each do |player| %>
     <% if player[:name] != this_players_name %>
-      <%= player.name %>
-      <%= check_box_tag "player_id_to_make_cards_visible[#{player.id}]", 1, false, :id => "checkbox_#{player.id}" %>
+        <div>
+          <%= player.name %>
+          <%= check_box_tag "player_id_to_make_cards_visible[#{player.id}]", 1, false, :id => "checkbox_#{player.id}" %>
+        </div>
       <% end%>
   <% end %>
+  </div>
 
   <br><br>
   <%= button_to 'Flip Cards to be Visible', :class => 'btn btn-secondary' %>
