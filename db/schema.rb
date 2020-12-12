@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201113044136) do
+ActiveRecord::Schema.define(version: 20201130200330) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20201113044136) do
     t.string  "room_token"
     t.string  "name"
     t.boolean "public"
+    t.integer "player_limit"
   end
 
 end

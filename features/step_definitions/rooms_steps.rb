@@ -11,11 +11,9 @@ Given /^I am on the main page$/ do
 end
 
 When /^I have pressed (.*?)$/ do |button_id|
-
   if button_id == "create_room_submit"
     @number_of_rooms = Room.count
   end
-
   find_by_id(button_id).click
 end
 
@@ -29,14 +27,15 @@ Then /^A room should be created in the database$/ do
   expect(Room.count).to be >= @number_of_rooms
 end
 
-When /^I input "(.+)" into "(.+)"/ do |input_value, element_id|
-  fill_in element_id, :with => input_value
+When /^I input room 5's token into "(.+)"/ do |element_id|
+  fill_in element_id, :with => Room.find(5).room_token
 end
 
 
 Then /^I should be directed to the create_player page$/ do
   # the current url should match the room path (room/id)
   expect(current_path).to match(/\/players\/new/)
+  print (page.body)
 end
 
 Given /I am on Room (.)$/ do |room_id|
