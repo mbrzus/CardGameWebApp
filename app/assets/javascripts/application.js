@@ -71,5 +71,7 @@ function submit_create_room_form() {
     document.getElementById("cards_to_use").value = selected_cards;
     // submit the form
     document.getElementById("create_room_form").submit();
+
+    return selected_cards;
 }
 
