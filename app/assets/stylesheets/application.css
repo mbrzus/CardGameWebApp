@@ -89,9 +89,9 @@ form label {
 
 .player-box {
     background-color: #006400;
-    border: thin solid;
+    border: medium solid black;
     margin-top: 10px;
-    color: white
+    color: white;
 }
 
 .dealer-box {
@@ -132,10 +132,11 @@ form label {
 }
 
 .board-box {
-    background-color: white;
-    color: black;
+    background-color: darkslategrey;
+    color: white;
     margin-top: 10px;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    border: thin solid black;
 }
 
 .player {
